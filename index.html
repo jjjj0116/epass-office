@@ -145,7 +145,9 @@ body[data-season="겨울"] #me .scarf{display:block}
 .hv-t th{background:#f3f7fd;color:var(--navy);text-align:left;padding:8px 10px;border-bottom:1.5px solid var(--cardBd);font-size:13px}
 .hv-t td{padding:8px 10px;border-bottom:1px solid var(--cardBd);line-height:1.6;vertical-align:top}
 .hv-t td:first-child{white-space:nowrap;font-weight:700;color:var(--navy);width:64px}
-.hv-rule{margin:0;padding-left:18px;font-size:14px;line-height:1.7}
+.hv-rule{margin:0;padding-left:20px;font-size:14px;line-height:1.7;display:flex;flex-direction:column;gap:4px}
+.hv-use td:first-child{width:84px;white-space:normal}
+@media (max-width:420px){.hv-use .u{display:inline;white-space:normal}.hv-t td{padding:8px 6px}}
 @media (max-width:420px){.hv li{grid-template-columns:22px 1fr}.hv li>span{grid-column:2}}
 .ck-wrap{max-width:860px;margin:0 auto;padding:16px;display:flex;flex-direction:column;gap:14px}
 .ck-h{margin:0 0 10px;font-size:16px;color:var(--navy)}
@@ -237,34 +239,44 @@ body[data-season="겨울"] #me .scarf{display:block}
     <div class="card handover">
       <div class="hv-head">
         <h1 id="h-hand">업무 인수인계서</h1>
-        <dl class="hv-meta"><dt>받는 사람</dt><dd id="hvTo">인턴 사원</dd><dt>넘겨주는 사람</dt><dd>정아름 팀장</dd><dt>부서</dt><dd>(주)이패스상사 경영지원팀</dd></dl>
+        <dl class="hv-meta"><dt>인수자</dt><dd id="hvTo">경영지원팀 인턴 사원</dd><dt>인계자</dt><dd>정아름 팀장</dd><dt>부서</dt><dd>(주)이패스상사 경영지원팀</dd><dt>인계 기간</dt><dd>4주(1~4주차)</dd></dl>
       </div>
-      <h2>1. 사무실 이용법</h2>
-      <ol class="hv">
-        <li><b>출근</b><span><span class="u">오픈채팅 공지의 링크를 누르면</span> <span class="u">사무실로 들어와요.</span> <span class="u">사원증은 이 기기에 남아요.</span></span></li>
-        <li><b>팀장 메신저</b><span><span class="u">출근하면 오늘 업무부터</span> <span class="u">확인해요.</span></span></li>
-        <li><b>내 자리</b><span><span class="u">이번 주 업무가 있어요.</span> <span class="u">노션 따라 하기를 보며</span> <span class="u">Code 탭에서 실습해요.</span></span></li>
-        <li><b>팀장 자리</b><span><span class="u">막히면 매일 언제든</span> <span class="u">「업무 확인 요청」을 올려요.</span></span></li>
-        <li><b>결재함</b><span><span class="u">한 주 업무를 마치면</span> <span class="u">「결재 상신」을 해요.</span> <span class="u">결재 의견은 승인 · 보완 요청 · 반려</span> <span class="u">중 하나로 와요.</span></span></li>
-        <li><b>잠긴 방</b><span><span class="u">대표실은 3주차,</span> <span class="u">회의실은 4주차에 열려요.</span></span></li>
-        <li><b>퇴근</b><span><span class="u">오늘 막힌 순간을</span> <span class="u">업무일지에 한 줄 남겨요.</span></span></li>
-      </ol>
-      <h2>2. 이번 달 넘겨받는 업무</h2>
-      <table class="hv-t">
-        <thead><tr><th scope="col">주차</th><th scope="col">업무</th></tr></thead>
+      <h2>1. 사무실 이용 방법</h2>
+      <table class="hv-t hv-use">
+        <thead><tr><th scope="col">구역</th><th scope="col">이용 방법</th></tr></thead>
         <tbody>
-          <tr><td>1주차</td><td><span class="u">10월 통장·카드 내역 정리</span> <span class="u">(양식 바꾸는 도구 만들기)</span></td></tr>
-          <tr><td>2주차</td><td><span class="u">증빙 확인과</span> <span class="u">부가세 공제 판정</span></td></tr>
-          <tr><td>3주차</td><td><span class="u">월결산과 11월 다시 돌리기</span> <span class="u">(수습 평가)</span></td></tr>
-          <tr><td>4주차</td><td><span class="u">나만의 업무 포트폴리오 만들기</span> <span class="u">(정직원 임명)</span></td></tr>
+          <tr><td>출입구</td><td><span class="u">오픈채팅 공지의 링크로 출근함.</span> <span class="u">사원증은 사용 기기에 저장됨</span></td></tr>
+          <tr><td>팀장 메신저</td><td><span class="u">출근 후</span> <span class="u">당일 업무를 먼저 확인함</span></td></tr>
+          <tr><td>내 자리</td><td><span class="u">주차별 업무 수행.</span> <span class="u">노션 따라 하기를 참고하여</span> <span class="u">Code 탭에서 실습함</span></td></tr>
+          <tr><td>팀장 자리</td><td><span class="u">업무 중 막히는 사항은</span> <span class="u">「업무 확인 요청」(질문 폼)으로</span> <span class="u">수시 제출함</span></td></tr>
+          <tr><td>결재함</td><td><span class="u">주차 업무 완료 후</span> <span class="u">「금일 결재 전 점검표」 작성 →</span> <span class="u">「결재 상신」(과제 폼).</span> <span class="u">결재 의견은</span> <span class="u">승인 · 보완 요청 · 반려 중</span> <span class="u">하나로 회신됨</span></td></tr>
+          <tr><td>대표실 · 회의실</td><td><span class="u">각각 3주차 · 4주차에 개방</span></td></tr>
+          <tr><td>퇴근</td><td><span class="u">당일 막힌 사항을</span> <span class="u">업무일지에 1줄 기록함</span></td></tr>
         </tbody>
       </table>
-      <h2>3. 꼭 지킬 것</h2>
-      <ul class="hv-rule">
-        <li><span class="u">실제 회사 자료와 개인정보는</span> <span class="u">쓰지 않아요.</span> <span class="u">실습은 이패스상사 자료로만 해요.</span></li>
-        <li><span class="u">오픈채팅방에는</span> <span class="u">파일과 결과 숫자를</span> <span class="u">올리지 않아요.</span></li>
-        <li><span class="u">검산 판정은</span> <span class="u">내가 직접 해요.</span></li>
-      </ul>
+      <h2>2. 인계 업무</h2>
+      <table class="hv-t">
+        <thead><tr><th scope="col">주차</th><th scope="col">업무</th><th scope="col">비고</th></tr></thead>
+        <tbody>
+          <tr><td>1주차</td><td><span class="u">10월 통장 · 카드</span> <span class="u">내역 정리</span></td><td><span class="u">양식 변환</span> <span class="u">도구 작성</span></td></tr>
+          <tr><td>2주차</td><td><span class="u">증빙 확인 및</span> <span class="u">부가세 공제 판정</span></td><td>—</td></tr>
+          <tr><td>3주차</td><td><span class="u">10월 월결산 및</span> <span class="u">11월 자료 재실행</span></td><td>수습 평가</td></tr>
+          <tr><td>4주차</td><td><span class="u">나만의 업무</span> <span class="u">포트폴리오 작성</span></td><td>정직원 임명</td></tr>
+        </tbody>
+      </table>
+      <h2>3. 준수 사항</h2>
+      <ol class="hv-rule">
+        <li><span class="u">실제 회사 자료와 개인정보는</span> <span class="u">사용하지 않는다.</span> <span class="u">실습은 (주)이패스상사 자료로만 한다.</span></li>
+        <li><span class="u">오픈채팅방에는</span> <span class="u">파일과 결과 숫자를</span> <span class="u">올리지 않는다.</span></li>
+        <li><span class="u">검산 판정은</span> <span class="u">인수자가 직접 한다.</span></li>
+      </ol>
+      <h2>4. 문의</h2>
+      <ol class="hv-rule">
+        <li><span class="u">업무 확인 요청은</span> <span class="u">질문 폼으로 제출한다.</span></li>
+        <li><span class="u">회신은 평일 24:00 전 일괄.</span> <span class="u">당일 18:00까지 접수분이 대상이며,</span> <span class="u">이후 접수분은</span> <span class="u">다음 평일에 회신한다.</span></li>
+        <li><span class="u">공통 사항은 오픈채팅,</span> <span class="u">개별 사항은 이메일로</span> <span class="u">회신한다.</span></li>
+        <li><span class="u">급한 문제는</span> <span class="u">오픈채팅에 바로 올린다.</span></li>
+      </ol>
     </div>
     <button class="btn" id="goOffice2">확인했어요, 사무실로</button>
   </div>
@@ -505,7 +517,7 @@ var ZONES = [
    lines:['10월 카드 증빙과|세금계산서가 모여 있어요.','증빙이 맞는지,|부가세 공제가 되는지|판정해요.'],
    real:'노션 2주차 따라 하기를 보며|Code 탭에서 실습해요.',act:'2주차 따라 하기 열기',link:'week2'},
   {id:'leader',x:630,y:312,w:184,h:108,cx:14,cy:104,tx:596,ty:350,chip:'팀장 자리 · 매일',title:'정아름 팀장 자리',week:'매일',st:'열림',
-   lines:['막히면 언제든|「업무 확인 요청」을 올려요.','질문지는 하나예요.|맨 위에서 주차와 날짜를 골라요.','답은 팀장이 직접 달아요.'],
+   lines:['막히면 언제든|「업무 확인 요청」을 올려요.','질문지는 하나예요.|맨 위에서 주차와 날짜를 골라요.','답은 평일 24:00 전에|한 번에 와요.','여럿이 같은 곳에서 막히면|오픈채팅에 공통으로 답해요.'],
    real:'질문 구글폼에|막힌 곳을 적어 보내요.',act:'업무 확인 요청 쓰기',link:'question'},
   {id:'tray',x:818,y:424,w:100,h:64,cx:-4,cy:70,tx:780,ty:432,chip:'결재함 · 매주',title:'결재함',week:'매주',st:'열림',
    lines:['한 주 업무를 마치면|「결재 상신」을 해요.','올리기 전에 점검표에|건수와 합계를|직접 적어요.','결재 의견은|승인 · 보완 요청 · 반려|중 하나로 와요.','반려되면 사유를 보고|고쳐서 다시 올리면 돼요.'],
@@ -564,7 +576,7 @@ function applyMe(){
   $('meHair').style.background=c.hair;$('meBody').style.background=c.body;
   $('meName').textContent=me.name;
   $('hello').textContent=me.name+' 님, 반가워요.';
-  $('hvTo').textContent='인턴 사원 '+me.name;
+  $('hvTo').textContent='경영지원팀 인턴 사원 '+me.name;
   $('diary').value=me.diary||'';
 }
 $('goIn').onclick=function(){me.name=$('nm').value.trim().slice(0,12);me.char=pick;save(me);applyMe();show('scrBrief')};
