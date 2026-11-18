@@ -88,6 +88,8 @@ input.t:focus{outline:2px solid var(--blue);border-color:var(--blue)}
 .cab{left:12px;width:60px;height:62px;background:#c7d2e0;box-shadow:inset 0 -5px 0 #a9b7c9,0 0 0 2px #6f819b}
 .cab::before,.cab::after{content:"";position:absolute;left:10px;right:10px;height:4px;background:#6f819b;border-radius:2px}
 .cab::before{top:12px}.cab::after{top:36px}
+.drawer{left:6px;width:46px;height:24px;background:#f4e6d2;box-shadow:0 0 0 1.5px #a5835f}
+.drawer::after{content:"";position:absolute;left:17px;top:10px;width:12px;height:4px;border-radius:2px;background:#8a6a4f}
 .plant{width:30px;height:30px;background:var(--plant);border-radius:50%;box-shadow:0 0 0 3px var(--plantRing)}
 .seat{width:22px;height:18px;background:#7f93b2;border-radius:5px}
 .veil{background:var(--veil);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
@@ -134,7 +136,7 @@ body[data-season="겨울"] #me .scarf{display:block}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .dy-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px}
 .dy-row .btn{min-height:44px;font-size:14px}
-.dy-pick{cursor:pointer}
+.diary label.dy-pick{cursor:pointer;display:flex;align-items:center;justify-content:center;margin-bottom:0;font-size:14px;color:var(--blue)}
 .dy-pick:focus-within{outline:2px solid var(--blue)}
 .dy-prev{margin-top:8px;display:flex;align-items:flex-end;gap:8px}
 .dy-prev img{max-width:160px;max-height:110px;border-radius:6px;border:1.5px solid var(--cardBd)}
@@ -184,6 +186,22 @@ body[data-season="겨울"] #me .scarf{display:block}
 .ck-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 14px;margin-top:10px}
 .ck-grid label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--ink)}
 @media (max-width:520px){.ck-grid{grid-template-columns:minmax(0,1fr)}.ck-open{grid-template-columns:1fr;gap:2px}}
+.tl-meter{display:flex;align-items:center;gap:12px;margin:12px 0 6px}
+.tl-bar{flex:1;height:10px;border-radius:999px;background:#f3e7da;overflow:hidden;box-shadow:inset 0 0 0 1px #e3cdb4}
+.tl-bar i{display:block;height:100%;width:0;background:#c9824f;border-radius:999px;transition:width .4s}
+.tl-meter span{font-size:13px;font-weight:700;color:#6b3f17;white-space:nowrap}
+.tl-dw{border-left:6px solid #c9824f}
+.tl-dw.lock{border-left-color:#b9b2a8;background:#faf8f5}
+.tl-dh{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.tl-dh h2{margin:0;font-size:16px;color:var(--navy)}
+.tl-dh span{font-size:12px;color:#6b3f17;background:#f6e3cf;border-radius:999px;padding:2px 10px;white-space:nowrap}
+.tl-grp{font-size:12px;font-weight:700;color:var(--sub);margin:12px 0 6px}
+.tl-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:8px;align-items:center;margin-bottom:6px}
+.tl-row label{font-size:13px;line-height:1.5}
+.tl-row input{height:40px;border:1.5px solid var(--cardBd);border-radius:8px;padding:0 10px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;color:var(--ink);background:#fff;width:100%}
+.tl-row input.filled{background:#fdf6f0;border-color:#e3bf9d}
+.tl-lockmsg{font-size:14px;line-height:1.7;color:#3a4a63}
+@media (max-width:520px){.tl-row{grid-template-columns:minmax(0,1fr)}}
 .foot{text-align:center;padding:4px 0 20px}
 .quick{display:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
 .quick button{min-height:44px;border-radius:10px;border:1.5px solid var(--blue);background:#fff;color:var(--navy);font-size:13px;font-weight:700;white-space:nowrap;cursor:pointer;padding:0 6px}
@@ -268,6 +286,7 @@ body[data-season="겨울"] #me .scarf{display:block}
           <tr><td>팀장 메신저</td><td><span class="u">출근 후</span> <span class="u">당일 업무를 먼저 확인함</span></td></tr>
           <tr><td>내 자리</td><td><span class="u">주차별 업무 수행.</span> <span class="u">노션 따라 하기를 참고하여</span> <span class="u">Code 탭에서 실습함</span></td></tr>
           <tr><td>팀장 자리</td><td><span class="u">업무 중 막히는 사항은</span> <span class="u">「업무 확인 요청」(질문 폼)으로</span> <span class="u">수시 제출함</span></td></tr>
+          <tr><td>내 AI 에이전트</td><td><span class="u">만든 프로그램과 기준표를</span> <span class="u">AI 에이전트의 도구로 등록함.</span> <span class="u">3주차에 모인 도구로</span> <span class="u">AI 에이전트가 다음 달 마감을 실행함</span></td></tr>
           <tr><td>결재함</td><td><span class="u">주차 업무 완료 후</span> <span class="u">「금일 결재 전 점검표」 작성 →</span> <span class="u">「결재 상신」(과제 폼).</span> <span class="u">결재 의견은</span> <span class="u">승인 · 보완 요청 · 반려 중</span> <span class="u">하나로 회신됨</span></td></tr>
           <tr><td>대표실 · 회의실</td><td><span class="u">각각 3주차 · 4주차에 개방</span></td></tr>
           <tr><td>퇴근</td><td><span class="u">당일 막힌 사항을</span> <span class="u">업무일지에 1줄 기록함</span></td></tr>
@@ -365,6 +384,11 @@ body[data-season="겨울"] #me .scarf{display:block}
           <div class="sprite" style="left:241px;top:284px" aria-hidden="true"><div class="hair" style="background:#2b2320"></div><div class="face"></div><div class="body" style="background:#8aa3c4"></div></div>
           <div class="sprite" style="left:465px;top:284px" aria-hidden="true"><div class="hair" style="background:#6b4a33"></div><div class="face"></div><div class="body" style="background:#9bb79f"></div></div>
 
+          <!-- 내 AI 에이전트 캐비닛 -->
+          <div style="left:566px;top:352px;width:58px;height:132px;background:#e8d3b8;box-shadow:inset 0 -6px 0 #cdb08d,0 0 0 2px #8a6a4f">
+            <div class="drawer" style="top:8px"></div><div class="drawer" style="top:38px"></div><div class="drawer" style="top:68px"></div><div class="drawer" style="top:98px"></div>
+          </div>
+
           <!-- 팀장 자리 -->
           <div class="desk" style="left:640px;top:340px;width:130px;height:70px"><div style="left:88px;top:14px;width:20px;height:42px;background:#2a3a55;border-radius:2px"></div><div style="left:10px;top:10px;width:24px;height:18px;background:#fff;box-shadow:0 0 0 1px #c9d2de"></div></div>
           <div style="left:778px;top:362px;width:24px;height:28px;background:#5b6f8f;border-radius:6px"></div>
@@ -443,7 +467,7 @@ body[data-season="겨울"] #me .scarf{display:block}
 
       <div class="card diary">
         <label for="diary">퇴근 전 업무일지 · 오늘 막힌 순간</label>
-        <textarea class="t" id="diary" rows="2" maxlength="200" placeholder="막힌 순간을 한두 줄로 (캡처만 올려도 돼요)" style="height:auto;padding:10px 14px;resize:vertical;line-height:1.6"></textarea>
+        <textarea class="t" id="diary" rows="2" maxlength="200" placeholder="막힌 순간을 한두 줄로 (캡처만 올려도 돼요)" style="width:100%;height:auto;padding:10px 14px;resize:vertical;line-height:1.6"></textarea>
         <div class="dy-row">
           <label class="btn ghost dy-pick" for="dyFile">캡처 붙이기</label>
           <input id="dyFile" type="file" accept="image/*" class="sr">
@@ -515,6 +539,25 @@ body[data-season="겨울"] #me .scarf{display:block}
   </div>
 </section>
 
+<!-- 5. 내 AI 에이전트 -->
+<section id="scrTools" class="hidden" aria-labelledby="h-tools">
+  <div class="ck-wrap">
+    <button class="link" id="tlBack" style="font-size:14px;padding:4px 0">← 사무실로</button>
+    <div class="card">
+      <span class="kicker">내 자리 옆 · 캐비닛</span>
+      <h1 id="h-tools" style="margin:10px 0 6px;font-size:22px;color:var(--navy)">내 AI 에이전트</h1>
+      <div class="lead" style="font-size:14px"><span class="u">내가 만든 프로그램과 기준표가</span> <span class="u">AI 에이전트의 도구로 모여요.</span> <span class="u">하나 만들 때마다</span> <span class="u">파일 이름을 적어 등록해요.</span></div>
+      <div class="tl-meter"><div class="tl-bar"><i id="tlFill"></i></div><span id="tlCount"></span></div>
+      <div class="note"><span class="u">파일은 지금처럼 04_산출물에 둬요.</span> <span class="u">여기에는 목록만 이 기기에 저장돼요.</span></div>
+    </div>
+    <div id="tlDrawers"></div>
+    <div class="card" style="display:flex;flex-direction:column;gap:10px">
+      <button class="btn" id="tlCopy">도구 목록 복사하기</button>
+      <div class="note" id="tlMsg" aria-live="polite"><span class="u">복사한 목록은</span> <span class="u">4주차 포트폴리오의</span> <span class="u">「내가 만든 AI 에이전트」 칸이 돼요.</span></div>
+    </div>
+  </div>
+</section>
+
 <script>
 /* ===== 강사 설정: 여기만 바꾸면 됩니다 ===== */
 var CONFIG = {
@@ -556,6 +599,9 @@ var ZONES = [
   {id:'leader',x:630,y:312,w:184,h:108,cx:14,cy:104,tx:596,ty:350,chip:'팀장 자리 · 매일',title:'정아름 팀장 자리',week:'매일',st:'열림',
    lines:['막히면 언제든|「업무 확인 요청」을 올려요.','질문지는 하나예요.|맨 위에서 주차와 날짜를 골라요.','답은 평일 24:00 전에|한 번에 와요.','여럿이 같은 곳에서 막히면|오픈채팅에 공통으로 답해요.'],
    real:'질문 구글폼에|막힌 곳을 적어 보내요.',act:'업무 확인 요청 쓰기',link:'question'},
+  {id:'tools',x:558,y:344,w:74,h:148,cx:-62,cy:152,tx:690,ty:500,chip:'내 AI 에이전트 · 매주',title:'내 AI 에이전트',week:'매주',st:'열림',
+   lines:['내가 만든 프로그램과 기준표가|AI 에이전트의 도구로 모여요.','하나 만들 때마다|파일 이름을 적어 등록해요.','3주차에는 도구가 모여|AI 에이전트가|다음 달 마감을 돌려요.'],
+   real:'파일은 지금처럼|04_산출물에 두고,|여기서는 목록만 모아 봐요.',act:'AI 에이전트 열기',tools:true},
   {id:'tray',x:818,y:424,w:100,h:64,cx:-4,cy:70,tx:780,ty:432,chip:'결재함 · 매주',title:'결재함',week:'매주',st:'열림',
    lines:['한 주 업무를 마치면|「결재 상신」을 해요.','올리기 전에 점검표에|건수와 합계를|직접 적어요.','결재 의견은|승인 · 보완 요청 · 반려|중 하나로 와요.','반려되면 사유를 보고|고쳐서 다시 올리면 돼요.'],
    real:'과제 구글폼에서|주차를 고르고|마감 폴더를 내요.|마감 일시는|공지를 확인해 주세요.',act:'결재 상신하기',link:'submit',check:true},
@@ -576,7 +622,7 @@ function save(o){try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}}
 var me=load();
 
 function $(id){return document.getElementById(id)}
-function show(id){['scrEnter','scrBrief','scrHand','scrOffice','scrCheck'].forEach(function(s){$(s).classList.toggle('hidden',s!==id)});window.scrollTo(0,0);if(id==='scrOffice')fit()}
+function show(id){['scrEnter','scrBrief','scrHand','scrOffice','scrCheck','scrTools'].forEach(function(s){$(s).classList.toggle('hidden',s!==id)});window.scrollTo(0,0);if(id==='scrOffice')fit()}
 
 /* 계절 */
 function seasonOf(){
@@ -687,9 +733,11 @@ function go(id){
     a=url?'<a class="btn" href="'+esc(url)+'" target="_blank" rel="noopener">'+esc(z.act)+'</a>'
          :'<button class="btn" type="button" disabled>'+esc(z.act)+'</button><div class="pending">링크는 공지에서 곧 알려 드려요.</div>';
   }
+  if(z.tools)a='<button class="btn" type="button" id="openTools">AI 에이전트 열기</button>';
   if(z.check)a='<button class="btn" type="button" id="openCheck" style="margin-bottom:10px">금일 결재 전 점검표 열기</button>'+a.replace('class="btn"','class="btn ghost"');
   $('dAct').innerHTML=a;
   if(z.check)$('openCheck').onclick=openCheck;
+  if(z.tools)$('openTools').onclick=openTools;
   if(window.innerWidth<760)$('detail').scrollIntoView({behavior:'smooth',block:'start'});
 }
 $('goDesk').onclick=function(){go('desk')};
@@ -753,6 +801,51 @@ $('ckCopy').onclick=function(){
 $('ckSubmit').onclick=function(){var u=CONFIG.links.submit;if(u){window.open(u,'_blank','noopener')}else{$('ckMsg').innerHTML='<span class="u">과제 폼 링크는</span> <span class="u">공지에서 곧 알려 드려요.</span>'}};
 function openCheck(){drawCheck();show('scrCheck')}
 $('ckBack').onclick=function(){show('scrOffice')};
+
+
+/* 내 AI 에이전트 */
+var TOOLS=[
+ {wk:'1주차',title:'1주차 도구 · 통장과 카드',groups:[
+  {g:'변환 프로그램 (파일마다 새로)',items:['은행A','은행B','은행C','카드A','카드B','카드C'].map(function(f){return {k:'cv_'+f,l:f+' 변환',ph:'예: 변환_'+f+'.py'}})},
+  {g:'검산 프로그램 (파일마다 새로)',items:['은행A','은행B','은행C','카드A','카드B','카드C'].map(function(f){return {k:'ck_'+f,l:f+' 검산',ph:'예: 검산_'+f+'.py'}})},
+  {g:'공용 프로그램 (한 번 만들고 계속 씀)',items:[{k:'nm',l:'거래처 이름 대조',ph:'파일 이름'},{k:'nl',l:'거래처 이름 목록',ph:'파일 이름'},{k:'sl',l:'전표 초안',ph:'파일 이름'},{k:'mg',l:'여섯 파일 합치기',ph:'전표초안_합치기.py'}]},
+  {g:'기준과 규칙',items:[{k:'rule',l:'처리 기준표',ph:'처리기준표.csv'},{k:'cm',l:'회사 규칙',ph:'CLAUDE.md'}]}
+ ]},
+ {wk:'2주차',title:'2주차 도구 · 증빙과 부가세',groups:[
+  {g:'프로그램',items:[1,2,3,4,5].map(function(n){return {k:'w2p'+n,l:'2주차 도구 '+n,ph:'파일 이름'}})},
+  {g:'기준과 보고',items:[{k:'w2r',l:'매입세액 공제 기준표',ph:'매입세액_공제기준표.csv'},{k:'w2h',l:'부가세 점검표',ph:'파일 이름 (.html)'}]}
+ ]},
+ {wk:'3주차',lock:'도구를 하나로 묶어 「월마감 실행」 한 번으로 AI 에이전트가 11월 마감을 돌리는 날 열려요.',title:'3주차 · 도구가 모여 AI 에이전트가 일하는 날'},
+ {wk:'4주차',lock:'이 목록이 그대로 포트폴리오의 「내가 만든 AI 에이전트」 칸이 돼요.',title:'4주차 · 내가 만든 AI 에이전트'}
+];
+function tlData(){me.tools=me.tools||{};return me.tools}
+function tlAll(){var a=[];TOOLS.forEach(function(d){(d.groups||[]).forEach(function(g){g.items.forEach(function(i){a.push(i)})})});return a}
+function tlCount(){var a=tlAll(),d=tlData(),n=a.filter(function(i){return d[i.k]}).length;
+  $('tlCount').textContent='모은 도구 '+n+' / '+a.length;$('tlFill').style.width=Math.round(n/a.length*100)+'%'}
+function drawTools(){
+  var d=tlData();
+  $('tlDrawers').innerHTML=TOOLS.map(function(w){
+    if(w.lock)return '<div class="card tl-dw lock"><div class="tl-dh"><h2>'+esc(w.title)+'</h2><span>'+w.wk+'</span></div><div class="tl-lockmsg">'+esc(w.lock)+'</div></div>';
+    var n=0,t=0;w.groups.forEach(function(g){g.items.forEach(function(i){t++;if(d[i.k])n++})});
+    return '<div class="card tl-dw"><div class="tl-dh"><h2>'+esc(w.title)+'</h2><span>'+n+' / '+t+'</span></div>'+w.groups.map(function(g){
+      return '<div class="tl-grp">'+esc(g.g)+'</div>'+g.items.map(function(i){var v=esc(d[i.k]||'');
+        return '<div class="tl-row"><label for="tl_'+i.k+'">'+esc(i.l)+'</label><input id="tl_'+i.k+'" data-k="'+i.k+'" autocomplete="off" spellcheck="false" placeholder="'+esc(i.ph)+'" value="'+v+'" class="'+(v?'filled':'')+'"></div>'}).join('')}).join('')+'</div>';
+  }).join('');
+  Array.prototype.forEach.call(document.querySelectorAll('#tlDrawers input'),function(i){i.addEventListener('input',function(){
+    var v=i.value.trim();tlData()[i.getAttribute('data-k')]=v;i.classList.toggle('filled',!!v);save(me);tlCount();
+    var c=i.closest('.tl-dw').querySelector('.tl-dh span'),ins=i.closest('.tl-dw').querySelectorAll('input');c.textContent=Array.prototype.filter.call(ins,function(x){return x.value.trim()}).length+' / '+ins.length;
+  })});
+  tlCount();
+}
+$('tlCopy').onclick=function(){
+  var d=tlData(),L=['[내 AI 에이전트의 도구 · '+(me.name||'')+']'];
+  TOOLS.forEach(function(w){if(!w.groups)return;L.push(w.title);w.groups.forEach(function(g){g.items.forEach(function(i){if(d[i.k])L.push('- '+i.l+': '+d[i.k])})})});
+  var t=L.join('\n');
+  var done=function(ok){$('tlMsg').innerHTML=ok?'복사했어요.':'<span class="u">자동 복사가 안 돼요.</span> <span class="u">아래 글을 길게 눌러 복사해 주세요.</span><textarea class="t" readonly rows="8" style="height:auto;margin-top:8px;padding:10px;font-size:12px">'+esc(t)+'</textarea>'};
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(function(){done(true)},function(){done(false)})}else{done(false)}
+};
+function openTools(){drawTools();show('scrTools')}
+$('tlBack').onclick=function(){show('scrOffice')};
 
 /* 지도 크기 맞추기 */
 function fit(){
