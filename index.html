@@ -496,7 +496,7 @@ body[data-season="겨울"] #me .scarf{display:block}
         <div class="note hidden" id="dyCopyMsg" aria-live="polite"><span class="u">주말에 고른 것을</span> <span class="u">제출메모의 「막힌 순간」에</span> <span class="u">옮겨 붙여요.</span></div>
         <small><span class="u">이 기기에만 저장돼요.</span> <span class="u">4주 뒤 포트폴리오 재료가 돼요.</span></small>
       </div>
-      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1118-2350</div></div>
+      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1118-2355</div></div>
     </aside>
   </div>
 </section>
@@ -570,7 +570,7 @@ body[data-season="겨울"] #me .scarf{display:block}
     </div>
     <div class="card">
       <div class="tl-dh"><h2>AI 에이전트 파이프라인</h2><span>1·2주차 도구가 이어지는 순서</span></div>
-      <div class="note" style="margin-bottom:10px"><span class="u">등록한 도구가</span> <span class="u">일하는 순서대로 이어져요.</span> <span class="u">흰 칸은 내가 만든 프로그램,</span> <span class="u">파란 칸은 AI가 직접 하는 일,</span> <span class="u">주황 칸은 사람이 확인하는 자리예요.</span></div>
+      <div class="note" style="margin-bottom:10px"><span class="u">등록한 도구가</span> <span class="u">일하는 순서대로 이어져요.</span> <span class="u">칸 이름은 실무 업무 이름이에요.</span> <span class="u">흰 칸은 내가 만든 프로그램,</span> <span class="u">파란 칸은 AI가 직접 하는 일,</span> <span class="u">주황 칸은 사람이 확인하는 자리예요.</span></div>
       <div id="tlPipe"></div>
       <button class="btn ghost" type="button" id="tlPipeCopy" style="margin-top:12px">파이프라인 복사하기</button>
       <div class="note" id="tlPipeMsg" aria-live="polite" style="margin-top:6px"><span class="u">4주차 포트폴리오의</span> <span class="u">「내가 만든 AI 에이전트」 칸에</span> <span class="u">이 파이프라인을 붙여요.</span></div>
@@ -889,60 +889,72 @@ $('tlCopy').onclick=function(){
   if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(function(){done(true)},function(){done(false)})}else{done(false)}
 };
 
-/* 파이프라인 */
+/* 파이프라인 — 실무 업무 이름 기준 */
 var PIPE=[
- {wk:'1주차 · 통장과 카드 → 10월 전표 초안',nodes:[
-  {t:'원자료',io:1,txt:'은행·카드 엑셀 6개 (01_원자료)'},
-  {t:'1·2단계 변환',keys:['cv_은행A','cv_은행B','cv_은행C','cv_카드A','cv_카드B','cv_카드C']},
-  {t:'3단계 이름 대조',keys:['nm']},
-  {t:'4단계 이름 목록',keys:['nl']},
-  {t:'사람 확인',hum:1,txt:'이름 목록을 02_AI입력용에 직접 옮김'},
-  {t:'5단계 처리 기준표',keys:['rule'],hum2:'AI 초안 → 사람이 검토'},
-  {t:'6단계 전표 초안',keys:['sl']},
-  {t:'7단계 검산',keys:['ck_은행A','ck_은행B','ck_은행C','ck_카드A','ck_카드B','ck_카드C']},
-  {t:'사람 판정',hum:1,txt:'정답앵커와 대사'},
-  {t:'8단계 합치기',keys:['mg']},
-  {t:'내 전표 초안',io:1,txt:'전표초안_2026-10.csv (1주차 결과, 내 기록으로 남음)'}
+ {wk:'1주차 · 거래 기록',start:'원자료 6개',end:'10월 전표 초안 79건',nodes:[
+  {biz:'거래내역 수집·정리',step:'1·2단계',who:'프로그램',keys:['cv_은행A','cv_은행B','cv_은행C','cv_카드A','cv_카드B','cv_카드C']},
+  {biz:'거래처 표기 정리',step:'3단계',who:'프로그램',keys:['nm']},
+  {biz:'거래처 목록 확인',step:'4단계',who:'사람',hum:1,keys:['nl']},
+  {biz:'계정과목 분류 기준 수립',step:'5단계',who:'AI 초안 → 사람 검토',keys:['rule']},
+  {biz:'전표 작성(분개)·미결 항목 정리',step:'6단계',who:'프로그램',keys:['sl']},
+  {biz:'거래 건수·금액 대사',step:'7단계',who:'프로그램 → 사람 판정',keys:['ck_은행A','ck_은행B','ck_은행C','ck_카드A','ck_카드B','ck_카드C']},
+  {biz:'대사 판정',hum:1,flow:1,txt:'정답앵커와 대사'},
+  {biz:'10월 전표 취합',step:'8단계',who:'프로그램',keys:['mg']}
  ]},
- {wk:'2주차 · 증빙과 부가세',note:'2주차는 모두 같은 출발점에서 시작해요. 1주차 결과는 내 기록으로 남고, 만든 프로그램은 그대로 둬요.',nodes:[
-  {t:'2주차 받은 확정본',io:1,txt:'전표초안_2026-10.csv (모두 같은 79건)'},
-  {t:'2단계 결의서 읽기',ai:1,txt:'AI가 결의서 사진을 표로 → 결의서표_2026-10.csv'},
-  {t:'사람 확인',hum:1,txt:'결의서 원본 3장 이상과 대조'},
-  {t:'3단계 증빙 대조',keys:['w2p1']},
-  {t:'4단계 보완 요청',ai:1,txt:'AI가 요청 문장 초안 → 사람이 다듬어 보냄'},
-  {t:'5단계 증빙 반영',keys:['w2p2']},
-  {t:'사람 확인',hum:1,txt:'남은 10건은 담당자 확인'},
-  {t:'6단계 공제 판정',keys:['w2p3','w2r'],hum2:'기준표에 있는 기준만'},
-  {t:'7단계 세금계산서 점검',keys:['w2p4']},
-  {t:'8단계 영세율 확인',hum:1,txt:'구매확인서를 사람이 직접 확인'},
-  {t:'9단계 부가세 점검표',keys:['w2h']},
-  {t:'결과',io:1,txt:'부가세점검표_2026-10.html'}
+ {wk:'2주차 · 증빙 관리와 부가세 신고 전 점검',start:'확정본 79건',end:'부가세 점검표',note:'2주차는 모두 같은 출발점(받은 확정본)에서 시작해요. 1주차 결과는 내 기록으로 남고, 만든 프로그램은 그대로 둬요.',nodes:[
+  {biz:'지출결의서 접수',step:'2단계',who:'AI → 사람 확인',ai:1,txt:'결의서표_2026-10.csv'},
+  {biz:'결의서 원본 확인',hum:1,flow:1,txt:'원본 3장 이상과 대조'},
+  {biz:'카드 사용분 증빙 대조',step:'3단계',who:'프로그램',keys:['w2p1']},
+  {biz:'증빙 보완 요청',step:'4단계',who:'AI 초안 → 사람이 보냄',ai:1,txt:'증빙보완요청_2026-10.md'},
+  {biz:'계정과목 확정',step:'5단계',who:'프로그램 + 담당자 확인',keys:['w2p2']},
+  {biz:'미결 항목 담당자 확인',hum:1,flow:1,txt:'남은 10건'},
+  {biz:'매입세액 공제·불공제 검토',step:'6단계',who:'프로그램(기준표만 사용)',keys:['w2p3','w2r']},
+  {biz:'세금계산서 수수 검토',step:'7단계',who:'프로그램',keys:['w2p4']},
+  {biz:'영세율 근거서류 확인',step:'8단계',who:'사람',hum:1,txt:'구매확인서'},
+  {biz:'부가세 신고 전 점검',step:'9단계',who:'프로그램',keys:['w2h']}
  ]},
- {wk:'3주차 · 월마감 실행',nodes:[
-  {t:'11월 자료',io:1,txt:'새 달 원자료'},
-  {t:'월마감 실행',txt:'1·2주차 도구가 끊김 없이 이어져 한 번에 돌아가요 (3주차에 묶음)'},
-  {t:'사람 확정',hum:1,txt:'검산 판정과 확정'}
+ {wk:'3주차 · 다음 달 월마감',start:'11월 거래',end:'',nodes:[
+  {biz:'월마감 실행',who:'AI 에이전트',txt:'1·2주차 도구가 끊김 없이 이어져 한 번에 돌아감 (3주차에 묶음)'},
+  {biz:'결산 확정',hum:1,txt:'검산 판정과 확정'}
  ]}
 ];
 function ppNames(n){var d=tlData();return (n.keys||[]).map(function(k){return d[k]}).filter(Boolean)}
+function mark(n){return n.hum?'👤':n.ai?'🤖':''}
 function drawPipe(){
   $('tlPipe').innerHTML=PIPE.map(function(w){
-    return '<div class="pp-wk">'+esc(w.wk)+'</div>'+(w.note?'<div class="note" style="margin:-2px 0 6px">'+esc(w.note)+'</div>':'')+'<div class="pp">'+w.nodes.map(function(n,i){
-      var names=ppNames(n),body;
-      if(n.keys){body=names.length?names.map(function(x){return '<i>'+esc(x)+'</i>'}).join(''):'<i class="miss">아직 등록 전</i>';if(n.hum2)body+='<i class="miss">'+esc(n.hum2)+'</i>'}
-      else body='<i class="miss" style="color:inherit">'+esc(n.txt)+'</i>';
-      var cls='pp-n'+(n.io?' io':'')+(n.hum?' hum':'')+(n.ai?' ai':'')+(n.keys&&names.length?' on':'');
-      return (i?'<span class="pp-a" aria-hidden="true">→</span>':'')+'<div class="'+cls+'"><b>'+esc(n.t)+(n.keys?' ('+names.length+'/'+n.keys.length+')':'')+'</b>'+body+'</div>';
-    }).join('')+'</div>';
+    var cells=['<div class="pp-n io"><b>'+esc(w.start)+'</b></div>'].concat(w.nodes.map(function(n){
+      var names=ppNames(n),body='';
+      if(n.step||n.who)body+='<i class="miss">'+esc([n.step,n.who].filter(Boolean).join(' · '))+'</i>';
+      if(n.keys)body+=names.length?names.map(function(x){return '<i>'+esc(x)+'</i>'}).join(''):'<i class="miss">파일 등록 전</i>';
+      else if(n.txt)body+='<i class="miss" style="color:inherit">'+esc(n.txt)+'</i>';
+      var cls='pp-n'+(n.hum?' hum':'')+(n.ai?' ai':'')+(n.keys&&names.length?' on':'');
+      return '<div class="'+cls+'"><b>'+esc(n.biz)+'</b>'+body+'</div>';
+    }));
+    if(w.end)cells.push('<div class="pp-n io"><b>'+esc(w.end)+'</b></div>');
+    return '<div class="pp-wk">'+esc(w.wk)+'</div>'+(w.note?'<div class="note" style="margin:-2px 0 6px">'+esc(w.note)+'</div>':'')+'<div class="pp">'+cells.join('<span class="pp-a" aria-hidden="true">→</span>')+'</div>';
   }).join('');
 }
+function pipeText(){
+  var d=tlData(),L=['### 내가 만든 AI 에이전트 — 10월 월마감 파이프라인','','**한눈에 보는 업무 흐름**',''];
+  PIPE.forEach(function(w){
+    var f=[w.start].concat(w.nodes.map(function(n){return mark(n)+n.biz}));if(w.end)f.push('**'+w.end+'**');
+    L.push('**'+w.wk+'**');L.push(f.join(' → '));L.push('');
+  });
+  L.push('(👤 사람이 확인·확정 · 🤖 AI가 직접 한 일 · 표시 없음 = 내가 만든 프로그램)');L.push('');
+  PIPE.forEach(function(w){
+    var rows=w.nodes.filter(function(n){return n.step});if(!rows.length)return;
+    L.push('**업무별로 누가 무엇을 했나 ('+w.wk.split(' · ')[0]+')**');L.push('');
+    L.push('| 실무 업무 | 따라 하기 단계 | 누가 | 내가 만든 파일 |');L.push('|---|---|---|---|');
+    rows.forEach(function(n){var nm=ppNames(n);L.push('| '+n.biz+' | '+n.step+' | '+n.who+' | '+(n.keys?(nm.length?nm.map(function(x){return '`'+x+'`'}).join(', '):'(미등록)'):(n.ai&&n.txt?'(결과) '+n.txt:'—'))+' |')});
+    L.push('');
+  });
+  var rules=['rule','w2r'],prog=0,rule=0,cm=d.cm?1:0;
+  tlAll().forEach(function(i){if(!d[i.k]||i.k==='cm')return;if(rules.indexOf(i.k)>=0)rule++;else prog++});
+  L.push('**만든 도구: 프로그램 '+prog+'개 · 기준표 '+rule+'개 · 회사 규칙 '+cm+'개**');
+  return L.join('\n');
+}
 $('tlPipeCopy').onclick=function(){
-  var L=['[AI 에이전트 파이프라인 · '+(me.name||'')+']'];
-  PIPE.forEach(function(w){L.push('');L.push(w.wk);if(w.note)L.push('('+w.note+')');w.nodes.forEach(function(n){
-    if(n.keys){var nm=ppNames(n);L.push('→ '+n.t+': '+(nm.length?nm.join(', '):'(미등록)')+(n.hum2?' — '+n.hum2:''))}
-    else L.push((n.hum?'→ [사람] ':n.ai?'→ [AI] ':'→ ')+n.t+': '+n.txt);
-  })});
-  var t=L.join('\n'),done=function(ok){$('tlPipeMsg').innerHTML=ok?'복사했어요.':'<span class="u">자동 복사가 안 돼요.</span> <span class="u">아래 글을 길게 눌러 복사해 주세요.</span><textarea class="t" readonly rows="10" style="width:100%;height:auto;margin-top:8px;padding:10px;font-size:12px">'+esc(t)+'</textarea>'};
+  var t=pipeText(),done=function(ok){$('tlPipeMsg').innerHTML=ok?'복사했어요.':'<span class="u">자동 복사가 안 돼요.</span> <span class="u">아래 글을 길게 눌러 복사해 주세요.</span><textarea class="t" readonly rows="10" style="width:100%;height:auto;margin-top:8px;padding:10px;font-size:12px">'+esc(t)+'</textarea>'};
   if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(function(){done(true)},function(){done(false)})}else{done(false)}
 };
 function openTools(){drawTools();drawPipe();show('scrTools')}
