@@ -476,7 +476,7 @@ body[data-season="겨울"] #me .scarf{display:block}
     <aside class="side">
       <div class="card">
         <div class="msg-head"><div class="avatar" aria-hidden="true">정</div><div class="t"><b>정아름 팀장</b><small>팀장 메신저 · 오늘 업무</small></div></div>
-        <div class="bubble">
+        <div class="bubble" id="todayMsg">
           <div><span class="u">오늘은 내 자리에 있는</span> <span class="u">통장·카드 내역부터</span> <span class="u">봐 주세요.</span></div>
           <div><span class="u">막히면 제 자리로 와서</span> <span class="u">물어보면 돼요.</span></div>
         </div>
@@ -512,7 +512,7 @@ body[data-season="겨울"] #me .scarf{display:block}
         <div class="note hidden" id="dyCopyMsg" aria-live="polite"></div>
         <small><span class="u">이 기기에만 저장돼요.</span> <span class="u">4주 뒤 포트폴리오 재료가 돼요.</span></small>
       </div>
-      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1119-0030</div></div>
+      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1119-0050</div></div>
     </aside>
   </div>
 </section>
@@ -734,7 +734,7 @@ function punch(){
   var body=new URLSearchParams();body.append(A.name,me.name);body.append(A.char,c?c.label:'');
   try{fetch(A.url,{method:'POST',mode:'no-cors',body:body}).then(function(){me.punched=today();save(me)},function(){})}catch(e){}
 }
-$('goIn').onclick=function(){me.name=$('nm').value.trim();me.char=pick;me.punched='';save(me);applyMe();punch();show('scrBrief')};
+$('goIn').onclick=function(){me.name=$('nm').value.trim();me.char=pick;me.punched='';save(me);applyMe();punch();drawLeaderMsg();show('scrBrief')};
 $('goOffice').onclick=function(){show('scrHand')};
 $('goOffice2').onclick=function(){me.briefed=true;save(me);show('scrOffice')};
 $('openHand').onclick=function(){show('scrHand')};
@@ -1043,8 +1043,42 @@ function fit(){
 }
 window.addEventListener('resize',fit);
 
+
+/* 팀장 메신저 — 날짜·상태별 한 마디. 주차 시작일(목요일)과 업무 이름만 넣으면 된다.
+   2~4주차는 각 주 공개 전에 한 줄씩 추가: {w:2,start:'2026-12-03',job:'증빙 관리',jo:'를'} */
+var WEEKS=[{w:1,start:'2026-11-26',job:'10월 거래 기록',jo:'을'}];
+function pD(s){var p=String(s).split('-');return new Date(+p[0],p[1]-1,+p[2])}
+function dDiff(a,b){var x=new Date(a.getFullYear(),a.getMonth(),a.getDate()),y=new Date(b.getFullYear(),b.getMonth(),b.getDate());return Math.round((x-y)/864e5)}
+function ckCount(){var c=me.ck1||{},n=0;for(var k in c){if(k!=='diff'&&String(c[k]).trim())n++}return n}
+var visitGap=(function(){var g=me.lastSeen?dDiff(new Date(),pD(me.lastSeen)):0;if(!me.firstDay)me.firstDay=today();me.lastSeen=today();save(me);return g})();
+function leaderMsg(){
+  var now=new Date(),nm=me.name?me.name+' 님, ':'';
+  if(me.firstDay===today())return [nm+'첫 출근 반가워요.','인수인계서부터|천천히 읽어 보세요.','막히면 제 자리로 와서|물어보면 돼요.'];
+  if(visitGap>=3)return ['다시 와서 반가워요.','어디까지 했는지|업무일지부터 확인해 보세요.'];
+  var W=null,i=-1;
+  for(var k=0;k<WEEKS.length;k++){var d=dDiff(now,pD(WEEKS[k].start));if(d>=0){W=WEEKS[k];i=d}}
+  if(!W){var f=pD(WEEKS[0].start);return [(f.getMonth()+1)+'/'+f.getDate()+'(목)부터|첫 업무가 시작돼요.','그 전에 인수인계서와|사무실을 둘러봐 두세요.']}
+  var job=W.job+W.jo;
+  if(W.w===1&&(i===5||i===6)&&ckCount()===0)return ['결재함 점검표가|아직 비어 있어요.',(i===5?'내일':'오늘')+' 23:59가|결재 상신 마감이에요.','숫자 칸부터|하나씩 채워 보세요.'];
+  switch(i){
+    case 0:return W.w===1?['오늘부터 첫 업무예요.','이번 주는|'+job+' 맡아요.','노션 1주차 따라 하기를|1단계부터 열어 보세요.']:['이번 주는|'+job+' 맡아요.','지난주 결재 상신이 남았다면|오늘 23:59까지 올릴 수 있어요.'];
+    case 1:return W.w===1?['어제 시작한 업무,|어디까지 했나요?','막힌 곳이 있으면|업무일지에 남겨 두세요.']:['지난주 결재 의견을|이메일로 보냈어요.','확인하고 사원증에|도장을 찍어 주세요.'];
+    case 2:case 3:return ['주말이에요.','업무일지에서|막힌 순간 하나만|골라 두면 충분해요.'];
+    case 4:return ['이번 주 '+W.job+',|어디까지 왔나요?','수요일 23:59가|결재 상신 마감이에요.'];
+    case 5:return ['내일 23:59가|결재 상신 마감이에요.','결재함 점검표를|오늘 채워 두면|수요일이 편해요.'];
+    case 6:return ['오늘 23:59가|결재 상신 마감이에요.','점검표를 복사해|과제 폼에 붙여 넣고|압축 파일을 올려요.'];
+    case 7:return ['어제 못 냈어도|오늘 23:59까지는|올릴 수 있어요.','이미 올렸다면|금요일 결재 의견을|기다려 주세요.'];
+    case 8:return ['지난주 결재 의견을|이메일로 보냈어요.','확인하고 사원증에|도장을 찍어 주세요.'];
+  }
+  return null;
+}
+function drawLeaderMsg(){
+  var m=leaderMsg();if(!m)return;
+  $('todayMsg').innerHTML=m.map(function(line){return '<div>'+line.split('|').map(function(u){return '<span class="u">'+esc(u)+'</span>'}).join(' ')+'</div>'}).join('');
+}
 /* 시작 */
 drawChars();check();drawZones();
+drawLeaderMsg();
 if(me.name&&me.char){applyMe();punch();show(me.briefed?'scrOffice':'scrBrief')}else{show('scrEnter')}
 </script>
 </body>
