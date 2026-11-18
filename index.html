@@ -147,6 +147,23 @@ body[data-season="겨울"] #me .scarf{display:block}
 .hv-t td:first-child{white-space:nowrap;font-weight:700;color:var(--navy);width:64px}
 .hv-rule{margin:0;padding-left:18px;font-size:14px;line-height:1.7}
 @media (max-width:420px){.hv li{grid-template-columns:22px 1fr}.hv li>span{grid-column:2}}
+.ck-wrap{max-width:860px;margin:0 auto;padding:16px;display:flex;flex-direction:column;gap:14px}
+.ck-h{margin:0 0 10px;font-size:16px;color:var(--navy)}
+.ck-h small{font-weight:400;color:var(--sub);font-size:12px}
+.ck-open{display:grid;grid-template-columns:84px 1fr;gap:8px;font-size:13px;line-height:1.6;margin-bottom:6px}
+.ck-open b{color:var(--navy);white-space:nowrap}
+.ck-open code,.lead code{font-size:12px;background:#f3f5f8;padding:1px 4px;border-radius:4px}
+.ck-scroll{overflow-x:auto;margin-top:10px;-webkit-overflow-scrolling:touch}
+.ck-t{border-collapse:collapse;width:100%;min-width:640px;font-size:13px}
+.ck-t th{background:#f3f7fd;color:var(--navy);padding:8px 6px;text-align:center;border-bottom:1.5px solid var(--cardBd);white-space:nowrap}
+.ck-t td{padding:6px;border-bottom:1px solid var(--cardBd)}
+.ck-t td:first-child{font-weight:700;color:var(--navy);white-space:nowrap}
+.num{width:100%;min-width:72px;height:40px;border:1.5px solid var(--cardBd);border-radius:8px;padding:0 8px;font-family:inherit;font-size:15px;text-align:right;font-variant-numeric:tabular-nums;color:var(--ink);background:#fff}
+.num:focus{outline:2px solid var(--blue);border-color:var(--blue)}
+.num.filled{background:#f3f7fd}
+.ck-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 14px;margin-top:10px}
+.ck-grid label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--ink)}
+@media (max-width:520px){.ck-grid{grid-template-columns:minmax(0,1fr)}.ck-open{grid-template-columns:1fr;gap:2px}}
 .foot{text-align:center;padding:4px 0 20px}
 .quick{display:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
 .quick button{min-height:44px;border-radius:10px;border:1.5px solid var(--blue);background:#fff;color:var(--navy);font-size:13px;font-weight:700;white-space:nowrap;cursor:pointer;padding:0 6px}
@@ -403,6 +420,57 @@ body[data-season="겨울"] #me .scarf{display:block}
   </div>
 </section>
 
+<!-- 4. 금일 결재 전 점검표 -->
+<section id="scrCheck" class="hidden" aria-labelledby="h-check">
+  <div class="ck-wrap">
+    <button class="link" id="ckBack" style="font-size:14px;padding:4px 0">← 사무실로</button>
+    <div class="card">
+      <span class="kicker">결재함 · 1주차</span>
+      <h1 id="h-check" style="margin:10px 0 6px;font-size:22px;color:var(--navy)">금일 결재 전 점검표</h1>
+      <div class="lead" style="font-size:14px"><span class="u">파일을 직접 열어 보고</span> <span class="u">본 숫자를 적어요.</span> <span class="u">체크 표시가 아니라 숫자예요.</span></div>
+      <div class="note" style="margin-top:6px"><span class="u">적은 숫자는 이 기기에 저장돼요.</span> <span class="u">며칠에 걸쳐 채워도 돼요.</span></div>
+    </div>
+
+    <div class="card">
+      <h2 class="ck-h">1. 파일별 숫자 <small>(2·6단계)</small></h2>
+      <div class="ck-open"><b>열어 볼 파일</b><span><span class="u"><code>04_산출물/표준거래표_〔파일〕.csv</code>,</span> <span class="u"><code>전표초안_〔파일〕.csv</code>,</span> <span class="u"><code>질의목록_〔파일〕.md</code></span></span></div>
+      <div class="ck-open"><b>볼 것</b><span><span class="u">표준 거래표의 건수와</span> <span class="u">입금·출금 합계,</span> <span class="u">전표 초안 행 수,</span> <span class="u">질의 목록 행 수.</span> <span class="u">카드는 이용금액을</span> <span class="u">출금 칸에 적어요.</span></span></div>
+      <div class="ck-scroll">
+        <table class="ck-t" id="ckFiles">
+          <thead><tr><th scope="col">파일</th><th scope="col">건수</th><th scope="col">입금 합계</th><th scope="col">출금 합계</th><th scope="col">전표 초안 행 수</th><th scope="col">질의 목록 행 수</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="ck-h">2. 여섯 파일 합친 숫자 <small>(8단계)</small></h2>
+      <div class="ck-open"><b>열어 볼 파일</b><span><span class="u"><code>04_산출물/전표초안_2026-10.csv</code>,</span> <span class="u"><code>질의목록_2026-10.md</code></span></span></div>
+      <div class="ck-open"><b>볼 것</b><span><span class="u">은행과 카드는</span> <span class="u">더하지 않고 따로 적어요.</span></span></div>
+      <div class="ck-grid" id="ckTotal"></div>
+    </div>
+
+    <div class="card">
+      <h2 class="ck-h">3. 내기 전 묶음 확인</h2>
+      <div class="ck-open"><b>열어 볼 곳</b><span><span class="u">탐색기의 <code>마감_2026-10</code> 폴더와</span> <span class="u">만든 압축 파일</span></span></div>
+      <div class="ck-grid" id="ckPack"></div>
+    </div>
+
+    <div class="card">
+      <h2 class="ck-h">4. 정답앵커와 다른 곳</h2>
+      <label for="ckDiff" class="ck-open" style="display:block"><span class="u">다른 숫자가 있으면</span> <span class="u">어느 파일의 무엇이</span> <span class="u">얼마나 다른지 적어요.</span> <span class="u">없으면 「없음」.</span></label>
+      <textarea id="ckDiff" class="t" rows="3" maxlength="400" style="height:auto;padding:10px 14px;resize:vertical;line-height:1.6"></textarea>
+    </div>
+
+    <div class="card" style="display:flex;flex-direction:column;gap:10px">
+      <div style="font-size:14px" id="ckCount"></div>
+      <button class="btn" id="ckCopy">점검표 복사하기</button>
+      <div class="note" id="ckMsg" aria-live="polite"><span class="u">복사한 글을 과제 폼의</span> <span class="u">「점검표 숫자」 칸에 붙여 넣어요.</span></div>
+      <button class="btn ghost" id="ckSubmit">결재 상신하기</button>
+    </div>
+  </div>
+</section>
+
 <script>
 /* ===== 강사 설정: 여기만 바꾸면 됩니다 ===== */
 var CONFIG = {
@@ -441,7 +509,7 @@ var ZONES = [
    real:'질문 구글폼에|막힌 곳을 적어 보내요.',act:'업무 확인 요청 쓰기',link:'question'},
   {id:'tray',x:818,y:424,w:100,h:64,cx:-4,cy:70,tx:780,ty:432,chip:'결재함 · 매주',title:'결재함',week:'매주',st:'열림',
    lines:['한 주 업무를 마치면|「결재 상신」을 해요.','올리기 전에 점검표에|건수와 합계를|직접 적어요.','결재 의견은|승인 · 보완 요청 · 반려|중 하나로 와요.','반려되면 사유를 보고|고쳐서 다시 올리면 돼요.'],
-   real:'과제 구글폼에서|주차를 고르고|마감 폴더를 내요.|마감 일시는|공지를 확인해 주세요.',act:'결재 상신하기',link:'submit'},
+   real:'과제 구글폼에서|주차를 고르고|마감 폴더를 내요.|마감 일시는|공지를 확인해 주세요.',act:'결재 상신하기',link:'submit',check:true},
   {id:'sales',x:630,y:630,w:244,h:140,cx:12,cy:-26,tx:724,ty:756,chip:'영업팀 · 2주차',title:'영업팀',week:'2주차',st:'2주차에 찾아와요',
    lines:['영업팀 동료가|결의서 없는 카드 건을|들고 올 거예요.','무엇을 확인해 달라고 할지|내가 정해요.'],real:'확인 요청 문장을|직접 써 봐요.'},
   {id:'ceo',x:696,y:0,w:320,h:240,cx:12,cy:12,tx:822,ty:250,lock:true,chip:'대표실 · 3주차',title:'대표실',week:'3주차',st:'잠김',
@@ -459,7 +527,7 @@ function save(o){try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}}
 var me=load();
 
 function $(id){return document.getElementById(id)}
-function show(id){['scrEnter','scrBrief','scrHand','scrOffice'].forEach(function(s){$(s).classList.toggle('hidden',s!==id)});window.scrollTo(0,0);if(id==='scrOffice')fit()}
+function show(id){['scrEnter','scrBrief','scrHand','scrOffice','scrCheck'].forEach(function(s){$(s).classList.toggle('hidden',s!==id)});window.scrollTo(0,0);if(id==='scrOffice')fit()}
 
 /* 계절 */
 function seasonOf(){
@@ -532,10 +600,72 @@ function go(id){
     a=url?'<a class="btn" href="'+esc(url)+'" target="_blank" rel="noopener">'+esc(z.act)+'</a>'
          :'<button class="btn" type="button" disabled>'+esc(z.act)+'</button><div class="pending">링크는 공지에서 곧 알려 드려요.</div>';
   }
+  if(z.check)a='<button class="btn" type="button" id="openCheck" style="margin-bottom:10px">금일 결재 전 점검표 열기</button>'+a.replace('class="btn"','class="btn ghost"');
   $('dAct').innerHTML=a;
+  if(z.check)$('openCheck').onclick=openCheck;
   if(window.innerWidth<760)$('detail').scrollIntoView({behavior:'smooth',block:'start'});
 }
 $('goDesk').onclick=function(){go('desk')};
+
+
+/* 금일 결재 전 점검표 (1주차) */
+var CK_FILES=['은행A','은행B','은행C','카드A','카드B','카드C'];
+var CK_COLS=[['cnt','건수'],['in','입금 합계'],['out','출금 합계'],['slip','전표 초안 행 수'],['q','질의 목록 행 수']];
+var CK_TOTAL=[['t_cnt','전체 건수'],['t_bin','은행 입금 합계'],['t_bout','은행 출금 합계'],['t_bnet','은행 10월 순증감'],['t_cnt_card','카드 건수'],['t_card','카드 이용금액 합계'],['t_blank','계정 칸이 빈 행 수'],['t_qrows','합친 질의 목록 행 수']];
+var CK_PACK=[['p_slip','04_산출물의 파일별 전표 초안 개수'],['p_qlist','04_산출물의 파일별 질의 목록 개수'],['p_items','압축에 넣은 항목 수 (01_원자료 뺌)']];
+function ckData(){me.ck1=me.ck1||{};return me.ck1}
+function numInput(key,label){
+  var v=esc(ckData()[key]||'');
+  return '<input class="num'+(v?' filled':'')+'" inputmode="numeric" autocomplete="off" data-k="'+key+'" aria-label="'+esc(label)+'" value="'+v+'">';
+}
+function drawCheck(){
+  $('ckFiles').querySelector('tbody').innerHTML=CK_FILES.map(function(f){
+    return '<tr><td>'+f+'</td>'+CK_COLS.map(function(c){return '<td>'+numInput(f+'_'+c[0],f+' '+c[1])+'</td>'}).join('')+'</tr>';
+  }).join('');
+  $('ckTotal').innerHTML=CK_TOTAL.map(function(c){return '<label>'+esc(c[1])+numInput(c[0],c[1])+'</label>'}).join('');
+  $('ckPack').innerHTML=CK_PACK.map(function(c){return '<label>'+esc(c[1])+numInput(c[0],c[1])+'</label>'}).join('');
+  $('ckDiff').value=ckData().diff||'';
+  Array.prototype.forEach.call(document.querySelectorAll('#scrCheck .num'),function(i){
+    i.addEventListener('input',function(){
+      var raw=i.value.replace(/[^0-9,\-]/g,'');
+      if(raw!==i.value)i.value=raw;
+      ckData()[i.getAttribute('data-k')]=raw;i.classList.toggle('filled',!!raw);save(me);ckCount();
+    });
+    i.addEventListener('blur',function(){
+      var d=i.value.replace(/,/g,'');
+      if(/^-?\d+$/.test(d)){i.value=Number(d).toLocaleString('ko-KR');ckData()[i.getAttribute('data-k')]=i.value;save(me)}
+    });
+  });
+  ckCount();
+}
+function ckKeys(){
+  var k=[];CK_FILES.forEach(function(f){CK_COLS.forEach(function(c){k.push(f+'_'+c[0])})});
+  CK_TOTAL.forEach(function(c){k.push(c[0])});CK_PACK.forEach(function(c){k.push(c[0])});return k;
+}
+function ckCount(){
+  var k=ckKeys(),d=ckData(),n=k.filter(function(x){return d[x]}).length;
+  $('ckCount').innerHTML='<span class="u">숫자 칸 '+k.length+'개 중</span> <span class="u"><b>'+n+'개</b>를 적었어요.</span>';
+}
+$('ckDiff').addEventListener('input',function(){ckData().diff=this.value;save(me)});
+function ckText(){
+  var d=ckData(),v=function(k){return d[k]||'미기입'},L=[];
+  L.push('[금일 결재 전 점검표 · 1주차 · '+(me.name||'')+']');
+  L.push('1. 파일별 숫자 (파일 | 건수 | 입금 | 출금 | 전표 초안 행 | 질의 목록 행)');
+  CK_FILES.forEach(function(f){L.push(f+' | '+CK_COLS.map(function(c){return v(f+'_'+c[0])}).join(' | '))});
+  L.push('2. 여섯 파일 합친 숫자');
+  CK_TOTAL.forEach(function(c){L.push(c[1]+': '+v(c[0]))});
+  L.push('3. 내기 전 묶음 확인');
+  CK_PACK.forEach(function(c){L.push(c[1]+': '+v(c[0]))});
+  L.push('4. 정답앵커와 다른 곳: '+((d.diff||'').trim()||'미기입'));
+  return L.join('\n');
+}
+$('ckCopy').onclick=function(){
+  var t=ckText(),done=function(ok){$('ckMsg').innerHTML=ok?'<span class="u">복사했어요.</span> <span class="u">과제 폼의 「점검표 숫자」 칸에</span> <span class="u">붙여 넣어요.</span>':'<span class="u">자동 복사가 안 돼요.</span> <span class="u">아래 글을 길게 눌러 복사해 주세요.</span><textarea class="t" readonly rows="8" style="height:auto;margin-top:8px;padding:10px;font-size:12px">'+esc(t)+'</textarea>'};
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(function(){done(true)},function(){done(false)})}else{done(false)}
+};
+$('ckSubmit').onclick=function(){var u=CONFIG.links.submit;if(u){window.open(u,'_blank','noopener')}else{$('ckMsg').innerHTML='<span class="u">과제 폼 링크는</span> <span class="u">공지에서 곧 알려 드려요.</span>'}};
+function openCheck(){drawCheck();show('scrCheck')}
+$('ckBack').onclick=function(){show('scrOffice')};
 
 /* 지도 크기 맞추기 */
 function fit(){
