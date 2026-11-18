@@ -167,6 +167,7 @@ body[data-season="겨울"] #me .scarf{display:block}
 .ck-h small{font-weight:400;color:var(--sub);font-size:12px}
 .ck-open{display:grid;grid-template-columns:84px 1fr;gap:8px;font-size:13px;line-height:1.6;margin-bottom:6px}
 .ck-open b{color:var(--navy);white-space:nowrap}
+.ck-match b{color:#1257c4}
 .ck-open code,.lead code{font-size:12px;background:#f3f5f8;padding:1px 4px;border-radius:4px}
 .ck-real{background:#fdf6f0;border:1.5px solid #ecd3bd;border-radius:10px;padding:7px 12px;margin:8px 0 4px;font-size:13px;line-height:1.6}
 .ck-real summary{cursor:pointer;display:flex;gap:10px;align-items:baseline;list-style:none}
@@ -496,7 +497,7 @@ body[data-season="겨울"] #me .scarf{display:block}
         <div class="note hidden" id="dyCopyMsg" aria-live="polite"><span class="u">주말에 고른 것을</span> <span class="u">제출메모의 「막힌 순간」에</span> <span class="u">옮겨 붙여요.</span></div>
         <small><span class="u">이 기기에만 저장돼요.</span> <span class="u">4주 뒤 포트폴리오 재료가 돼요.</span></small>
       </div>
-      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1118-2355</div></div>
+      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1118-2400</div></div>
     </aside>
   </div>
 </section>
@@ -516,6 +517,7 @@ body[data-season="겨울"] #me .scarf{display:block}
       <h2 class="ck-h">1. 파일별 숫자 <small>(2·6단계)</small></h2>
       <div class="ck-open"><b>열어 볼 파일</b><span><span class="u"><code>04_산출물/표준거래표_〔파일〕.csv</code>,</span> <span class="u"><code>전표초안_〔파일〕.csv</code>,</span> <span class="u"><code>질의목록_〔파일〕.md</code></span></span></div>
       <div class="ck-open"><b>볼 것</b><span><span class="u">표준 거래표의 건수와</span> <span class="u">입금·출금 합계,</span> <span class="u">전표 초안 행 수,</span> <span class="u">질의 목록 행 수.</span> <span class="u">카드는 이용금액을</span> <span class="u">출금 칸에 적어요.</span></span></div>
+      <div class="ck-open ck-match"><b>맞춰 볼 곳</b><span><span class="u">건수·입금·출금 →</span> <span class="u">03_정답앵커의 그 파일 줄.</span> <span class="u">전표 초안 행 수 →</span> <span class="u">위의 건수와 같은지.</span> <span class="u">질의 목록 행 수 →</span> <span class="u">전표 초안에서 계정이 빈 행 수와 같은지</span></span></div>
       <details class="ck-real"><summary><b>실무라면</b><span><span class="u">통장은 인터넷뱅킹 거래내역,</span> <span class="u">카드는 카드사 이용내역</span></span></summary><ul><li>통장: 인터넷뱅킹 거래내역 조회(10월 1일~31일)의 입금·출금 건수와 합계</li><li>카드: 카드사 홈페이지 이용내역 조회의 10월 이용 건수와 이용금액. 청구서 금액은 쓰지 않고, 승인 취소 건은 뺀다</li><li>전표 초안 행 수: 회계프로그램에 입력한 10월 전표 건수</li><li>질의 목록 행 수: 담당자 확인을 기다리는 미결 항목 목록</li></ul></details>
       <div class="ck-scroll">
         <table class="ck-t" id="ckFiles">
@@ -529,6 +531,7 @@ body[data-season="겨울"] #me .scarf{display:block}
       <h2 class="ck-h">2. 여섯 파일 합친 숫자 <small>(8단계)</small></h2>
       <div class="ck-open"><b>열어 볼 파일</b><span><span class="u"><code>04_산출물/전표초안_2026-10.csv</code>,</span> <span class="u"><code>질의목록_2026-10.md</code></span></span></div>
       <div class="ck-open"><b>볼 것</b><span><span class="u">은행과 카드는</span> <span class="u">더하지 않고 따로 적어요.</span></span></div>
+      <div class="ck-open ck-match"><b>맞춰 볼 곳</b><span><span class="u">건수·합계·순증감 →</span> <span class="u">03_정답앵커의 10월 합계.</span> <span class="u">계정 칸이 빈 행 수 →</span> <span class="u">합친 질의 목록 행 수와 같은지</span></span></div>
       <details class="ck-real"><summary><b>실무라면</b><span><span class="u">9월 말 잔액 + 입금 − 출금</span> <span class="u">= 10월 말 잔액</span></span></summary><ul><li>은행: 통장 화면의 9월 말 잔액과 10월 말 잔액으로 위 식이 맞는지, 장부의 보통예금 잔액과 통장 잔액이 같은지(은행 대사)</li><li>카드: 카드사 이용내역 조회의 10월 이용금액 합계</li><li>계정 칸이 빈 행: 마감 전에 남은 미결 항목 수</li></ul></details>
       <div class="ck-grid" id="ckTotal"></div>
     </div>
@@ -536,6 +539,7 @@ body[data-season="겨울"] #me .scarf{display:block}
     <div class="card">
       <h2 class="ck-h">3. 내기 전 묶음 확인</h2>
       <div class="ck-open"><b>열어 볼 곳</b><span><span class="u">탐색기의 <code>마감_2026-10</code> 폴더와</span> <span class="u">만든 압축 파일</span></span></div>
+      <div class="ck-open ck-match"><b>맞춰 볼 곳</b><span><span class="u">전표 초안 6개 ·</span> <span class="u">질의 목록 6개 ·</span> <span class="u">압축 항목 5개</span> <span class="u">(02_AI입력용, 03_정답앵커, 04_산출물,</span> <span class="u">CLAUDE.md, 제출메모.md)</span></span></div>
       <details class="ck-real"><summary><b>실무라면</b><span>결재 문서의 첨부 목록</span></summary><ul><li>결재 문서에 붙이는 첨부 목록과 개수를 맞춰 본다</li></ul></details>
       <div class="ck-grid" id="ckPack"></div>
     </div>
@@ -543,6 +547,7 @@ body[data-season="겨울"] #me .scarf{display:block}
     <div class="card">
       <h2 class="ck-h">4. 정답앵커와 다른 곳</h2>
       <div class="ck-open"><b>열어 볼 파일</b><span><code>03_정답앵커/03_정답앵커.md</code></span></div>
+      <div class="ck-open ck-match"><b>맞춰 볼 곳</b><span><span class="u">1·2번에 적은 숫자 중</span> <span class="u">정답앵커와 다른 것</span></span></div>
       <details class="ck-real"><summary><b>실무라면</b><span><span class="u">은행·카드사 화면에서</span> <span class="u">직접 조회한 숫자</span></span></summary><ul><li>실무에는 정답앵커 파일이 없다. 은행·카드사 화면에서 조회한 숫자를 조회 일자와 함께 기록한다</li><li>받은 엑셀에서 다시 센 숫자는 기준이 되지 않는다</li></ul></details>
       <label for="ckDiff" class="ck-open" style="display:block"><span class="u">다른 숫자가 있으면</span> <span class="u">어느 파일의 무엇이</span> <span class="u">얼마나 다른지 적어요.</span> <span class="u">없으면 「없음」.</span></label>
       <textarea id="ckDiff" class="t" rows="3" maxlength="400" style="width:100%;height:auto;padding:10px 14px;resize:vertical;line-height:1.6"></textarea>
@@ -572,13 +577,12 @@ body[data-season="겨울"] #me .scarf{display:block}
       <div class="tl-dh"><h2>AI 에이전트 파이프라인</h2><span>1·2주차 도구가 이어지는 순서</span></div>
       <div class="note" style="margin-bottom:10px"><span class="u">등록한 도구가</span> <span class="u">일하는 순서대로 이어져요.</span> <span class="u">칸 이름은 실무 업무 이름이에요.</span> <span class="u">흰 칸은 내가 만든 프로그램,</span> <span class="u">파란 칸은 AI가 직접 하는 일,</span> <span class="u">주황 칸은 사람이 확인하는 자리예요.</span></div>
       <div id="tlPipe"></div>
-      <button class="btn ghost" type="button" id="tlPipeCopy" style="margin-top:12px">파이프라인 복사하기</button>
-      <div class="note" id="tlPipeMsg" aria-live="polite" style="margin-top:6px"><span class="u">4주차 포트폴리오의</span> <span class="u">「내가 만든 AI 에이전트」 칸에</span> <span class="u">이 파이프라인을 붙여요.</span></div>
+      <button class="btn ghost" type="button" id="tlPipeCopy" style="margin-top:12px">포트폴리오용 파이프라인 복사하기</button>
+      <div class="note" id="tlPipeMsg" aria-live="polite" style="margin-top:6px"><span class="u">4주차 포트폴리오의</span> <span class="u">「내가 만든 AI 에이전트」 칸에 붙이는 글이에요.</span> <span class="u">업무 흐름 한 줄과 업무별 표로 복사돼요.</span></div>
     </div>
     <div id="tlDrawers"></div>
-    <div class="card" style="display:flex;flex-direction:column;gap:10px">
-      <button class="btn" id="tlCopy">도구 목록 복사하기</button>
-      <div class="note" id="tlMsg" aria-live="polite"><span class="u">따로 낼 필요는 없어요.</span> <span class="u">결재함에서 점검표를 복사하면</span> <span class="u">이 목록도 함께 들어가요.</span></div>
+    <div class="card note" style="font-size:13px;line-height:1.7">
+      <span class="u">이 목록은 따로 내지 않아요.</span> <span class="u">결재함에서 점검표를 복사하면</span> <span class="u">등록한 도구 목록이 함께 들어가요.</span>
     </div>
   </div>
 </section>
@@ -881,13 +885,6 @@ function drawTools(){
   })});
   tlCount();
 }
-$('tlCopy').onclick=function(){
-  var d=tlData(),L=['[AI 에이전트의 도구 · '+(me.name||'')+']'];
-  TOOLS.forEach(function(w){if(!w.groups)return;L.push(w.title);w.groups.forEach(function(g){g.items.forEach(function(i){if(d[i.k])L.push('- '+i.l+': '+d[i.k])})})});
-  var t=L.join('\n');
-  var done=function(ok){$('tlMsg').innerHTML=ok?'복사했어요.':'<span class="u">자동 복사가 안 돼요.</span> <span class="u">아래 글을 길게 눌러 복사해 주세요.</span><textarea class="t" readonly rows="8" style="height:auto;margin-top:8px;padding:10px;font-size:12px">'+esc(t)+'</textarea>'};
-  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(function(){done(true)},function(){done(false)})}else{done(false)}
-};
 
 /* 파이프라인 — 실무 업무 이름 기준 */
 var PIPE=[
