@@ -36,7 +36,9 @@ button{font-family:inherit}
 .idcard small{font-size:11px;color:var(--sub)}
 .idcard strong{font-size:13px;white-space:nowrap}
 .stamps{display:flex;gap:4px}
-.stamp{width:26px;height:26px;border-radius:50%;border:1.5px dashed #8aa3c4;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--sub);white-space:nowrap}
+.stamp{width:30px;height:30px;border-radius:50%;border:1.5px dashed #8aa3c4;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--sub);white-space:nowrap;background:#fff;padding:0;cursor:pointer;font-family:inherit}
+.stamp.s1{border:2px solid #c9824f;color:#8a4f25;font-weight:700;background:#fdf1e6}
+.stamp.s2{border:2px solid #1257c4;color:#1257c4;font-weight:700;background:#f3f7fd;font-size:8px}
 
 /* 공통 카드 */
 .card{background:#fff;border:1.5px solid var(--cardBd);border-radius:14px;padding:18px}
@@ -220,6 +222,12 @@ body[data-season="겨울"] #me .scarf{display:block}
 .tl-fb{font-size:12px;line-height:1.5;margin-top:3px;min-height:0}
 .tl-fb.ok{color:#2f7a4a}
 .tl-fb.warn{color:#8a4f25}
+.dest{display:flex;flex-direction:column;gap:2px;background:#f3f7fd;border:1.5px solid #c9d7ea;border-radius:10px;padding:8px 12px;margin-bottom:8px;font-size:13px;line-height:1.5;color:var(--ink)}
+.dest svg{color:#1257c4;vertical-align:-2px;margin-right:4px}
+.dest b{color:#1257c4;margin-right:4px;white-space:nowrap}
+.next{background:#f4faf6;border:1.5px solid #b9dcc6;border-radius:10px;padding:10px 12px;margin-top:8px;font-size:13px;line-height:1.6;color:var(--ink)}
+.next b{color:#2f7a4a}
+.next ol{margin:6px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:2px}
 .tl-lockmsg{font-size:14px;line-height:1.7;color:#3a4a63}
 @media (max-width:520px){.tl-row{grid-template-columns:minmax(0,1fr)}}
 .foot{text-align:center;padding:4px 0 20px}
@@ -238,7 +246,7 @@ body[data-season="겨울"] #me .scarf{display:block}
   <div class="idcard hidden" id="idcard">
     <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true" id="idface"></svg>
     <div class="t"><small>사원증</small><strong id="idname">인턴 사원</strong></div>
-    <div class="stamps" aria-label="결재 도장 0개 / 4개"><div class="stamp">1주</div><div class="stamp">2주</div><div class="stamp">3주</div><div class="stamp">4주</div></div>
+    <div class="stamps" id="stamps" role="group" aria-label="결재 도장"></div>
   </div>
 </header>
 
@@ -307,7 +315,7 @@ body[data-season="겨울"] #me .scarf{display:block}
           <tr><td>내 자리</td><td><span class="u">주차별 업무 수행.</span> <span class="u">노션 따라 하기를 참고하여</span> <span class="u">Code 탭에서 실습함</span></td></tr>
           <tr><td>팀장 자리</td><td><span class="u">업무 중 막히는 사항은</span> <span class="u">「업무 확인 요청」(질문 폼)으로</span> <span class="u">수시 제출함</span></td></tr>
           <tr><td>AI 에이전트</td><td><span class="u">만든 프로그램과 기준표를</span> <span class="u">AI 에이전트의 도구로 등록함.</span> <span class="u">3주차에 모인 도구로</span> <span class="u">AI 에이전트가 다음 달 마감을 실행함</span></td></tr>
-          <tr><td>결재함</td><td><span class="u">주차 업무 완료 후</span> <span class="u">「금일 결재 전 점검표」 작성 →</span> <span class="u">「결재 상신」(과제 폼).</span> <span class="u">결재 의견은</span> <span class="u">승인 · 보완 요청 · 반려 중</span> <span class="u">하나로 회신됨</span></td></tr>
+          <tr><td>결재함</td><td><span class="u">주차 업무 완료 후</span> <span class="u">「금일 결재 전 점검표」 작성 →</span> <span class="u">「결재 상신」(과제 폼).</span> <span class="u">결재 의견은</span> <span class="u">승인 · 보완 요청 · 반려 중 하나로</span> <span class="u">금요일에 이메일로 회신됨.</span> <span class="u">승인되면 사원증 도장 칸을 눌러 찍음</span></td></tr>
           <tr><td>탕비실</td><td><span class="u">4주차 주제를 정하기 전</span> <span class="u">팀장과 15분 커피챗 신청(선택).</span> <span class="u">12/12(토)·12/13(일) 오후,</span> <span class="u">온라인 채팅.</span> <span class="u">12/11(금) 18:00까지 신청받음</span></td></tr>
           <tr><td>대표실 · 회의실</td><td><span class="u">각각 3주차 · 4주차에 개방</span></td></tr>
           <tr><td>퇴근</td><td><span class="u">당일 막힌 사항을</span> <span class="u">업무일지에 1줄 기록함</span></td></tr>
@@ -327,7 +335,7 @@ body[data-season="겨울"] #me .scarf{display:block}
       <ol class="hv-rule">
         <li><span class="u">실제 회사 자료와 개인정보는</span> <span class="u">사용하지 않는다.</span> <span class="u">실습은 (주)이패스상사 자료로만 한다.</span></li>
         <li><span class="u">오픈채팅방에는</span> <span class="u">파일과 결과 숫자를</span> <span class="u">올리지 않는다.</span></li>
-        <li><span class="u">검산 판정은</span> <span class="u">인수자가 직접 한다.</span></li>
+        <li><span class="u">검산·대사 판정은</span> <span class="u">인수자가 직접 한다.</span></li>
       </ol>
       <h2>4. 문의</h2>
       <ol class="hv-rule">
@@ -497,13 +505,14 @@ body[data-season="겨울"] #me .scarf{display:block}
           <button class="btn" type="button" id="dySave">업무일지에 남기기</button>
         </div>
         <div id="dyPrev" class="dy-prev hidden"><img id="dyImg" alt="붙인 캡처 미리 보기"><button type="button" class="link" id="dyDrop">캡처 빼기</button></div>
-        <div class="note" id="dyMsg" aria-live="polite"><span class="u">PC에서는 캡처 후</span> <span class="u">이 칸에 Ctrl+V로 붙여도 돼요.</span> <span class="u">PC 사용자 이름이나</span> <span class="u">실제 자료가 보이면 가려 주세요.</span></div>
+        <div class="note" id="dyMsg" aria-live="polite"><span class="u">PC에서는 캡처 후</span> <span class="u">이 칸에 붙여 넣어도 돼요(Ctrl+V).</span> <span class="u">PC 사용자 이름이나</span> <span class="u">실제 자료가 보이면 가려 주세요.</span></div>
         <ul class="dy-list" id="dyList"></ul>
+        <div id="dyDest" class="hidden"><div class="dest"><span><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.3-6-11a6 6 0 0 1 12 0c0 5.7-6 11-6 11z"/><circle cx="12" cy="10" r="2.2"/></svg><b>붙일 곳</b> <span class="u">마감_2026-10/제출메모.md →</span> <span class="u">「막힌 순간」</span></span><span><b>언제</b> <span class="u">주말, 결재 상신 전</span></span></div></div>
         <button class="btn ghost hidden" type="button" id="dyCopy" style="margin-top:10px;min-height:44px;font-size:14px">업무일지 복사하기</button>
-        <div class="note hidden" id="dyCopyMsg" aria-live="polite"><span class="u">주말에 고른 것을</span> <span class="u">제출메모의 「막힌 순간」에</span> <span class="u">옮겨 붙여요.</span></div>
+        <div class="note hidden" id="dyCopyMsg" aria-live="polite"></div>
         <small><span class="u">이 기기에만 저장돼요.</span> <span class="u">4주 뒤 포트폴리오 재료가 돼요.</span></small>
       </div>
-      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1119-0010</div></div>
+      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1119-0030</div></div>
     </aside>
   </div>
 </section>
@@ -561,9 +570,9 @@ body[data-season="겨울"] #me .scarf{display:block}
 
     <div class="card" style="display:flex;flex-direction:column;gap:10px">
       <div style="font-size:14px" id="ckCount"></div>
+      <div class="dest"><span><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.3-6-11a6 6 0 0 1 12 0c0 5.7-6 11-6 11z"/><circle cx="12" cy="10" r="2.2"/></svg><b>붙일 곳</b> <span class="u">과제 폼 → 「점검표 숫자」 칸</span></span><span><b>언제</b> <span class="u">매주 결재 상신 때</span></span></div>
       <button class="btn" id="ckCopy">점검표 복사하기</button>
-      <div class="note" id="ckMsg" aria-live="polite"><span class="u">점검표 숫자와</span> <span class="u">AI 에이전트 도구 목록이</span> <span class="u">함께 복사돼요.</span> <span class="u">과제 폼의 「점검표 숫자」 칸에</span> <span class="u">붙여 넣어요.</span></div>
-      <button class="btn ghost" id="ckSubmit">결재 상신하기</button>
+      <div class="note" id="ckMsg" aria-live="polite"><span class="u">점검표 숫자와</span> <span class="u">AI 에이전트 도구 목록이</span> <span class="u">함께 복사돼요.</span></div>
     </div>
   </div>
 </section>
@@ -583,8 +592,9 @@ body[data-season="겨울"] #me .scarf{display:block}
       <div class="tl-dh"><h2>AI 에이전트 파이프라인</h2><span>1·2주차 도구가 이어지는 순서</span></div>
       <div class="note" style="margin-bottom:10px"><span class="u">등록한 도구가</span> <span class="u">일하는 순서대로 이어져요.</span> <span class="u">칸 이름은 실무 업무 이름이에요.</span> <span class="u">흰 칸은 내가 만든 프로그램,</span> <span class="u">파란 칸은 AI가 직접 하는 일,</span> <span class="u">주황 칸은 사람이 확인하는 자리예요.</span></div>
       <div id="tlPipe"></div>
-      <button class="btn ghost" type="button" id="tlPipeCopy" style="margin-top:12px">포트폴리오용 파이프라인 복사하기</button>
-      <div class="note" id="tlPipeMsg" aria-live="polite" style="margin-top:6px"><span class="u">4주차 포트폴리오의</span> <span class="u">「내가 만든 AI 에이전트」 칸에 붙이는 글이에요.</span> <span class="u">업무 흐름 한 줄과 업무별 표로 복사돼요.</span></div>
+      <div style="margin-top:12px"><div class="dest"><span><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.3-6-11a6 6 0 0 1 12 0c0 5.7-6 11-6 11z"/><circle cx="12" cy="10" r="2.2"/></svg><b>붙일 곳</b> <span class="u">4주차 노션 포트폴리오 →</span> <span class="u">「내가 만든 AI 에이전트」 칸</span></span><span><b>언제</b> <span class="u">4주차</span></span></div></div>
+      <button class="btn ghost" type="button" id="tlPipeCopy">포트폴리오용 파이프라인 복사하기</button>
+      <div class="note" id="tlPipeMsg" aria-live="polite" style="margin-top:6px"></div>
     </div>
     <div id="tlDrawers"></div>
     <div class="card note" style="font-size:13px;line-height:1.7">
@@ -596,6 +606,7 @@ body[data-season="겨울"] #me .scarf{display:block}
 <script>
 /* ===== 강사 설정: 여기만 바꾸면 됩니다 ===== */
 var CONFIG = {
+  week: 1,                  // 지금 주차 (1~4). 4가 되면 포트폴리오용 파이프라인 복사가 열림
   season: '겨울',            // '봄' | '여름' | '가을' | '겨울' | 'auto'(달에 맞춰 자동)
   cohort: '1기',
   links: {
@@ -639,8 +650,8 @@ var ZONES = [
    lines:['내가 만든 프로그램과 기준표가|AI 에이전트의 도구로 모여요.','하나 만들 때마다|파일 이름을 적어 등록해요.','3주차에는 도구가 모여|AI 에이전트가|다음 달 마감을 돌려요.'],
    real:'파일은 지금처럼|04_산출물에 두고,|여기서는 목록만 모아 봐요.',act:'AI 에이전트 열기',tools:true},
   {id:'tray',x:818,y:424,w:100,h:64,cx:-4,cy:70,tx:780,ty:432,chip:'결재함 · 매주',title:'결재함',week:'매주',st:'열림',
-   lines:['한 주 업무를 마치면|「결재 상신」을 해요.','올리기 전에 점검표에|건수와 합계를 직접 적고|「점검표 복사하기」를 눌러요.','결재 의견은|승인 · 보완 요청 · 반려|중 하나로 와요.','반려되면 사유를 보고|고쳐서 다시 올리면 돼요.'],
-   real:'구글 계정으로 로그인해|과제 폼에서 주차를 고르고,|점검표를 붙여 넣고|압축 파일을 올려요.|마감 일시는|공지를 확인해 주세요.',act:'결재 상신하기',link:'submit',check:true},
+   lines:['한 주 업무를 마치면|「결재 상신」을 해요.','올리기 전에 점검표에|건수와 합계를 직접 적고|「점검표 복사하기」를 눌러요.','결재 의견은|승인 · 보완 요청 · 반려 중 하나로|금요일에 이메일로 와요.','승인을 받으면|사원증의 도장 칸을 눌러|직접 찍어요.','반려되면 사유를 보고|고쳐서 다시 올리면 돼요.'],
+   real:'구글 계정으로 로그인해|과제 폼에서 주차를 고르고,|점검표를 붙여 넣고|압축 파일을 올려요.|마감 일시는|공지를 확인해 주세요.',check:true},
   {id:'sales',x:630,y:630,w:244,h:140,cx:12,cy:-26,tx:724,ty:756,chip:'영업팀 · 2주차',title:'영업팀',week:'2주차',st:'2주차에 찾아와요',
    lines:['영업팀 동료가|결의서 없는 카드 건을|들고 올 거예요.','무엇을 확인해 달라고 할지|내가 정해요.'],real:'확인 요청 문장을|직접 써 봐요.'},
   {id:'pantry',x:330,y:0,w:220,h:240,cx:12,cy:12,tx:372,ty:160,chip:'탕비실 · 커피챗',title:'탕비실 · 커피챗',week:'12/11까지 신청',st:'선택',
@@ -691,11 +702,23 @@ function check(){var v=$('nm').value.trim();$('goIn').disabled=!(nameOk(v)&&pick
 $('nm').addEventListener('input',check);
 $('nm').value=me.name||'';
 
+
+/* 사원증 결재 도장: 승인 이메일을 받으면 수강생이 직접 찍음 (이 기기에만 저장) */
+var ST=['','승인','재승인'];
+function drawStamps(){
+  me.stamps=me.stamps||[0,0,0,0];
+  $('stamps').innerHTML=me.stamps.map(function(v,i){
+    var lb=(i+1)+'주';
+    return '<button type="button" class="stamp s'+v+'" data-i="'+i+'" aria-label="'+lb+' 결재 도장: '+(v?ST[v]:'비어 있음')+'. 누르면 바뀜">'+(v?ST[v]:lb)+'</button>';
+  }).join('');
+  Array.prototype.forEach.call(document.querySelectorAll('#stamps .stamp'),function(b){b.onclick=function(){var i=+b.getAttribute('data-i');me.stamps[i]=(me.stamps[i]+1)%3;save(me);drawStamps()}});
+}
 function applyMe(){
   var c=CHARS.filter(function(x){return x.id===me.char})[0]||CHARS[0];
   $('idface').innerHTML=face(c);
   $('idname').textContent='인턴 사원 '+me.name;
   $('idcard').classList.remove('hidden');
+  drawStamps();
   $('meHair').style.background=c.hair;$('meBody').style.background=c.body;
   $('meName').textContent=me.name;
   $('hello').textContent=me.name+' 님, 인턴 합격을 축하해요. 반가워요.';
@@ -733,8 +756,12 @@ $('diary').addEventListener('paste',function(e){var it=(e.clipboardData||{}).ite
 $('dyCopy').onclick=function(){
   var a=dyLoad().slice().reverse(),L=['[업무일지 · '+(me.name||'')+']'];
   a.forEach(function(x){L.push('- '+x.d+' · '+(x.t||'(글 없음)')+(x.img?' (캡처 있음 — 내려받아 첨부)':''))});
-  var t=L.join('\n'),done=function(ok){$('dyCopyMsg').innerHTML=ok?'<span class="u">복사했어요.</span> <span class="u">제출메모의 「막힌 순간」에</span> <span class="u">고른 것만 붙여 넣어요.</span>':'<span class="u">자동 복사가 안 돼요.</span> <span class="u">아래 글을 길게 눌러 복사해 주세요.</span><textarea class="t" readonly rows="6" style="width:100%;height:auto;margin-top:8px;padding:10px;font-size:12px">'+esc(t)+'</textarea>'};
-  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(function(){done(true)},function(){done(false)})}else{done(false)}
+  copyFlow(L.join('\n'),$('dyCopyMsg'),[
+    '탐색기에서 <span class="u">마감_2026-10 폴더의</span> <span class="u">제출메모.md를</span> 메모장으로 열기',
+    '「막힌 순간」 아래에 '+PASTE,
+    '고른 것만 남기고 저장',
+    '캡처가 있으면 「캡처 내려받기」로 받아 <span class="u">마감_2026-10 폴더에</span> 넣기'
+  ]);
 };
 $('dyDrop').onclick=function(){dyPending=null;$('dyPrev').classList.add('hidden')};
 $('dySave').onclick=function(){
@@ -747,7 +774,7 @@ $('dySave').onclick=function(){
 function dyDraw(){
   var a=dyLoad();
   $('dyList').innerHTML=a.map(function(x,i){return '<li><div class="d"><span>'+esc(x.d)+'</span><button type="button" class="link" data-i="'+i+'">지우기</button></div>'+(x.t?'<div>'+esc(x.t)+'</div>':'')+(x.img?'<img src="'+x.img+'" alt="'+esc(x.d)+' 캡처"><a class="link" style="display:inline-block;padding:4px 0;font-size:12px" download="업무일지_'+esc(x.d.replace(/[: ]/g,'-'))+'.jpg" href="'+x.img+'">캡처 내려받기</a>':'')+'</li>'}).join('');
-  $('dyCopy').classList.toggle('hidden',!a.length);$('dyCopyMsg').classList.toggle('hidden',!a.length);
+  $('dyCopy').classList.toggle('hidden',!a.length);$('dyDest').classList.toggle('hidden',!a.length);$('dyCopyMsg').classList.toggle('hidden',!a.length);
   Array.prototype.forEach.call(document.querySelectorAll('#dyList button'),function(b){b.onclick=function(){var a=dyLoad();a.splice(+b.getAttribute('data-i'),1);dySaveAll(a);dyDraw()}});
   Array.prototype.forEach.call(document.querySelectorAll('#dyList img'),function(im){im.onclick=function(){var w=window.open();if(w){w.document.write('<img src="'+im.src+'" style="max-width:100%">')}}});
 }
@@ -780,7 +807,7 @@ function go(id){
          :'<button class="btn" type="button" disabled>'+esc(z.act)+'</button><div class="pending">링크는 공지에서 곧 알려 드려요.</div>';
   }
   if(z.tools)a='<button class="btn" type="button" id="openTools">AI 에이전트 열기</button>';
-  if(z.check)a='<button class="btn" type="button" id="openCheck" style="margin-bottom:10px">금일 결재 전 점검표 열기</button>'+a.replace('class="btn"','class="btn ghost"');
+  if(z.check)a='<button class="btn" type="button" id="openCheck">금일 결재 전 점검표 열기</button><div class="pending">결재 상신은 점검표를 복사한 뒤 안내에 따라 해요.</div>';
   $('dAct').innerHTML=a;
   if(z.check)$('openCheck').onclick=openCheck;
   if(z.tools)$('openTools').onclick=openTools;
@@ -844,10 +871,13 @@ function ckText(){
   return L.join('\n');
 }
 $('ckCopy').onclick=function(){
-  var t=ckText(),done=function(ok){$('ckMsg').innerHTML=ok?'<span class="u">복사했어요.</span> <span class="u">과제 폼의 「점검표 숫자」 칸에</span> <span class="u">붙여 넣어요.</span>':'<span class="u">자동 복사가 안 돼요.</span> <span class="u">아래 글을 길게 눌러 복사해 주세요.</span><textarea class="t" readonly rows="8" style="height:auto;margin-top:8px;padding:10px;font-size:12px">'+esc(t)+'</textarea>'};
-  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(function(){done(true)},function(){done(false)})}else{done(false)}
+  copyFlow(ckText(),$('ckMsg'),[
+    (CONFIG.links.submit?'<button type="button" class="link" data-open="submit" style="font-size:13px;padding:0">과제 폼 열기</button> (구글 계정으로 로그인)':'과제 폼 열기 (링크는 공지 확인, 구글 계정으로 로그인)'),
+    '「주차」에서 이번 주 고르기',
+    '「점검표 숫자」 칸을 누르고 '+PASTE,
+    '마감 폴더 압축 파일을 올리고 제출'
+  ]);
 };
-$('ckSubmit').onclick=function(){var u=CONFIG.links.submit;if(u){window.open(u,'_blank','noopener')}else{$('ckMsg').innerHTML='<span class="u">과제 폼 링크는</span> <span class="u">공지에서 곧 알려 드려요.</span>'}};
 function openCheck(){drawCheck();show('scrCheck')}
 $('ckBack').onclick=function(){show('scrOffice')};
 
@@ -926,8 +956,8 @@ var PIPE=[
   {biz:'거래처 목록 확인',step:'4단계',who:'사람',hum:1,keys:['nl']},
   {biz:'계정과목 분류 기준 수립',step:'5단계',who:'AI 초안 → 사람 검토',keys:['rule']},
   {biz:'전표 작성(분개)·미결 항목 정리',step:'6단계',who:'프로그램',keys:['sl']},
-  {biz:'거래 건수·금액 대사',step:'7단계',who:'프로그램 → 사람 판정',keys:['ck_은행A','ck_은행B','ck_은행C','ck_카드A','ck_카드B','ck_카드C']},
-  {biz:'대사 판정',hum:1,flow:1,txt:'정답앵커와 대사'},
+  {biz:'거래 건수·금액 검산',step:'7단계',who:'프로그램',keys:['ck_은행A','ck_은행B','ck_은행C','ck_카드A','ck_카드B','ck_카드C']},
+  {biz:'정답앵커 대사·판정',hum:1,flow:1,txt:'결과 숫자를 정답앵커와 맞춰 보고 판정'},
   {biz:'10월 전표 취합',step:'8단계',who:'프로그램',keys:['mg']}
  ]},
  {wk:'2주차 · 증빙 관리와 부가세 신고 전 점검',start:'확정본 79건',end:'부가세 점검표',note:'2주차는 모두 같은 출발점(받은 확정본)에서 시작해요. 1주차 결과는 내 기록으로 남고, 만든 프로그램은 그대로 둬요.',nodes:[
@@ -944,7 +974,7 @@ var PIPE=[
  ]},
  {wk:'3주차 · 다음 달 월마감',start:'11월 거래',end:'',nodes:[
   {biz:'월마감 실행',who:'AI 에이전트',txt:'1·2주차 도구가 끊김 없이 이어져 한 번에 돌아감 (3주차에 묶음)'},
-  {biz:'결산 확정',hum:1,txt:'검산 판정과 확정'}
+  {biz:'결산 확정',hum:1,txt:'검산·대사 판정과 확정'}
  ]}
 ];
 function ppNames(n){var d=tlData();return (n.keys||[]).map(function(k){return d[k]}).filter(Boolean)}
@@ -983,11 +1013,27 @@ function pipeText(){
   return L.join('\n');
 }
 $('tlPipeCopy').onclick=function(){
-  var t=pipeText(),done=function(ok){$('tlPipeMsg').innerHTML=ok?'복사했어요.':'<span class="u">자동 복사가 안 돼요.</span> <span class="u">아래 글을 길게 눌러 복사해 주세요.</span><textarea class="t" readonly rows="10" style="width:100%;height:auto;margin-top:8px;padding:10px;font-size:12px">'+esc(t)+'</textarea>'};
-  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(function(){done(true)},function(){done(false)})}else{done(false)}
+  copyFlow(pipeText(),$('tlPipeMsg'),[
+    '노션의 내 포트폴리오 페이지 열기',
+    '「내가 만든 AI 에이전트」 칸을 누르고 '+PASTE,
+    '표와 줄바꿈이 맞게 들어갔는지 확인'
+  ]);
 };
-function openTools(){drawTools();drawPipe();show('scrTools')}
+function pipeLock(){var lock=(CONFIG.week||1)<4;$('tlPipeCopy').disabled=lock;if(lock)$('tlPipeMsg').innerHTML='<span class="u">이 버튼은 4주차에 써요.</span> <span class="u">지금은 누르지 않아도 돼요.</span> <span class="u">도구를 등록하면</span> <span class="u">위 파이프라인이 채워져요.</span>'}
+function openTools(){drawTools();drawPipe();pipeLock();show('scrTools')}
 $('tlBack').onclick=function(){show('scrOffice')};
+
+
+/* 복사 → 다음 할 일 */
+function copyFlow(text,msgEl,steps){
+  var box=function(ok){
+    var h=ok?'<div class="next"><b>복사했어요. 이제 이렇게 하세요.</b><ol>'+steps.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ol></div>'
+      :'<div class="next"><b>자동 복사가 안 돼요.</b><ol><li>아래 글 상자를 길게 눌러 전체를 복사하기</li>'+steps.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ol><textarea class="t" readonly rows="8" style="width:100%;height:auto;margin-top:8px;padding:10px;font-size:12px">'+esc(text)+'</textarea></div>';
+    msgEl.innerHTML=h;var lk=msgEl.querySelector('[data-open]');if(lk)lk.onclick=function(){var u=CONFIG.links[lk.getAttribute('data-open')];if(u)window.open(u,'_blank','noopener')};
+  };
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(function(){box(true)},function(){box(false)})}else{box(false)}
+}
+var PASTE='붙여 넣기 (PC는 Ctrl+V, 휴대폰은 칸을 길게 누르기)';
 
 /* 지도 크기 맞추기 */
 function fit(){
