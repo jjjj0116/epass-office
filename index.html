@@ -212,15 +212,16 @@ body[data-season="겨울"] #me .scarf{display:block}
     <p class="lead"><span class="u">사원증을 만들고</span> <span class="u">사무실에 들어가요.</span></p>
     <div class="card" style="display:flex;flex-direction:column;gap:14px">
       <div style="display:flex;flex-direction:column;gap:8px">
-        <label class="f" for="nm">사원증에 쓸 이름</label>
-        <input class="t" id="nm" type="text" maxlength="12" autocomplete="off" placeholder="예: 김인턴">
+        <label class="f" for="nm">사원증에 쓸 이름 (본명)</label>
+        <input class="t" id="nm" type="text" maxlength="10" autocomplete="name" placeholder="예: 홍길동" aria-describedby="nmHelp">
+        <div class="note" id="nmHelp"><span class="u">별명이 아닌 본명을</span> <span class="u">정자로 적어요.</span> <span class="u">한글 2~5자, 띄어쓰기 없이.</span></div>
       </div>
       <div style="display:flex;flex-direction:column;gap:8px">
         <span class="f" id="lb-char" style="font-size:13px;font-weight:700;color:var(--navy)">내 캐릭터</span>
         <div class="chars" role="group" aria-labelledby="lb-char" id="chars"></div>
       </div>
       <button class="btn" id="goIn" disabled>출입증 찍고 입장하기</button>
-      <div class="note"><span class="u">이름(별명 가능)과 출근 시각은</span> <span class="u">팀장의 출근부에 기록돼요.</span> <span class="u">업무일지와 점검표는</span> <span class="u">이 기기에만 저장돼요.</span></div>
+      <div class="note"><span class="u">이름과 출근 시각은</span> <span class="u">팀장의 출근부에 기록돼요.</span> <span class="u">업무일지와 점검표는</span> <span class="u">이 기기에만 저장돼요.</span></div>
     </div>
   </div>
 </section>
@@ -600,7 +601,8 @@ function drawChars(){
   }).join('');
   Array.prototype.forEach.call(document.querySelectorAll('.char'),function(b){b.onclick=function(){pick=b.getAttribute('data-id');drawChars();check()}});
 }
-function check(){$('goIn').disabled=!($('nm').value.trim()&&pick)}
+function nameOk(v){return /^[가-힣]{2,5}$/.test(v)}
+function check(){var v=$('nm').value.trim();$('goIn').disabled=!(nameOk(v)&&pick);$('nmHelp').style.color=(v&&!nameOk(v))?'#b3261e':''}
 $('nm').addEventListener('input',check);
 $('nm').value=me.name||'';
 
@@ -624,7 +626,7 @@ function punch(){
   var body=new URLSearchParams();body.append(A.name,me.name);body.append(A.char,c?c.label:'');
   try{fetch(A.url,{method:'POST',mode:'no-cors',body:body}).then(function(){me.punched=today();save(me)},function(){})}catch(e){}
 }
-$('goIn').onclick=function(){me.name=$('nm').value.trim().slice(0,12);me.char=pick;me.punched='';save(me);applyMe();punch();show('scrBrief')};
+$('goIn').onclick=function(){me.name=$('nm').value.trim();me.char=pick;me.punched='';save(me);applyMe();punch();show('scrBrief')};
 $('goOffice').onclick=function(){show('scrHand')};
 $('goOffice2').onclick=function(){me.briefed=true;save(me);show('scrOffice')};
 $('openHand').onclick=function(){show('scrHand')};
