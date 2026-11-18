@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>(주)이패스상사 경영지원팀</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a2e66;--blue:#1668dc;--mark:#ffe14d;--ink:#1d2a3d;--sub:#4a5568;
+  --page:#f0e8de;--floor:#faf5ee;--line:#efe5d8;--wall:#4b3b36;--meet:#f3e7da;--pantry:#f5ece0;--ceo:#eedccb;
+  --rug:#f1d9c2;--rugEdge:#e3bf9d;--win:#e9eef4;--winDots:radial-gradient(circle,#fff 1.6px,transparent 2px);
+  --plant:#5f8f6d;--plantRing:#456d52;--veil:rgba(240,232,222,.78);--cardBd:#e6d5c2;--bubble:#fbf4ec;
+  --chipBg:#f6e3cf;--chipFg:#6b3f17;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:'Noto Sans KR',system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--page);word-break:keep-all;overflow-wrap:break-word;-webkit-text-size-adjust:100%}
+.u{display:inline-block;white-space:nowrap}
+button{font-family:inherit}
+.hidden{display:none!important}
+
+/* 상단 바 */
+.top{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand b{font-size:17px;white-space:nowrap}
+.pill{font-size:12px;font-weight:500;border:1.5px solid rgba(255,255,255,.7);border-radius:999px;padding:2px 10px;white-space:nowrap}
+.tags{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.tag-season{font-size:12px;font-weight:700;color:var(--chipFg);background:var(--chipBg);border-radius:999px;padding:4px 12px;white-space:nowrap}
+.tag-week{font-size:13px;font-weight:700;color:var(--navy);background:var(--mark);border-radius:999px;padding:4px 12px;white-space:nowrap}
+.idcard{display:flex;align-items:center;gap:10px;background:#fff;color:var(--navy);border-radius:10px;padding:5px 10px 5px 6px}
+.idcard .t{display:flex;flex-direction:column;line-height:1.25}
+.idcard small{font-size:11px;color:var(--sub)}
+.idcard strong{font-size:13px;white-space:nowrap}
+.stamps{display:flex;gap:4px}
+.stamp{width:26px;height:26px;border-radius:50%;border:1.5px dashed #8aa3c4;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--sub);white-space:nowrap}
+
+/* 공통 카드 */
+.card{background:#fff;border:1.5px solid var(--cardBd);border-radius:14px;padding:18px}
+.btn{display:flex;align-items:center;justify-content:center;min-height:48px;border:0;border-radius:10px;background:var(--blue);color:#fff;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;width:100%;padding:0 16px}
+.btn:disabled{background:#a9bfdf;cursor:default}
+.btn.ghost{background:#fff;color:var(--blue);border:1.5px solid var(--blue)}
+.link{background:none;border:0;color:var(--sub);font-size:12px;text-decoration:underline;cursor:pointer;padding:6px}
+
+/* 입장·브리핑 화면 */
+.center{min-height:calc(100vh - 56px);display:flex;align-items:center;justify-content:center;padding:24px 16px}
+.sheet{width:100%;max-width:440px;display:flex;flex-direction:column;gap:16px}
+.kicker{align-self:flex-start;font-size:12px;font-weight:700;color:var(--navy);background:#dbe7f6;border-radius:999px;padding:3px 12px;white-space:nowrap}
+.sheet h1{margin:0;font-size:24px;line-height:1.4;color:var(--navy)}
+.sheet h1 mark{background:linear-gradient(transparent 55%,var(--mark) 55%);color:inherit;padding:0 2px}
+.lead{margin:0;font-size:15px;line-height:1.7;color:var(--ink)}
+label.f{font-size:13px;font-weight:700;color:var(--navy)}
+input.t{width:100%;height:48px;border:1.5px solid var(--cardBd);border-radius:10px;padding:0 14px;font-family:inherit;font-size:16px;color:var(--ink);background:#fff}
+input.t:focus{outline:2px solid var(--blue);border-color:var(--blue)}
+.chars{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.char{border:1.5px solid var(--cardBd);background:#fff;border-radius:12px;padding:10px 0 8px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;min-height:84px}
+.char[aria-pressed="true"]{border:2px solid var(--blue);background:#f3f7fd}
+.char span{font-size:11px;color:var(--sub);white-space:nowrap}
+.note{font-size:12px;color:var(--sub);line-height:1.6}
+
+.msg-head{display:flex;align-items:center;gap:10px}
+.avatar{width:38px;height:38px;border-radius:50%;background:var(--navy);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+.msg-head .t{display:flex;flex-direction:column;line-height:1.3}
+.msg-head b{font-size:14px;color:var(--navy)}
+.msg-head small{font-size:11px;color:var(--sub)}
+.bubble{background:var(--bubble);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:1.7;margin-top:10px}
+.situ{display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font-size:14px;line-height:1.5}
+.situ dt{color:var(--sub);white-space:nowrap}
+.situ dd{margin:0;font-weight:500}
+
+/* 사무실 */
+.office{display:flex;gap:16px;padding:16px;align-items:flex-start;flex-wrap:wrap;max-width:1440px;margin:0 auto}
+.mapwrap{flex:999 1 640px;min-width:0}
+.mapbox{position:relative;width:100%}
+.map{position:absolute;left:0;top:0;width:1016px;height:804px;transform-origin:0 0;background-color:var(--floor);background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:32px 32px;outline:8px solid var(--wall)}
+.map *{position:absolute}
+.map .flow{position:static}
+.wall{background:var(--wall)}
+.winstrip{top:-8px;height:8px;background-color:var(--win);background-image:var(--winDots);background-size:12px 8px}
+.desk{width:110px;height:64px;background:#c9a37c;box-shadow:inset 0 -6px 0 #a8835d,0 0 0 2px #7d5f42}
+.desk.mine{background:#d6b48e;box-shadow:inset 0 -6px 0 #b08b64,0 0 0 2px #7d5f42}
+.mon{width:50px;height:20px;left:30px;background:#2a3a55;border-radius:2px}
+.mon::after{content:"";position:absolute;left:3px;top:3px;right:3px;bottom:3px;background:#a9c8ee}
+.chair{width:28px;height:22px;background:#7f93b2;border-radius:6px}
+.cab{left:12px;width:60px;height:62px;background:#c7d2e0;box-shadow:inset 0 -5px 0 #a9b7c9,0 0 0 2px #6f819b}
+.cab::before,.cab::after{content:"";position:absolute;left:10px;right:10px;height:4px;background:#6f819b;border-radius:2px}
+.cab::before{top:12px}.cab::after{top:36px}
+.plant{width:30px;height:30px;background:var(--plant);border-radius:50%;box-shadow:0 0 0 3px var(--plantRing)}
+.seat{width:22px;height:18px;background:#7f93b2;border-radius:5px}
+.veil{background:var(--veil);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.veil span,.veil svg{position:static}
+.veil span{font-size:13px;font-weight:500;color:#3a4a63}
+.sprite{width:28px;height:36px}
+.sprite .hair{left:4px;top:0;width:20px;height:9px;border-radius:5px 5px 0 0}
+.sprite .face{left:5px;top:6px;width:18px;height:12px;background:#f1cfae;border-radius:2px}
+.sprite .body{left:2px;top:18px;width:24px;height:16px;border-radius:5px 5px 2px 2px}
+.sprite .scarf{left:3px;top:16px;width:22px;height:5px;background:#c9824f;border-radius:3px;display:none}
+.namechip{background:#fff;border-radius:999px;padding:1px 9px;font-size:11px;font-weight:700;white-space:nowrap}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+.bob{animation:bob 1.6s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.bob{animation:none}#me{transition:none!important}}
+.zone{border:0;padding:0;background:transparent;border-radius:6px;cursor:pointer}
+.zone:hover{box-shadow:0 0 0 3px var(--mark)}
+.zone:focus-visible{box-shadow:0 0 0 3px var(--blue);outline:none}
+.zone[aria-pressed="true"]{outline:3px dashed var(--blue);outline-offset:2px;background:rgba(22,104,220,.07)}
+.zchip{display:flex;align-items:center;gap:4px;border-radius:999px;padding:2px 10px;font-size:12px;font-weight:700;white-space:nowrap;border:1.5px solid var(--blue);background:#fff;color:var(--navy)}
+.zchip.lock{border-color:#8aa3c4;background:var(--page);color:#3a4a63}
+.sd{display:none}
+body[data-season="겨울"] .sd.w,body[data-season="봄"] .sd.sp,body[data-season="여름"] .sd.su,body[data-season="가을"] .sd.au{display:block}
+body[data-season="겨울"] #me .scarf{display:block}
+
+.side{flex:1 1 340px;max-width:420px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.dhead{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.dhead h2{margin:0;font-size:17px;color:var(--navy);white-space:nowrap}
+.chips{display:flex;gap:6px}
+.c-week{font-size:12px;font-weight:700;color:var(--navy);background:#dbe7f6;border-radius:999px;padding:2px 10px;white-space:nowrap}
+.c-st{font-size:12px;font-weight:500;border:1.5px solid var(--blue);color:var(--blue);border-radius:999px;padding:1px 9px;white-space:nowrap}
+.c-st.lock{border-color:#3a4a63;color:#3a4a63;background:var(--page)}
+.lines{list-style:none;margin:12px 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.lines li{display:flex;gap:8px;font-size:14px;line-height:1.65}
+.lines li::before{content:"";flex:none;width:5px;height:5px;margin-top:10px;border-radius:50%;background:var(--blue)}
+.real{background:#f7f8fa;border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;margin-bottom:12px}
+.real small{font-size:11px;font-weight:700;color:var(--sub)}
+.real span{font-size:13px;line-height:1.6}
+.pending{font-size:12px;color:var(--sub);margin-top:8px}
+.legend{display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.legend div{display:flex;align-items:center;gap:10px;font-size:13px}
+.legend i{width:12px;height:12px;border-radius:3px;border:1.5px solid var(--blue);background:#fff}
+.legend i.l{border-color:#8aa3c4;background:var(--page)}
+.diary label{font-size:13px;font-weight:700;color:var(--navy);display:block;margin-bottom:8px}
+.diary small{display:block;font-size:11px;color:var(--sub);margin-top:6px}
+.handover h1{margin:0;font-size:22px;color:var(--navy)}
+.hv-head{border-bottom:2px solid var(--navy);padding-bottom:12px;margin-bottom:4px}
+.hv-meta{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:10px 0 0;font-size:13px}
+.hv-meta dt{color:var(--sub);white-space:nowrap}.hv-meta dd{margin:0;font-weight:500}
+.handover h2{font-size:15px;color:var(--navy);margin:18px 0 8px}
+.hv{margin:0;padding:0;list-style:none;counter-reset:n;display:flex;flex-direction:column;gap:8px}
+.hv li{counter-increment:n;display:grid;grid-template-columns:22px 84px 1fr;gap:8px;font-size:14px;line-height:1.6;align-items:start}
+.hv li::before{content:counter(n);width:22px;height:22px;border-radius:50%;background:#dbe7f6;color:var(--navy);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.hv b{color:var(--navy);white-space:nowrap}
+.hv-t{width:100%;border-collapse:collapse;font-size:14px}
+.hv-t th{background:#f3f7fd;color:var(--navy);text-align:left;padding:8px 10px;border-bottom:1.5px solid var(--cardBd);font-size:13px}
+.hv-t td{padding:8px 10px;border-bottom:1px solid var(--cardBd);line-height:1.6;vertical-align:top}
+.hv-t td:first-child{white-space:nowrap;font-weight:700;color:var(--navy);width:64px}
+.hv-rule{margin:0;padding-left:18px;font-size:14px;line-height:1.7}
+@media (max-width:420px){.hv li{grid-template-columns:22px 1fr}.hv li>span{grid-column:2}}
+.foot{text-align:center;padding:4px 0 20px}
+.quick{display:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
+.quick button{min-height:44px;border-radius:10px;border:1.5px solid var(--blue);background:#fff;color:var(--navy);font-size:13px;font-weight:700;white-space:nowrap;cursor:pointer;padding:0 6px}
+.quick button.lock{border-color:#8aa3c4;background:var(--page);color:#3a4a63}
+.quick button[aria-pressed="true"]{background:#dbe7f6}
+@media (max-width:760px){.quick{display:grid}.office{padding:12px}}
+</style>
+</head>
+<body data-season="겨울">
+
+<header class="top">
+  <div class="brand"><b>(주)이패스상사</b><span class="pill">경영지원팀</span></div>
+  <div class="tags"><span class="tag-season" id="seasonTag">겨울 · 1기</span><span class="tag-week">1주차 · 첫 출근</span></div>
+  <div class="idcard hidden" id="idcard">
+    <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true" id="idface"></svg>
+    <div class="t"><small>사원증</small><strong id="idname">인턴 사원</strong></div>
+    <div class="stamps" aria-label="결재 도장 0개 / 4개"><div class="stamp">1주</div><div class="stamp">2주</div><div class="stamp">3주</div><div class="stamp">4주</div></div>
+  </div>
+</header>
+
+<!-- 1. 입장 -->
+<section id="scrEnter" class="center hidden" aria-labelledby="h-enter">
+  <div class="sheet">
+    <span class="kicker">경영지원팀 · 인턴 사원</span>
+    <h1 id="h-enter"><span class="u">(주)이패스상사에</span> <span class="u">오신 것을 <mark>환영합니다</mark></span></h1>
+    <p class="lead"><span class="u">사원증을 만들고</span> <span class="u">사무실에 들어가요.</span></p>
+    <div class="card" style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <label class="f" for="nm">사원증에 쓸 이름</label>
+        <input class="t" id="nm" type="text" maxlength="12" autocomplete="off" placeholder="예: 김인턴">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span class="f" id="lb-char" style="font-size:13px;font-weight:700;color:var(--navy)">내 캐릭터</span>
+        <div class="chars" role="group" aria-labelledby="lb-char" id="chars"></div>
+      </div>
+      <button class="btn" id="goIn" disabled>출입증 찍고 입장하기</button>
+      <div class="note"><span class="u">이름은 이 기기에만 저장되고</span> <span class="u">어디에도 보내지 않아요.</span> <span class="u">별명을 써도 돼요.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. 팀장 브리핑 -->
+<section id="scrBrief" class="center hidden" aria-labelledby="h-brief">
+  <div class="sheet">
+    <span class="kicker">첫 출근 · 팀장 브리핑</span>
+    <div class="card">
+      <div class="msg-head"><div class="avatar" aria-hidden="true">정</div><div class="t"><b>정아름 팀장</b><small>팀장 메신저</small></div></div>
+      <div class="bubble">
+        <div id="hello">반가워요.</div>
+        <div><span class="u">이번 달 10월 마감을</span> <span class="u">같이 하게 됐어요.</span></div>
+        <div><span class="u">처음부터 잘하지 않아도 돼요.</span> <span class="u">막히면 물어보면 돼요.</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2 id="h-brief" style="margin:0 0 12px;font-size:16px;color:var(--navy)">내 상황</h2>
+      <dl class="situ">
+        <dt>직급</dt><dd>경영지원팀 인턴 사원</dd>
+        <dt>이번 주</dt><dd>1주차 · 통장과 카드 내역 정리</dd>
+        <dt>책상 위</dt><dd><span class="u">통장 3개 · 카드 3장,</span> <span class="u">모두 79건</span></dd>
+        <dt>목표</dt><dd><span class="u">4주 뒤</span> <span class="u">정직원으로 졸업</span></dd>
+      </dl>
+    </div>
+    <button class="btn" id="goOffice">업무 인수인계서 받기</button>
+  </div>
+</section>
+
+<!-- 2-1. 업무 인수인계서 -->
+<section id="scrHand" class="center hidden" aria-labelledby="h-hand">
+  <div class="sheet" style="max-width:560px">
+    <span class="kicker">첫 출근 · 인수인계</span>
+    <div class="card handover">
+      <div class="hv-head">
+        <h1 id="h-hand">업무 인수인계서</h1>
+        <dl class="hv-meta"><dt>받는 사람</dt><dd id="hvTo">인턴 사원</dd><dt>넘겨주는 사람</dt><dd>정아름 팀장</dd><dt>부서</dt><dd>(주)이패스상사 경영지원팀</dd></dl>
+      </div>
+      <h2>1. 사무실 이용법</h2>
+      <ol class="hv">
+        <li><b>출근</b><span><span class="u">오픈채팅 공지의 링크를 누르면</span> <span class="u">사무실로 들어와요.</span> <span class="u">사원증은 이 기기에 남아요.</span></span></li>
+        <li><b>팀장 메신저</b><span><span class="u">출근하면 오늘 업무부터</span> <span class="u">확인해요.</span></span></li>
+        <li><b>내 자리</b><span><span class="u">이번 주 업무가 있어요.</span> <span class="u">노션 따라 하기를 보며</span> <span class="u">Code 탭에서 실습해요.</span></span></li>
+        <li><b>팀장 자리</b><span><span class="u">막히면 매일 언제든</span> <span class="u">「업무 확인 요청」을 올려요.</span></span></li>
+        <li><b>결재함</b><span><span class="u">한 주 업무를 마치면</span> <span class="u">「결재 상신」을 해요.</span> <span class="u">결재 의견은 승인 · 보완 요청 · 반려</span> <span class="u">중 하나로 와요.</span></span></li>
+        <li><b>잠긴 방</b><span><span class="u">대표실은 3주차,</span> <span class="u">회의실은 4주차에 열려요.</span></span></li>
+        <li><b>퇴근</b><span><span class="u">오늘 막힌 순간을</span> <span class="u">업무일지에 한 줄 남겨요.</span></span></li>
+      </ol>
+      <h2>2. 이번 달 넘겨받는 업무</h2>
+      <table class="hv-t">
+        <thead><tr><th scope="col">주차</th><th scope="col">업무</th></tr></thead>
+        <tbody>
+          <tr><td>1주차</td><td><span class="u">10월 통장·카드 내역 정리</span> <span class="u">(양식 바꾸는 도구 만들기)</span></td></tr>
+          <tr><td>2주차</td><td><span class="u">증빙 확인과</span> <span class="u">부가세 공제 판정</span></td></tr>
+          <tr><td>3주차</td><td><span class="u">월결산과 11월 다시 돌리기</span> <span class="u">(수습 평가)</span></td></tr>
+          <tr><td>4주차</td><td><span class="u">업무일지 정리와</span> <span class="u">정직원 임명</span></td></tr>
+        </tbody>
+      </table>
+      <h2>3. 꼭 지킬 것</h2>
+      <ul class="hv-rule">
+        <li><span class="u">실제 회사 자료와 개인정보는</span> <span class="u">쓰지 않아요.</span> <span class="u">실습은 이패스상사 자료로만 해요.</span></li>
+        <li><span class="u">오픈채팅방에는</span> <span class="u">파일과 결과 숫자를</span> <span class="u">올리지 않아요.</span></li>
+        <li><span class="u">검산 판정은</span> <span class="u">내가 직접 해요.</span></li>
+      </ul>
+    </div>
+    <button class="btn" id="goOffice2">확인했어요, 사무실로</button>
+  </div>
+</section>
+
+<!-- 3. 사무실 -->
+<section id="scrOffice" class="hidden" aria-label="사무실">
+  <div class="office">
+    <div class="mapwrap">
+      <div class="mapbox" id="mapbox">
+        <div class="map" id="map" role="group" aria-label="사무실 지도">
+          <div class="winstrip" style="left:40px;width:220px"></div>
+          <div class="winstrip" style="left:380px;width:140px"></div>
+          <div class="winstrip" style="left:750px;width:220px"></div>
+
+          <!-- 회의실 -->
+          <div style="left:0;top:0;width:320px;height:240px;background:var(--meet)"></div>
+          <div style="left:80px;top:70px;width:160px;height:90px;background:#d8bc98;border-radius:45px;box-shadow:inset 0 -5px 0 #b99a74,0 0 0 2px #7d5f42"></div>
+          <div class="seat" style="left:96px;top:48px"></div><div class="seat" style="left:149px;top:48px"></div><div class="seat" style="left:202px;top:48px"></div>
+          <div class="seat" style="left:96px;top:166px"></div><div class="seat" style="left:149px;top:166px"></div><div class="seat" style="left:202px;top:166px"></div>
+          <div class="veil" style="left:0;top:0;width:320px;height:240px"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#3a4a63" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>4주차에 열려요</span></div>
+
+          <!-- 탕비실 -->
+          <div style="left:330px;top:0;width:220px;height:240px;background:var(--pantry)"></div>
+          <div style="left:350px;top:16px;width:180px;height:40px;background:#cfd8e3;box-shadow:inset 0 -5px 0 #b3bfcd,0 0 0 2px #7c8ca3"></div>
+          <div style="left:362px;top:22px;width:30px;height:26px;background:#3a4a63;border-radius:3px"></div>
+          <div style="left:470px;top:16px;width:50px;height:70px;background:#fff;box-shadow:0 0 0 2px #7c8ca3"></div>
+          <div style="left:400px;top:130px;width:70px;height:70px;background:#d8bc98;border-radius:50%;box-shadow:0 0 0 2px #7d5f42"></div>
+          <div style="left:356px;top:206px;font-size:12px;color:var(--sub)">탕비실</div>
+
+          <!-- 대표실 -->
+          <div style="left:696px;top:0;width:320px;height:240px;background:var(--ceo)"></div>
+          <div style="left:780px;top:40px;width:150px;height:66px;background:#a77d56;box-shadow:inset 0 -6px 0 #86613f,0 0 0 2px #5e4229"></div>
+          <div style="left:760px;top:150px;width:190px;height:44px;background:#7f93b2;border-radius:10px"></div>
+          <div class="plant" style="left:964px;top:20px"></div>
+          <div class="veil" style="left:696px;top:0;width:320px;height:240px"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#3a4a63" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><span>3주차에 열려요</span></div>
+
+          <!-- 벽 -->
+          <div class="wall" style="left:320px;top:0;width:10px;height:240px"></div>
+          <div class="wall" style="left:550px;top:0;width:10px;height:240px"></div>
+          <div class="wall" style="left:686px;top:0;width:10px;height:240px"></div>
+          <div class="wall" style="left:0;top:240px;width:130px;height:10px"></div>
+          <div class="wall" style="left:190px;top:240px;width:240px;height:10px"></div>
+          <div class="wall" style="left:490px;top:240px;width:70px;height:10px"></div>
+          <div class="wall" style="left:686px;top:240px;width:120px;height:10px"></div>
+          <div class="wall" style="left:866px;top:240px;width:150px;height:10px"></div>
+
+          <!-- 러그 -->
+          <div style="left:180px;top:280px;width:374px;height:222px;background:var(--rug);border-radius:14px;box-shadow:inset 0 0 0 3px var(--rugEdge)"></div>
+
+          <!-- 서류함 -->
+          <div class="cab" style="top:292px"></div><div class="cab" style="top:358px"></div><div class="cab" style="top:424px"></div><div class="cab" style="top:490px"></div>
+          <!-- 복합기 -->
+          <div style="left:520px;top:282px;width:58px;height:44px;background:#dfe5ee;box-shadow:inset 0 -5px 0 #c2cbd8,0 0 0 2px #7c8ca3"></div>
+
+          <!-- 팀 책상 -->
+          <div class="chair" style="left:241px;top:300px"></div><div class="chair" style="left:353px;top:300px"></div><div class="chair" style="left:465px;top:300px"></div>
+          <div class="desk" style="left:200px;top:328px"><div class="mon" style="top:30px"></div></div>
+          <div class="desk" style="left:312px;top:328px"><div class="mon" style="top:30px"></div></div>
+          <div class="desk" style="left:424px;top:328px"><div class="mon" style="top:30px"></div></div>
+          <div class="desk" style="left:200px;top:394px"><div class="mon" style="top:8px"></div></div>
+          <div class="desk mine" style="left:312px;top:394px"><div class="mon" style="top:8px"></div>
+            <div style="left:6px;top:34px;width:22px;height:16px;background:#fff;box-shadow:0 0 0 1px #c9d2de,2px 2px 0 #fff,2px 2px 0 1px #c9d2de,4px 4px 0 #fff,4px 4px 0 1px #c9d2de"></div>
+            <div style="left:76px;top:36px;width:28px;height:12px;background:var(--mark);border-radius:2px;font-size:8px;font-weight:700;color:var(--navy);text-align:center;line-height:12px">인턴</div></div>
+          <div class="desk" style="left:424px;top:394px"><div class="mon" style="top:8px"></div></div>
+          <div class="chair" style="left:241px;top:464px"></div><div class="chair" style="left:353px;top:464px;background:#5b6f8f"></div><div class="chair" style="left:465px;top:464px"></div>
+          <div class="sprite" style="left:241px;top:284px" aria-hidden="true"><div class="hair" style="background:#2b2320"></div><div class="face"></div><div class="body" style="background:#8aa3c4"></div></div>
+          <div class="sprite" style="left:465px;top:284px" aria-hidden="true"><div class="hair" style="background:#6b4a33"></div><div class="face"></div><div class="body" style="background:#9bb79f"></div></div>
+
+          <!-- 팀장 자리 -->
+          <div class="desk" style="left:640px;top:340px;width:130px;height:70px"><div style="left:88px;top:14px;width:20px;height:42px;background:#2a3a55;border-radius:2px"></div><div style="left:10px;top:10px;width:24px;height:18px;background:#fff;box-shadow:0 0 0 1px #c9d2de"></div></div>
+          <div style="left:778px;top:362px;width:24px;height:28px;background:#5b6f8f;border-radius:6px"></div>
+          <div class="sprite bob" style="left:776px;top:352px" aria-hidden="true"><div class="hair" style="background:#2b2320;height:11px"></div><div class="face"></div><div class="body" style="background:var(--navy)"></div></div>
+          <div class="namechip" style="left:740px;top:318px;border:1.5px solid var(--navy);color:var(--navy)">정아름 팀장</div>
+
+          <!-- 결재함 -->
+          <div style="left:826px;top:432px;width:84px;height:48px;background:#dfe5ee;box-shadow:inset 0 -5px 0 #c2cbd8,0 0 0 2px #6f819b"><div style="left:10px;top:8px;width:30px;height:22px;background:#fff;box-shadow:0 0 0 1.5px var(--blue)"></div><div style="left:46px;top:8px;width:30px;height:22px;background:#fff;box-shadow:0 0 0 1.5px #c9824f"></div></div>
+
+          <!-- 영업팀 -->
+          <div class="desk" style="left:640px;top:640px"><div class="mon" style="top:8px"></div></div>
+          <div class="desk" style="left:752px;top:640px"><div class="mon" style="top:8px"></div></div>
+          <div class="chair" style="left:681px;top:710px"></div><div class="chair" style="left:793px;top:710px"></div>
+          <div class="sprite bob" style="left:793px;top:700px" aria-hidden="true"><div class="hair" style="background:#4b3a2c"></div><div class="face"></div><div class="body" style="background:#c9824f"></div></div>
+          <div class="namechip" style="left:770px;top:744px;border:1.5px solid #c9824f;color:#8a4f25">영업팀 동료</div>
+
+          <!-- 화분 -->
+          <div class="plant" style="left:964px;top:280px"></div><div class="plant" style="left:560px;top:740px"></div><div class="plant" style="left:200px;top:740px"></div>
+
+          <!-- 출입구 -->
+          <div style="left:30px;top:796px;width:140px;height:8px;background:var(--floor)"></div>
+          <div style="left:30px;top:760px;width:10px;height:44px;background:#6f819b"></div>
+          <div style="left:160px;top:760px;width:10px;height:44px;background:#6f819b"></div>
+          <div style="left:44px;top:764px;width:18px;height:14px;background:#2a3a55;border-radius:2px"></div>
+
+          <!-- 계절 소품: 겨울 -->
+          <div class="sd w" style="left:596px;top:262px;width:0;height:0;border-left:26px solid transparent;border-right:26px solid transparent;border-bottom:62px solid #4f7d5e"></div>
+          <div class="sd w" style="left:614px;top:324px;width:16px;height:10px;background:#7d5f42"></div>
+          <div class="sd w" style="left:608px;top:290px;width:6px;height:6px;border-radius:50%;background:#ffd45e;box-shadow:16px 8px 0 #ffd45e,8px 20px 0 #f3b562,24px 24px 0 #ffd45e,-2px 30px 0 #f3b562"></div>
+          <div class="sd w" style="left:96px;top:600px;width:54px;height:40px;background:#e9d7c3;border-radius:6px;box-shadow:0 0 0 2px #8a6a4f,0 0 26px 10px rgba(243,181,98,.45)"></div>
+          <div class="sd w" style="left:400px;top:432px;width:10px;height:10px;background:#c9824f;border-radius:2px 2px 4px 4px"></div>
+          <!-- 봄 -->
+          <div class="sd sp" style="left:600px;top:280px;width:44px;height:44px;border-radius:50%;background:#9cc58a;box-shadow:0 0 0 3px #6f9a5f"></div>
+          <div class="sd sp" style="left:606px;top:286px;width:7px;height:7px;border-radius:50%;background:#f4d35e;box-shadow:14px 4px 0 #f4d35e,24px 16px 0 #f4d35e,6px 22px 0 #f4d35e,20px 28px 0 #f4d35e"></div>
+          <!-- 여름 -->
+          <div class="sd su" style="left:598px;top:278px;width:48px;height:48px;border-radius:50%;background:#e4f1f6;box-shadow:0 0 0 2px #4d7d93"></div>
+          <div class="sd su" style="left:616px;top:296px;width:12px;height:12px;border-radius:50%;background:#4d7d93"></div>
+          <!-- 가을 -->
+          <div class="sd au" style="left:600px;top:280px;width:44px;height:44px;border-radius:50%;background:#d9934e;box-shadow:0 0 0 3px #a8642f"></div>
+          <div class="sd au" style="left:520px;top:600px;width:8px;height:6px;border-radius:50% 0;background:#d9934e;box-shadow:60px 30px 0 #f1c15d,-200px 80px 0 #d9934e,140px -40px 0 #b9572f"></div>
+
+          <div id="zones"></div>
+
+          <!-- 나 -->
+          <div id="me" aria-hidden="true" style="left:86px;top:744px;width:28px;height:52px;transition:left .9s ease,top .9s ease;pointer-events:none">
+            <div class="namechip" id="meName" style="left:50%;top:-6px;transform:translateX(-50%);border:1.5px solid var(--navy);color:var(--navy);background:var(--mark)">나</div>
+            <div class="sprite bob" style="left:0;top:16px"><div class="hair" id="meHair"></div><div class="face"></div><div class="body" id="meBody"></div><div class="scarf"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="quick" role="group" aria-label="자리 바로 가기" id="quick"></div>
+    </div>
+
+    <aside class="side">
+      <div class="card">
+        <div class="msg-head"><div class="avatar" aria-hidden="true">정</div><div class="t"><b>정아름 팀장</b><small>팀장 메신저 · 오늘 업무</small></div></div>
+        <div class="bubble">
+          <div><span class="u">오늘은 내 자리에 있는</span> <span class="u">통장·카드 내역부터</span> <span class="u">봐 주세요.</span></div>
+          <div><span class="u">막히면 제 자리로 와서</span> <span class="u">물어보면 돼요.</span></div>
+        </div>
+      </div>
+
+      <div class="card" id="guide">
+        <h2 style="margin:0;font-size:16px;color:var(--navy)">사무실 둘러보기</h2>
+        <div style="font-size:14px;line-height:1.7;margin-top:10px"><span class="u">지도에서 자리를 누르면</span> <span class="u">그곳으로 걸어가요.</span></div>
+        <div class="legend"><div><i></i>지금 열린 자리</div><div><i class="l"></i>뒤 주차에 열리는 방</div></div>
+        <button class="btn" id="goDesk">내 자리로 가기</button>
+      </div>
+
+      <div class="card hidden" id="detail" aria-live="polite">
+        <div class="dhead"><h2 id="dTitle"></h2><div class="chips"><span class="c-week" id="dWeek"></span><span class="c-st" id="dSt"></span></div></div>
+        <ul class="lines" id="dLines"></ul>
+        <div class="real"><small>실제로 하는 일</small><span id="dReal"></span></div>
+        <div id="dAct"></div>
+      </div>
+
+      <div class="card diary">
+        <label for="diary">퇴근 전 업무일지 한 줄</label>
+        <input class="t" id="diary" type="text" maxlength="80" placeholder="오늘 막힌 순간을 한 줄로">
+        <small><span class="u">이 기기에만 저장돼요.</span> <span class="u">4주 뒤 포트폴리오 재료가 돼요.</span></small>
+      </div>
+      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button></div>
+    </aside>
+  </div>
+</section>
+
+<script>
+/* ===== 강사 설정: 여기만 바꾸면 됩니다 ===== */
+var CONFIG = {
+  season: '겨울',            // '봄' | '여름' | '가을' | '겨울' | 'auto'(달에 맞춰 자동)
+  cohort: '1기',
+  links: {
+    week1: '',               // 노션 1주차 따라 하기
+    week2: '',               // 노션 2주차 따라 하기
+    question: '',            // 질문(업무 확인 요청) 구글폼
+    submit: ''               // 과제(결재 상신) 구글폼
+  }
+};
+/* ========================================== */
+
+var PALETTES = {
+  '봄':  {label:'봄 · 새싹',chipBg:'#e4f0d8',chipFg:'#355c2a',page:'#eef2e6',floor:'#f7f9f1',line:'#e5ebda',wall:'#4d5a4a',meet:'#eaf2e1',pantry:'#f4f1df',ceo:'#eef0e2',rug:'#f6efcf',rugEdge:'#e8dca6',win:'#d6ecf5',winDots:'radial-gradient(circle,#f4d35e 1.5px,transparent 2px)',plant:'#8fbf7a',plantRing:'#6f9a5f',veil:'rgba(238,242,230,.78)',cardBd:'#d5e2c6',bubble:'#f3f8ec'},
+  '여름':{label:'여름 · 푸른 바람',chipBg:'#d9eef6',chipFg:'#1f4e63',page:'#e8f1f5',floor:'#f3f8fa',line:'#e1ecf1',wall:'#2f4a5c',meet:'#e1eff5',pantry:'#e8f4f2',ceo:'#e6eef3',rug:'#d8eef1',rugEdge:'#b4dbe1',win:'#9fd3ee',winDots:'linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px)',plant:'#4f9a6a',plantRing:'#3b7a52',veil:'rgba(232,241,245,.78)',cardBd:'#c6dde8',bubble:'#eef6fa'},
+  '가을':{label:'가을 · 단풍',chipBg:'#f5e2c8',chipFg:'#6b3f17',page:'#f2ebe0',floor:'#f8f3ea',line:'#ece3d3',wall:'#5a4632',meet:'#f1e6d4',pantry:'#f3ead9',ceo:'#eedfca',rug:'#efdcbc',rugEdge:'#dcc193',win:'#f1dcb4',winDots:'radial-gradient(circle,#d9934e 1.5px,transparent 2px)',plant:'#d9934e',plantRing:'#a8642f',veil:'rgba(242,235,224,.78)',cardBd:'#e3d3b9',bubble:'#faf3e8'},
+  '겨울':{label:'겨울',chipBg:'#f6e3cf',chipFg:'#6b3f17',page:'#f0e8de',floor:'#faf5ee',line:'#efe5d8',wall:'#4b3b36',meet:'#f3e7da',pantry:'#f5ece0',ceo:'#eedccb',rug:'#f1d9c2',rugEdge:'#e3bf9d',win:'#e9eef4',winDots:'radial-gradient(circle,#ffffff 1.6px,transparent 2px)',plant:'#5f8f6d',plantRing:'#456d52',veil:'rgba(240,232,222,.78)',cardBd:'#e6d5c2',bubble:'#fbf4ec'}
+};
+var CHARS = [
+  {id:'a',label:'단정한',hair:'#3b2f2a',body:'#1668dc'},
+  {id:'b',label:'포근한',hair:'#6b4a33',body:'#c9824f'},
+  {id:'c',label:'차분한',hair:'#2b2320',body:'#5f8f6d'},
+  {id:'d',label:'산뜻한',hair:'#4b3a2c',body:'#8a6fb0'}
+];
+var ZONES = [
+  {id:'desk',x:300,y:390,w:134,h:110,cx:14,cy:-26,tx:352,ty:448,chip:'내 자리 · 1주차',title:'내 자리',week:'1주차',st:'열림',
+   lines:['책상 위에|통장 3개와 카드 3장 내역이|있어요. 모두 79건이에요.','은행과 카드사마다|양식이 달라요.','먼저 한 모양으로|바꿔 주는 도구를 만들어요.'],
+   real:'노션 1주차 따라 하기를 보며|Code 탭에서 실습해요.',act:'1주차 따라 하기 열기',link:'week1'},
+  {id:'cabinet',x:4,y:284,w:80,h:276,cx:4,cy:282,tx:92,ty:404,chip:'서류함 · 2주차',title:'서류함',week:'2주차',st:'열림',
+   lines:['10월 카드 증빙과|세금계산서가 모여 있어요.','증빙이 맞는지,|부가세 공제가 되는지|판정해요.'],
+   real:'노션 2주차 따라 하기를 보며|Code 탭에서 실습해요.',act:'2주차 따라 하기 열기',link:'week2'},
+  {id:'leader',x:630,y:312,w:184,h:108,cx:14,cy:104,tx:596,ty:350,chip:'팀장 자리 · 매일',title:'정아름 팀장 자리',week:'매일',st:'열림',
+   lines:['막히면 언제든|「업무 확인 요청」을 올려요.','질문지는 주차별로 하나예요.|맨 위에서 날짜를 골라요.','답은 팀장이 직접 달아요.'],
+   real:'질문 구글폼에|막힌 곳을 적어 보내요.',act:'업무 확인 요청 쓰기',link:'question'},
+  {id:'tray',x:818,y:424,w:100,h:64,cx:-4,cy:70,tx:780,ty:432,chip:'결재함 · 주차별',title:'결재함',week:'주차별',st:'열림',
+   lines:['한 주 업무를 마치면|「결재 상신」을 해요.','올리기 전에 점검표에|건수와 합계를|직접 적어요.','결재 의견은|승인 · 보완 요청 · 반려|중 하나로 와요.','반려되면 사유를 보고|고쳐서 다시 올리면 돼요.'],
+   real:'과제 구글폼으로|마감 폴더를 내요.|마감 일시는|공지를 확인해 주세요.',act:'결재 상신하기',link:'submit'},
+  {id:'sales',x:630,y:630,w:244,h:140,cx:12,cy:-26,tx:724,ty:756,chip:'영업팀 · 2주차',title:'영업팀',week:'2주차',st:'2주차에 찾아와요',
+   lines:['영업팀 동료가|결의서 없는 카드 건을|들고 올 거예요.','무엇을 확인해 달라고 할지|내가 정해요.'],real:'확인 요청 문장을|직접 써 봐요.'},
+  {id:'ceo',x:696,y:0,w:320,h:240,cx:12,cy:12,tx:822,ty:250,lock:true,chip:'대표실 · 3주차',title:'대표실',week:'3주차',st:'잠김',
+   lines:['11월 자료가 오면|10월에 만든 도구를|다시 돌려요.','혼자 다음 달 마감을 해내면|대표에게 월결산을 보고해요.','이 과정이|정직원 전환의 근거가 돼요.'],real:'3주차에 열려요.'},
+  {id:'meeting',x:0,y:0,w:320,h:240,cx:12,cy:12,tx:146,ty:250,lock:true,chip:'회의실 · 4주차',title:'회의실',week:'4주차',st:'잠김',
+   lines:['4주 동안 쓴|업무일지를 모아요.','정직원 임명장을|받는 자리예요.','임명장 뒷면이|내 포트폴리오가 돼요.'],real:'4주차에 열려요.'},
+  {id:'door',x:30,y:740,w:140,h:64,cx:18,cy:-26,tx:86,ty:744,chip:'출입구 · 매일',title:'출입구',week:'매일',st:'열림',
+   lines:['출입증을 찍고 출근해요.','퇴근할 때|오늘 막힌 순간을|업무일지에 한 줄 남겨요.'],real:'업무일지는 4주 뒤|포트폴리오 재료가 돼요.'}
+];
+
+/* 저장(이 기기 안에서만) */
+var KEY='epass-office-v1';
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}}
+function save(o){try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}}
+var me=load();
+
+function $(id){return document.getElementById(id)}
+function show(id){['scrEnter','scrBrief','scrHand','scrOffice'].forEach(function(s){$(s).classList.toggle('hidden',s!==id)});window.scrollTo(0,0);if(id==='scrOffice')fit()}
+
+/* 계절 */
+function seasonOf(){
+  if(CONFIG.season!=='auto')return CONFIG.season;
+  var m=new Date().getMonth()+1;return m>=3&&m<=5?'봄':m>=6&&m<=8?'여름':m>=9&&m<=11?'가을':'겨울';
+}
+(function(){
+  var s=seasonOf(),p=PALETTES[s]||PALETTES['겨울'],r=document.documentElement.style;
+  document.body.setAttribute('data-season',s);
+  Object.keys(p).forEach(function(k){if(k!=='label'){r.setProperty('--'+(k==='veil'?'veil':k),p[k])}});
+  $('seasonTag').textContent=(s==='겨울'?'겨울':p.label)+' · '+CONFIG.cohort;
+})();
+
+/* 캐릭터 그림 */
+function face(c,size){
+  return '<rect x="9" y="4" width="12" height="6" rx="2" fill="'+c.hair+'"/><rect x="10" y="8" width="10" height="8" rx="1.5" fill="#f1cfae"/><rect x="6" y="17" width="18" height="11" rx="3" fill="'+c.body+'"/>';
+}
+var pick=me.char||null;
+function drawChars(){
+  $('chars').innerHTML=CHARS.map(function(c){
+    return '<button type="button" class="char" data-id="'+c.id+'" aria-pressed="'+(pick===c.id)+'" aria-label="캐릭터 '+c.label+'"><svg width="40" height="40" viewBox="0 0 30 30" aria-hidden="true">'+face(c)+'</svg><span>'+c.label+'</span></button>';
+  }).join('');
+  Array.prototype.forEach.call(document.querySelectorAll('.char'),function(b){b.onclick=function(){pick=b.getAttribute('data-id');drawChars();check()}});
+}
+function check(){$('goIn').disabled=!($('nm').value.trim()&&pick)}
+$('nm').addEventListener('input',check);
+$('nm').value=me.name||'';
+
+function applyMe(){
+  var c=CHARS.filter(function(x){return x.id===me.char})[0]||CHARS[0];
+  $('idface').innerHTML=face(c);
+  $('idname').textContent='인턴 사원 '+me.name;
+  $('idcard').classList.remove('hidden');
+  $('meHair').style.background=c.hair;$('meBody').style.background=c.body;
+  $('meName').textContent=me.name;
+  $('hello').textContent=me.name+' 님, 반가워요.';
+  $('hvTo').textContent='인턴 사원 '+me.name;
+  $('diary').value=me.diary||'';
+}
+$('goIn').onclick=function(){me.name=$('nm').value.trim().slice(0,12);me.char=pick;save(me);applyMe();show('scrBrief')};
+$('goOffice').onclick=function(){show('scrHand')};
+$('goOffice2').onclick=function(){me.briefed=true;save(me);show('scrOffice')};
+$('openHand').onclick=function(){show('scrHand')};
+$('diary').addEventListener('input',function(){me.diary=this.value;save(me)});
+$('reset').onclick=function(){me={};save(me);pick=null;$('nm').value='';$('idcard').classList.add('hidden');drawChars();check();show('scrEnter')};
+
+/* 구역 */
+var sel=null;
+function ph(t){return String(t).split('|').map(function(x){return '<span class="u">'+esc(x)+'</span>'}).join(' ')}
+function esc(t){return String(t).replace(/[&<>"]/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]})}
+function drawZones(){
+  $('zones').innerHTML=ZONES.map(function(z){
+    return '<button type="button" class="zone" data-id="'+z.id+'" aria-pressed="'+(sel===z.id)+'" aria-label="'+esc(z.title+', '+z.week+(z.lock?', 잠김':''))+'" style="left:'+z.x+'px;top:'+z.y+'px;width:'+z.w+'px;height:'+z.h+'px"><span class="zchip'+(z.lock?' lock':'')+'" style="left:'+z.cx+'px;top:'+z.cy+'px">'+esc(z.chip)+'</span></button>';
+  }).join('');
+  $('quick').innerHTML=ZONES.map(function(z){return '<button type="button" data-id="'+z.id+'" aria-pressed="'+(sel===z.id)+'"'+(z.lock?' class="lock"':'')+'>'+esc(z.chip)+'</button>'}).join('');
+  Array.prototype.forEach.call(document.querySelectorAll('.zone,#quick button'),function(b){b.onclick=function(){go(b.getAttribute('data-id'))}});
+}
+function go(id){
+  sel=id;var z=ZONES.filter(function(x){return x.id===id})[0];
+  $('me').style.left=z.tx+'px';$('me').style.top=z.ty+'px';
+  drawZones();
+  $('guide').classList.add('hidden');$('detail').classList.remove('hidden');
+  $('dTitle').textContent=z.title;$('dWeek').textContent=z.week;
+  $('dSt').textContent=z.st;$('dSt').className='c-st'+(z.lock?' lock':'');
+  $('dLines').innerHTML=z.lines.map(function(l){return '<li><span>'+ph(l)+'</span></li>'}).join('');
+  $('dReal').innerHTML=ph(z.real);
+  var a='';
+  if(z.act){
+    var url=CONFIG.links[z.link];
+    a=url?'<a class="btn" href="'+esc(url)+'" target="_blank" rel="noopener">'+esc(z.act)+'</a>'
+         :'<button class="btn" type="button" disabled>'+esc(z.act)+'</button><div class="pending">링크는 공지에서 곧 알려 드려요.</div>';
+  }
+  $('dAct').innerHTML=a;
+  if(window.innerWidth<760)$('detail').scrollIntoView({behavior:'smooth',block:'start'});
+}
+$('goDesk').onclick=function(){go('desk')};
+
+/* 지도 크기 맞추기 */
+function fit(){
+  var box=$('mapbox'),w=box.clientWidth||1016,s=Math.min(1,w/1032);
+  $('map').style.transform='translate('+(8*s)+'px,'+(8*s)+'px) scale('+s+')';
+  box.style.height=(820*s)+'px';
+}
+window.addEventListener('resize',fit);
+
+/* 시작 */
+drawChars();check();drawZones();
+if(me.name&&me.char){applyMe();show(me.briefed?'scrOffice':'scrBrief')}else{show('scrEnter')}
+</script>
+</body>
+</html>
