@@ -286,7 +286,7 @@ body[data-season="겨울"] #me .scarf{display:block}
           <tr><td>팀장 메신저</td><td><span class="u">출근 후</span> <span class="u">당일 업무를 먼저 확인함</span></td></tr>
           <tr><td>내 자리</td><td><span class="u">주차별 업무 수행.</span> <span class="u">노션 따라 하기를 참고하여</span> <span class="u">Code 탭에서 실습함</span></td></tr>
           <tr><td>팀장 자리</td><td><span class="u">업무 중 막히는 사항은</span> <span class="u">「업무 확인 요청」(질문 폼)으로</span> <span class="u">수시 제출함</span></td></tr>
-          <tr><td>내 AI 에이전트</td><td><span class="u">만든 프로그램과 기준표를</span> <span class="u">AI 에이전트의 도구로 등록함.</span> <span class="u">3주차에 모인 도구로</span> <span class="u">AI 에이전트가 다음 달 마감을 실행함</span></td></tr>
+          <tr><td>AI 에이전트</td><td><span class="u">만든 프로그램과 기준표를</span> <span class="u">AI 에이전트의 도구로 등록함.</span> <span class="u">3주차에 모인 도구로</span> <span class="u">AI 에이전트가 다음 달 마감을 실행함</span></td></tr>
           <tr><td>결재함</td><td><span class="u">주차 업무 완료 후</span> <span class="u">「금일 결재 전 점검표」 작성 →</span> <span class="u">「결재 상신」(과제 폼).</span> <span class="u">결재 의견은</span> <span class="u">승인 · 보완 요청 · 반려 중</span> <span class="u">하나로 회신됨</span></td></tr>
           <tr><td>탕비실</td><td><span class="u">4주차 주제를 정하기 전</span> <span class="u">팀장과 15분 커피챗 신청(선택).</span> <span class="u">줌 · 웨일온.</span> <span class="u">3주차 동안 신청받음</span></td></tr>
           <tr><td>대표실 · 회의실</td><td><span class="u">각각 3주차 · 4주차에 개방</span></td></tr>
@@ -385,7 +385,7 @@ body[data-season="겨울"] #me .scarf{display:block}
           <div class="sprite" style="left:241px;top:284px" aria-hidden="true"><div class="hair" style="background:#2b2320"></div><div class="face"></div><div class="body" style="background:#8aa3c4"></div></div>
           <div class="sprite" style="left:465px;top:284px" aria-hidden="true"><div class="hair" style="background:#6b4a33"></div><div class="face"></div><div class="body" style="background:#9bb79f"></div></div>
 
-          <!-- 내 AI 에이전트 캐비닛 -->
+          <!-- AI 에이전트 캐비닛 -->
           <div style="left:566px;top:352px;width:58px;height:132px;background:#e8d3b8;box-shadow:inset 0 -6px 0 #cdb08d,0 0 0 2px #8a6a4f">
             <div class="drawer" style="top:8px"></div><div class="drawer" style="top:38px"></div><div class="drawer" style="top:68px"></div><div class="drawer" style="top:98px"></div>
           </div>
@@ -479,7 +479,7 @@ body[data-season="겨울"] #me .scarf{display:block}
         <ul class="dy-list" id="dyList"></ul>
         <small><span class="u">이 기기에만 저장돼요.</span> <span class="u">4주 뒤 포트폴리오 재료가 돼요.</span></small>
       </div>
-      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1118-2250</div></div>
+      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1118-2255</div></div>
     </aside>
   </div>
 </section>
@@ -540,13 +540,13 @@ body[data-season="겨울"] #me .scarf{display:block}
   </div>
 </section>
 
-<!-- 5. 내 AI 에이전트 -->
+<!-- 5. AI 에이전트 -->
 <section id="scrTools" class="hidden" aria-labelledby="h-tools">
   <div class="ck-wrap">
     <button class="link" id="tlBack" style="font-size:14px;padding:4px 0">← 사무실로</button>
     <div class="card">
       <span class="kicker">내 자리 옆 · 캐비닛</span>
-      <h1 id="h-tools" style="margin:10px 0 6px;font-size:22px;color:var(--navy)">내 AI 에이전트</h1>
+      <h1 id="h-tools" style="margin:10px 0 6px;font-size:22px;color:var(--navy)">AI 에이전트</h1>
       <div class="lead" style="font-size:14px"><span class="u">내가 만든 프로그램과 기준표가</span> <span class="u">AI 에이전트의 도구로 모여요.</span> <span class="u">하나 만들 때마다</span> <span class="u">파일 이름을 적어 등록해요.</span></div>
       <div class="tl-meter"><div class="tl-bar"><i id="tlFill"></i></div><span id="tlCount"></span></div>
       <div class="note"><span class="u">파일은 지금처럼 04_산출물에 둬요.</span> <span class="u">여기에는 목록만 이 기기에 저장돼요.</span></div>
@@ -601,7 +601,7 @@ var ZONES = [
   {id:'leader',x:630,y:312,w:184,h:108,cx:14,cy:104,tx:596,ty:350,chip:'팀장 자리 · 매일',title:'정아름 팀장 자리',week:'매일',st:'열림',
    lines:['막히면 언제든|「업무 확인 요청」을 올려요.','질문지는 하나예요.|맨 위에서 주차와 날짜를 골라요.','답은 평일 24:00 전에|한 번에 와요.','여럿이 같은 곳에서 막히면|오픈채팅에 공통으로 답해요.'],
    real:'질문 구글폼에|막힌 곳을 적어 보내요.',act:'업무 확인 요청 쓰기',link:'question'},
-  {id:'tools',x:558,y:344,w:74,h:148,cx:-62,cy:152,tx:690,ty:500,chip:'내 AI 에이전트 · 매주',title:'내 AI 에이전트',week:'매주',st:'열림',
+  {id:'tools',x:558,y:344,w:74,h:148,cx:-62,cy:152,tx:690,ty:500,chip:'AI 에이전트 · 매주',title:'AI 에이전트',week:'매주',st:'열림',
    lines:['내가 만든 프로그램과 기준표가|AI 에이전트의 도구로 모여요.','하나 만들 때마다|파일 이름을 적어 등록해요.','3주차에는 도구가 모여|AI 에이전트가|다음 달 마감을 돌려요.'],
    real:'파일은 지금처럼|04_산출물에 두고,|여기서는 목록만 모아 봐요.',act:'AI 에이전트 열기',tools:true},
   {id:'tray',x:818,y:424,w:100,h:64,cx:-4,cy:70,tx:780,ty:432,chip:'결재함 · 매주',title:'결재함',week:'매주',st:'열림',
@@ -808,7 +808,7 @@ function openCheck(){drawCheck();show('scrCheck')}
 $('ckBack').onclick=function(){show('scrOffice')};
 
 
-/* 내 AI 에이전트 */
+/* AI 에이전트 */
 var TOOLS=[
  {wk:'1주차',title:'1주차 도구 · 통장과 카드',groups:[
   {g:'변환 프로그램 (파일마다 새로)',items:['은행A','은행B','은행C','카드A','카드B','카드C'].map(function(f){return {k:'cv_'+f,l:f+' 변환',ph:'예: 변환_'+f+'.py'}})},
@@ -843,7 +843,7 @@ function drawTools(){
   tlCount();
 }
 $('tlCopy').onclick=function(){
-  var d=tlData(),L=['[내 AI 에이전트의 도구 · '+(me.name||'')+']'];
+  var d=tlData(),L=['[AI 에이전트의 도구 · '+(me.name||'')+']'];
   TOOLS.forEach(function(w){if(!w.groups)return;L.push(w.title);w.groups.forEach(function(g){g.items.forEach(function(i){if(d[i.k])L.push('- '+i.l+': '+d[i.k])})})});
   var t=L.join('\n');
   var done=function(ok){$('tlMsg').innerHTML=ok?'복사했어요.':'<span class="u">자동 복사가 안 돼요.</span> <span class="u">아래 글을 길게 눌러 복사해 주세요.</span><textarea class="t" readonly rows="8" style="height:auto;margin-top:8px;padding:10px;font-size:12px">'+esc(t)+'</textarea>'};
