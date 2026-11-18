@@ -214,6 +214,12 @@ body[data-season="겨울"] #me .scarf{display:block}
 .tl-row label{font-size:13px;line-height:1.5}
 .tl-row input{height:40px;border:1.5px solid var(--cardBd);border-radius:8px;padding:0 10px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;color:var(--ink);background:#fff;width:100%}
 .tl-row input.filled{background:#fdf6f0;border-color:#e3bf9d}
+.tl-biz{display:block;font-size:11px;color:#1257c4;margin-top:1px}
+.tl-row{align-items:start}
+.tl-row label{padding-top:9px}
+.tl-fb{font-size:12px;line-height:1.5;margin-top:3px;min-height:0}
+.tl-fb.ok{color:#2f7a4a}
+.tl-fb.warn{color:#8a4f25}
 .tl-lockmsg{font-size:14px;line-height:1.7;color:#3a4a63}
 @media (max-width:520px){.tl-row{grid-template-columns:minmax(0,1fr)}}
 .foot{text-align:center;padding:4px 0 20px}
@@ -497,7 +503,7 @@ body[data-season="겨울"] #me .scarf{display:block}
         <div class="note hidden" id="dyCopyMsg" aria-live="polite"><span class="u">주말에 고른 것을</span> <span class="u">제출메모의 「막힌 순간」에</span> <span class="u">옮겨 붙여요.</span></div>
         <small><span class="u">이 기기에만 저장돼요.</span> <span class="u">4주 뒤 포트폴리오 재료가 돼요.</span></small>
       </div>
-      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1118-2400</div></div>
+      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1119-0010</div></div>
     </aside>
   </div>
 </section>
@@ -867,6 +873,31 @@ var TOOLS=[
  {wk:'4주차',lock:'이 목록이 그대로 포트폴리오의 「내가 만든 AI 에이전트」 칸이 돼요.',title:'4주차 · 내가 만든 AI 에이전트'}
 ];
 function tlData(){me.tools=me.tools||{};return me.tools}
+/* 칸 → 파이프라인 업무 이름, 확인 규칙 */
+function tlBiz(k){var r='';PIPE.forEach(function(w){w.nodes.forEach(function(n){if((n.keys||[]).indexOf(k)>=0)r=n.biz})});return r}
+function tlRule(k){
+  var m=k.match(/^(cv|ck)_(.+)$/);
+  if(m)return {ext:'.py',must:m[2]};
+  if(k==='rule'||k==='w2r')return {ext:'.csv'};
+  if(k==='cm')return {exact:'CLAUDE.md'};
+  return {ext:'.py'};
+}
+function tlCheck(k,v){
+  v=(v||'').trim();if(!v)return null;
+  var f=v.split(/[\\\/]/).pop(),r=tlRule(k),d=tlData(),biz=tlBiz(k),label='';
+  if(r.exact&&f!==r.exact)return {lv:'warn',t:'이 칸은 「'+r.exact+'」 파일이에요. 이름을 확인해 주세요.'};
+  if(r.ext&&f.toLowerCase().slice(-r.ext.length)!==r.ext)return {lv:'warn',t:'끝이 「'+r.ext+'」인지 확인해 주세요. 이 칸은 '+(r.ext==='.py'?'프로그램':'표')+' 파일이에요.'};
+  if(r.must&&f.indexOf(r.must)<0)return {lv:'warn',t:'파일 이름에 「'+r.must+'」가 없어요. '+r.must+'용 파일이 맞는지 확인해 주세요.'};
+  var dup=tlAll().filter(function(i){return i.k!==k&&d[i.k]&&d[i.k].trim()===v});
+  if(dup.length)return {lv:'warn',t:'「'+dup[0].l.replace(/<[^>]+>/g,'')+'」 칸에도 같은 이름이 있어요. 칸마다 다른 파일이에요.'};
+  return {lv:'ok',t:biz?'파이프라인 「'+biz+'」 칸에 들어갔어요.':'회사 규칙으로 등록했어요.'};
+}
+function tlFb(k){
+  var el=document.getElementById('fb_'+k);if(!el)return;
+  var c=tlCheck(k,tlData()[k]);
+  el.className='tl-fb'+(c?' '+c.lv:'');el.textContent=c?(c.lv==='ok'?'✓ ':'확인: ')+c.t:'';
+}
+
 function tlAll(){var a=[];TOOLS.forEach(function(d){(d.groups||[]).forEach(function(g){g.items.forEach(function(i){a.push(i)})})});return a}
 function tlCount(){var a=tlAll(),d=tlData(),n=a.filter(function(i){return d[i.k]}).length;
   $('tlCount').textContent='모은 도구 '+n+' / '+a.length;$('tlFill').style.width=Math.round(n/a.length*100)+'%'}
@@ -877,13 +908,14 @@ function drawTools(){
     var n=0,t=0;w.groups.forEach(function(g){g.items.forEach(function(i){t++;if(d[i.k])n++})});
     return '<div class="card tl-dw"><div class="tl-dh"><h2>'+esc(w.title)+'</h2><span>'+n+' / '+t+'</span></div>'+w.groups.map(function(g){
       return '<div class="tl-grp">'+esc(g.g)+'</div>'+g.items.map(function(i){var v=esc(d[i.k]||'');
-        return '<div class="tl-row"><label for="tl_'+i.k+'">'+esc(i.l)+'</label><input id="tl_'+i.k+'" data-k="'+i.k+'" autocomplete="off" spellcheck="false" placeholder="'+esc(i.ph)+'" value="'+v+'" class="'+(v?'filled':'')+'"></div>'}).join('')}).join('')+'</div>';
+        var bz=tlBiz(i.k);return '<div class="tl-row"><label for="tl_'+i.k+'">'+esc(i.l)+(bz?'<small class="tl-biz">'+esc(bz)+'</small>':'')+'</label><div><input id="tl_'+i.k+'" data-k="'+i.k+'" autocomplete="off" spellcheck="false" placeholder="'+esc(i.ph)+'" value="'+v+'" class="'+(v?'filled':'')+'" aria-describedby="fb_'+i.k+'"><div class="tl-fb" id="fb_'+i.k+'" aria-live="polite"></div></div></div>'}).join('')}).join('')+'</div>';
   }).join('');
   Array.prototype.forEach.call(document.querySelectorAll('#tlDrawers input'),function(i){i.addEventListener('input',function(){
-    var v=i.value.trim();tlData()[i.getAttribute('data-k')]=v;i.classList.toggle('filled',!!v);save(me);tlCount();drawPipe();
+    var v=i.value.trim();tlData()[i.getAttribute('data-k')]=v;i.classList.toggle('filled',!!v);save(me);tlCount();drawPipe();tlAll().forEach(function(x){tlFb(x.k)});
     var c=i.closest('.tl-dw').querySelector('.tl-dh span'),ins=i.closest('.tl-dw').querySelectorAll('input');c.textContent=Array.prototype.filter.call(ins,function(x){return x.value.trim()}).length+' / '+ins.length;
   })});
   tlCount();
+  tlAll().forEach(function(x){tlFb(x.k)});
 }
 
 /* 파이프라인 — 실무 업무 이름 기준 */
