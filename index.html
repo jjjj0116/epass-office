@@ -194,6 +194,19 @@ body[data-season="겨울"] #me .scarf{display:block}
 .tl-dw.lock{border-left-color:#b9b2a8;background:#faf8f5}
 .tl-dh{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
 .tl-dh h2{margin:0;font-size:16px;color:var(--navy)}
+.pp-wk{font-size:12px;font-weight:700;color:var(--sub);margin:10px 0 6px}
+.pp{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px}
+.pp-n{flex:0 1 auto;min-width:112px;max-width:180px;border:1.5px solid #c9d7ea;border-radius:10px;padding:8px 10px;background:#fff;display:flex;flex-direction:column;gap:3px}
+.pp-n b{font-size:12px;color:var(--navy);white-space:nowrap}
+.pp-n i{font-style:normal;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;color:var(--ink);word-break:break-all;line-height:1.45}
+.pp-n i.miss{color:#8a94a6;font-family:inherit}
+.pp-n.on{border-color:#e3bf9d;background:#fdf6f0}
+.pp-n.hum{border-color:#c9824f;background:#fff7ef}
+.pp-n.hum b{color:#8a4f25}
+.pp-n.ai{border-color:#9fc0ea;background:#f3f7fd}
+.pp-n.ai b{color:#1257c4}
+.pp-n.io{background:#f3f5f8;border-style:dashed}
+.pp-a{align-self:center;color:#8aa3c4;font-size:14px}
 .tl-dh span{font-size:12px;color:#6b3f17;background:#f6e3cf;border-radius:999px;padding:2px 10px;white-space:nowrap}
 .tl-grp{font-size:12px;font-weight:700;color:var(--sub);margin:12px 0 6px}
 .tl-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:8px;align-items:center;margin-bottom:6px}
@@ -483,7 +496,7 @@ body[data-season="겨울"] #me .scarf{display:block}
         <div class="note hidden" id="dyCopyMsg" aria-live="polite"><span class="u">주말에 고른 것을</span> <span class="u">제출메모의 「막힌 순간」에</span> <span class="u">옮겨 붙여요.</span></div>
         <small><span class="u">이 기기에만 저장돼요.</span> <span class="u">4주 뒤 포트폴리오 재료가 돼요.</span></small>
       </div>
-      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1118-2335</div></div>
+      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1118-2350</div></div>
     </aside>
   </div>
 </section>
@@ -555,10 +568,17 @@ body[data-season="겨울"] #me .scarf{display:block}
       <div class="tl-meter"><div class="tl-bar"><i id="tlFill"></i></div><span id="tlCount"></span></div>
       <div class="note"><span class="u">파일은 지금처럼 04_산출물에 둬요.</span> <span class="u">여기에는 목록만 이 기기에 저장돼요.</span></div>
     </div>
+    <div class="card">
+      <div class="tl-dh"><h2>AI 에이전트 파이프라인</h2><span>1·2주차 도구가 이어지는 순서</span></div>
+      <div class="note" style="margin-bottom:10px"><span class="u">등록한 도구가</span> <span class="u">일하는 순서대로 이어져요.</span> <span class="u">흰 칸은 내가 만든 프로그램,</span> <span class="u">파란 칸은 AI가 직접 하는 일,</span> <span class="u">주황 칸은 사람이 확인하는 자리예요.</span></div>
+      <div id="tlPipe"></div>
+      <button class="btn ghost" type="button" id="tlPipeCopy" style="margin-top:12px">파이프라인 복사하기</button>
+      <div class="note" id="tlPipeMsg" aria-live="polite" style="margin-top:6px"><span class="u">4주차 포트폴리오의</span> <span class="u">「내가 만든 AI 에이전트」 칸에</span> <span class="u">이 파이프라인을 붙여요.</span></div>
+    </div>
     <div id="tlDrawers"></div>
     <div class="card" style="display:flex;flex-direction:column;gap:10px">
       <button class="btn" id="tlCopy">도구 목록 복사하기</button>
-      <div class="note" id="tlMsg" aria-live="polite"><span class="u">따로 낼 필요는 없어요.</span> <span class="u">결재함에서 점검표를 복사하면</span> <span class="u">이 목록도 함께 들어가요.</span> <span class="u">이 버튼은 4주차 포트폴리오의</span> <span class="u">「내가 만든 AI 에이전트」 칸에</span> <span class="u">붙일 때 써요.</span></div>
+      <div class="note" id="tlMsg" aria-live="polite"><span class="u">따로 낼 필요는 없어요.</span> <span class="u">결재함에서 점검표를 복사하면</span> <span class="u">이 목록도 함께 들어가요.</span></div>
     </div>
   </div>
 </section>
@@ -825,14 +845,19 @@ $('ckBack').onclick=function(){show('scrOffice')};
 /* AI 에이전트 */
 var TOOLS=[
  {wk:'1주차',title:'1주차 도구 · 통장과 카드',groups:[
-  {g:'변환 프로그램 (파일마다 새로)',items:['은행A','은행B','은행C','카드A','카드B','카드C'].map(function(f){return {k:'cv_'+f,l:f+' 변환',ph:'예: 변환_'+f+'.py'}})},
-  {g:'검산 프로그램 (파일마다 새로)',items:['은행A','은행B','은행C','카드A','카드B','카드C'].map(function(f){return {k:'ck_'+f,l:f+' 검산',ph:'예: 검산_'+f+'.py'}})},
-  {g:'공용 프로그램 (한 번 만들고 계속 씀)',items:[{k:'nm',l:'거래처 이름 대조',ph:'파일 이름'},{k:'nl',l:'거래처 이름 목록',ph:'파일 이름'},{k:'sl',l:'전표 초안',ph:'파일 이름'},{k:'mg',l:'여섯 파일 합치기',ph:'전표초안_합치기.py'}]},
-  {g:'기준과 규칙',items:[{k:'rule',l:'처리 기준표',ph:'처리기준표.csv'},{k:'cm',l:'회사 규칙',ph:'CLAUDE.md'}]}
+  {g:'1·2단계 변환 프로그램 (파일마다 새로)',items:['은행A','은행B','은행C','카드A','카드B','카드C'].map(function(f){return {k:'cv_'+f,l:f+' 변환',ph:'예: 변환_'+f+'.py'}})},
+  {g:'7단계 검산 프로그램 (파일마다 새로)',items:['은행A','은행B','은행C','카드A','카드B','카드C'].map(function(f){return {k:'ck_'+f,l:f+' 검산',ph:'예: 검산_'+f+'.py'}})},
+  {g:'공용 프로그램 (한 번 만들고 계속 씀)',items:[{k:'nm',l:'3단계 거래처 이름 대조',ph:'파일 이름'},{k:'nl',l:'4단계 거래처 이름 목록',ph:'파일 이름'},{k:'sl',l:'6단계 전표 초안',ph:'파일 이름'},{k:'mg',l:'8단계 여섯 파일 합치기',ph:'전표초안_합치기.py'}]},
+  {g:'기준과 규칙',items:[{k:'rule',l:'5단계 처리 기준표',ph:'처리기준표.csv'},{k:'cm',l:'회사 규칙',ph:'CLAUDE.md'}]}
  ]},
  {wk:'2주차',title:'2주차 도구 · 증빙과 부가세',groups:[
-  {g:'프로그램',items:[1,2,3,4,5].map(function(n){return {k:'w2p'+n,l:'2주차 도구 '+n,ph:'파일 이름'}})},
-  {g:'기준과 보고',items:[{k:'w2r',l:'매입세액 공제 기준표',ph:'매입세액_공제기준표.csv'},{k:'w2h',l:'부가세 점검표',ph:'파일 이름 (.html)'}]}
+  {g:'프로그램 (한 번 만들고 다음 달에도 씀)',items:[
+    {k:'w2p1',l:'3단계 증빙 대조',ph:'증빙대조.py'},
+    {k:'w2p2',l:'5단계 증빙 반영',ph:'증빙반영.py'},
+    {k:'w2p3',l:'6단계 매입세액 공제 판정',ph:'공제판정.py'},
+    {k:'w2p4',l:'7단계 세금계산서 점검',ph:'세금계산서점검.py'},
+    {k:'w2h',l:'9단계 부가세 점검표',ph:'부가세점검표.py'}]},
+  {g:'기준',items:[{k:'w2r',l:'매입세액 공제 기준표 (받은 자료, 확인 후 배치)',ph:'매입세액_공제기준표.csv'}]}
  ]},
  {wk:'3주차',lock:'도구를 하나로 묶어 「월마감 실행」 한 번으로 AI 에이전트가 11월 마감을 돌리는 날 열려요.',title:'3주차 · 도구가 모여 AI 에이전트가 일하는 날'},
  {wk:'4주차',lock:'이 목록이 그대로 포트폴리오의 「내가 만든 AI 에이전트」 칸이 돼요.',title:'4주차 · 내가 만든 AI 에이전트'}
@@ -851,7 +876,7 @@ function drawTools(){
         return '<div class="tl-row"><label for="tl_'+i.k+'">'+esc(i.l)+'</label><input id="tl_'+i.k+'" data-k="'+i.k+'" autocomplete="off" spellcheck="false" placeholder="'+esc(i.ph)+'" value="'+v+'" class="'+(v?'filled':'')+'"></div>'}).join('')}).join('')+'</div>';
   }).join('');
   Array.prototype.forEach.call(document.querySelectorAll('#tlDrawers input'),function(i){i.addEventListener('input',function(){
-    var v=i.value.trim();tlData()[i.getAttribute('data-k')]=v;i.classList.toggle('filled',!!v);save(me);tlCount();
+    var v=i.value.trim();tlData()[i.getAttribute('data-k')]=v;i.classList.toggle('filled',!!v);save(me);tlCount();drawPipe();
     var c=i.closest('.tl-dw').querySelector('.tl-dh span'),ins=i.closest('.tl-dw').querySelectorAll('input');c.textContent=Array.prototype.filter.call(ins,function(x){return x.value.trim()}).length+' / '+ins.length;
   })});
   tlCount();
@@ -863,7 +888,64 @@ $('tlCopy').onclick=function(){
   var done=function(ok){$('tlMsg').innerHTML=ok?'복사했어요.':'<span class="u">자동 복사가 안 돼요.</span> <span class="u">아래 글을 길게 눌러 복사해 주세요.</span><textarea class="t" readonly rows="8" style="height:auto;margin-top:8px;padding:10px;font-size:12px">'+esc(t)+'</textarea>'};
   if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(function(){done(true)},function(){done(false)})}else{done(false)}
 };
-function openTools(){drawTools();show('scrTools')}
+
+/* 파이프라인 */
+var PIPE=[
+ {wk:'1주차 · 통장과 카드 → 10월 전표 초안',nodes:[
+  {t:'원자료',io:1,txt:'은행·카드 엑셀 6개 (01_원자료)'},
+  {t:'1·2단계 변환',keys:['cv_은행A','cv_은행B','cv_은행C','cv_카드A','cv_카드B','cv_카드C']},
+  {t:'3단계 이름 대조',keys:['nm']},
+  {t:'4단계 이름 목록',keys:['nl']},
+  {t:'사람 확인',hum:1,txt:'이름 목록을 02_AI입력용에 직접 옮김'},
+  {t:'5단계 처리 기준표',keys:['rule'],hum2:'AI 초안 → 사람이 검토'},
+  {t:'6단계 전표 초안',keys:['sl']},
+  {t:'7단계 검산',keys:['ck_은행A','ck_은행B','ck_은행C','ck_카드A','ck_카드B','ck_카드C']},
+  {t:'사람 판정',hum:1,txt:'정답앵커와 대사'},
+  {t:'8단계 합치기',keys:['mg']},
+  {t:'내 전표 초안',io:1,txt:'전표초안_2026-10.csv (1주차 결과, 내 기록으로 남음)'}
+ ]},
+ {wk:'2주차 · 증빙과 부가세',note:'2주차는 모두 같은 출발점에서 시작해요. 1주차 결과는 내 기록으로 남고, 만든 프로그램은 그대로 둬요.',nodes:[
+  {t:'2주차 받은 확정본',io:1,txt:'전표초안_2026-10.csv (모두 같은 79건)'},
+  {t:'2단계 결의서 읽기',ai:1,txt:'AI가 결의서 사진을 표로 → 결의서표_2026-10.csv'},
+  {t:'사람 확인',hum:1,txt:'결의서 원본 3장 이상과 대조'},
+  {t:'3단계 증빙 대조',keys:['w2p1']},
+  {t:'4단계 보완 요청',ai:1,txt:'AI가 요청 문장 초안 → 사람이 다듬어 보냄'},
+  {t:'5단계 증빙 반영',keys:['w2p2']},
+  {t:'사람 확인',hum:1,txt:'남은 10건은 담당자 확인'},
+  {t:'6단계 공제 판정',keys:['w2p3','w2r'],hum2:'기준표에 있는 기준만'},
+  {t:'7단계 세금계산서 점검',keys:['w2p4']},
+  {t:'8단계 영세율 확인',hum:1,txt:'구매확인서를 사람이 직접 확인'},
+  {t:'9단계 부가세 점검표',keys:['w2h']},
+  {t:'결과',io:1,txt:'부가세점검표_2026-10.html'}
+ ]},
+ {wk:'3주차 · 월마감 실행',nodes:[
+  {t:'11월 자료',io:1,txt:'새 달 원자료'},
+  {t:'월마감 실행',txt:'1·2주차 도구가 끊김 없이 이어져 한 번에 돌아가요 (3주차에 묶음)'},
+  {t:'사람 확정',hum:1,txt:'검산 판정과 확정'}
+ ]}
+];
+function ppNames(n){var d=tlData();return (n.keys||[]).map(function(k){return d[k]}).filter(Boolean)}
+function drawPipe(){
+  $('tlPipe').innerHTML=PIPE.map(function(w){
+    return '<div class="pp-wk">'+esc(w.wk)+'</div>'+(w.note?'<div class="note" style="margin:-2px 0 6px">'+esc(w.note)+'</div>':'')+'<div class="pp">'+w.nodes.map(function(n,i){
+      var names=ppNames(n),body;
+      if(n.keys){body=names.length?names.map(function(x){return '<i>'+esc(x)+'</i>'}).join(''):'<i class="miss">아직 등록 전</i>';if(n.hum2)body+='<i class="miss">'+esc(n.hum2)+'</i>'}
+      else body='<i class="miss" style="color:inherit">'+esc(n.txt)+'</i>';
+      var cls='pp-n'+(n.io?' io':'')+(n.hum?' hum':'')+(n.ai?' ai':'')+(n.keys&&names.length?' on':'');
+      return (i?'<span class="pp-a" aria-hidden="true">→</span>':'')+'<div class="'+cls+'"><b>'+esc(n.t)+(n.keys?' ('+names.length+'/'+n.keys.length+')':'')+'</b>'+body+'</div>';
+    }).join('')+'</div>';
+  }).join('');
+}
+$('tlPipeCopy').onclick=function(){
+  var L=['[AI 에이전트 파이프라인 · '+(me.name||'')+']'];
+  PIPE.forEach(function(w){L.push('');L.push(w.wk);if(w.note)L.push('('+w.note+')');w.nodes.forEach(function(n){
+    if(n.keys){var nm=ppNames(n);L.push('→ '+n.t+': '+(nm.length?nm.join(', '):'(미등록)')+(n.hum2?' — '+n.hum2:''))}
+    else L.push((n.hum?'→ [사람] ':n.ai?'→ [AI] ':'→ ')+n.t+': '+n.txt);
+  })});
+  var t=L.join('\n'),done=function(ok){$('tlPipeMsg').innerHTML=ok?'복사했어요.':'<span class="u">자동 복사가 안 돼요.</span> <span class="u">아래 글을 길게 눌러 복사해 주세요.</span><textarea class="t" readonly rows="10" style="width:100%;height:auto;margin-top:8px;padding:10px;font-size:12px">'+esc(t)+'</textarea>'};
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(function(){done(true)},function(){done(false)})}else{done(false)}
+};
+function openTools(){drawTools();drawPipe();show('scrTools')}
 $('tlBack').onclick=function(){show('scrOffice')};
 
 /* 지도 크기 맞추기 */
