@@ -288,6 +288,7 @@ body[data-season="겨울"] #me .scarf{display:block}
           <tr><td>팀장 자리</td><td><span class="u">업무 중 막히는 사항은</span> <span class="u">「업무 확인 요청」(질문 폼)으로</span> <span class="u">수시 제출함</span></td></tr>
           <tr><td>내 AI 에이전트</td><td><span class="u">만든 프로그램과 기준표를</span> <span class="u">AI 에이전트의 도구로 등록함.</span> <span class="u">3주차에 모인 도구로</span> <span class="u">AI 에이전트가 다음 달 마감을 실행함</span></td></tr>
           <tr><td>결재함</td><td><span class="u">주차 업무 완료 후</span> <span class="u">「금일 결재 전 점검표」 작성 →</span> <span class="u">「결재 상신」(과제 폼).</span> <span class="u">결재 의견은</span> <span class="u">승인 · 보완 요청 · 반려 중</span> <span class="u">하나로 회신됨</span></td></tr>
+          <tr><td>탕비실</td><td><span class="u">4주차 주제를 정하기 전</span> <span class="u">팀장과 15분 커피챗 신청(선택).</span> <span class="u">줌 · 웨일온.</span> <span class="u">3주차 동안 신청받음</span></td></tr>
           <tr><td>대표실 · 회의실</td><td><span class="u">각각 3주차 · 4주차에 개방</span></td></tr>
           <tr><td>퇴근</td><td><span class="u">당일 막힌 사항을</span> <span class="u">업무일지에 1줄 기록함</span></td></tr>
         </tbody>
@@ -343,7 +344,7 @@ body[data-season="겨울"] #me .scarf{display:block}
           <div style="left:362px;top:22px;width:30px;height:26px;background:#3a4a63;border-radius:3px"></div>
           <div style="left:470px;top:16px;width:50px;height:70px;background:#fff;box-shadow:0 0 0 2px #7c8ca3"></div>
           <div style="left:400px;top:130px;width:70px;height:70px;background:#d8bc98;border-radius:50%;box-shadow:0 0 0 2px #7d5f42"></div>
-          <div style="left:356px;top:206px;font-size:12px;color:var(--sub)">탕비실</div>
+          <div style="left:414px;top:150px;width:14px;height:12px;background:#fff;border-radius:2px 2px 5px 5px;box-shadow:0 0 0 1.5px #8a6a4f"></div><div style="left:440px;top:168px;width:14px;height:12px;background:#fff;border-radius:2px 2px 5px 5px;box-shadow:0 0 0 1.5px #8a6a4f"></div>
 
           <!-- 대표실 -->
           <div style="left:696px;top:0;width:320px;height:240px;background:var(--ceo)"></div>
@@ -567,7 +568,8 @@ var CONFIG = {
     week1: '',               // 노션 1주차 따라 하기
     week2: '',               // 노션 2주차 따라 하기
     question: 'https://docs.google.com/forms/d/e/1FAIpQLSem3CCEaJrt1jxoSuQWPL4-zoRsUwR4S1XxluZsoY7BXvsZ0A/viewform',  // 질문(업무 확인 요청) — 4주 내내 같은 링크
-    submit: 'https://docs.google.com/forms/d/e/1FAIpQLSfMa9Pp7q-P6l136jZO3cEP6tHjIJ2cFKlAZpZC6EKUD1yYAg/viewform'      // 과제(결재 상신) — 4주 내내 같은 링크
+    submit: 'https://docs.google.com/forms/d/e/1FAIpQLSfMa9Pp7q-P6l136jZO3cEP6tHjIJ2cFKlAZpZC6EKUD1yYAg/viewform',     // 과제(결재 상신) — 4주 내내 같은 링크
+    coffee: ''               // 커피챗 신청 폼 (3주차 동안 신청)
   },
   attendance: {              // 출근부(입장 기록). 비우면 기록하지 않음
     url: 'https://docs.google.com/forms/d/e/1FAIpQLSc9PyMUYJFrDD3G-i9AzRsoXBcWsWj3bwk5DpY2qXnKPd52Mw/formResponse',
@@ -607,6 +609,9 @@ var ZONES = [
    real:'과제 구글폼에서|주차를 고르고|마감 폴더를 내요.|마감 일시는|공지를 확인해 주세요.',act:'결재 상신하기',link:'submit',check:true},
   {id:'sales',x:630,y:630,w:244,h:140,cx:12,cy:-26,tx:724,ty:756,chip:'영업팀 · 2주차',title:'영업팀',week:'2주차',st:'2주차에 찾아와요',
    lines:['영업팀 동료가|결의서 없는 카드 건을|들고 올 거예요.','무엇을 확인해 달라고 할지|내가 정해요.'],real:'확인 요청 문장을|직접 써 봐요.'},
+  {id:'pantry',x:330,y:0,w:220,h:240,cx:12,cy:12,tx:372,ty:160,chip:'탕비실 · 커피챗',title:'탕비실 · 커피챗',week:'3주차 신청',st:'선택',
+   lines:['4주차 주제를 정하기 전에|팀장과 15분 커피챗을|할 수 있어요.','고를 업종이나 반복 업무가|고민되면 신청해요.','줌이나 웨일온으로 만나요.|신청은 3주차 동안 받아요.'],
+   real:'신청서에 만나는 방법과|가능한 시간을 적으면|일정과 접속 링크를|이메일로 보내 드려요.',act:'커피챗 신청하기',link:'coffee'},
   {id:'ceo',x:696,y:0,w:320,h:240,cx:12,cy:12,tx:822,ty:250,lock:true,chip:'대표실 · 3주차',title:'대표실',week:'3주차',st:'잠김',
    lines:['11월 자료가 오면|10월에 만든 도구를|다시 돌려요.','혼자 다음 달 마감을 해내면|대표에게 월결산을 보고해요.','이 과정이|정직원 전환의 근거가 돼요.'],real:'3주차에 열려요.'},
   {id:'meeting',x:0,y:0,w:320,h:240,cx:12,cy:12,tx:146,ty:250,lock:true,chip:'회의실 · 4주차',title:'회의실',week:'4주차',st:'잠김',
