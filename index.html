@@ -477,9 +477,11 @@ body[data-season="겨울"] #me .scarf{display:block}
         <div id="dyPrev" class="dy-prev hidden"><img id="dyImg" alt="붙인 캡처 미리 보기"><button type="button" class="link" id="dyDrop">캡처 빼기</button></div>
         <div class="note" id="dyMsg" aria-live="polite"><span class="u">PC에서는 캡처 후</span> <span class="u">이 칸에 Ctrl+V로 붙여도 돼요.</span> <span class="u">PC 사용자 이름이나</span> <span class="u">실제 자료가 보이면 가려 주세요.</span></div>
         <ul class="dy-list" id="dyList"></ul>
+        <button class="btn ghost hidden" type="button" id="dyCopy" style="margin-top:10px;min-height:44px;font-size:14px">업무일지 복사하기</button>
+        <div class="note hidden" id="dyCopyMsg" aria-live="polite"><span class="u">주말에 고른 것을</span> <span class="u">제출메모의 「막힌 순간」에</span> <span class="u">옮겨 붙여요.</span></div>
         <small><span class="u">이 기기에만 저장돼요.</span> <span class="u">4주 뒤 포트폴리오 재료가 돼요.</span></small>
       </div>
-      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1118-2258</div></div>
+      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1118-2315</div></div>
     </aside>
   </div>
 </section>
@@ -534,7 +536,7 @@ body[data-season="겨울"] #me .scarf{display:block}
     <div class="card" style="display:flex;flex-direction:column;gap:10px">
       <div style="font-size:14px" id="ckCount"></div>
       <button class="btn" id="ckCopy">점검표 복사하기</button>
-      <div class="note" id="ckMsg" aria-live="polite"><span class="u">복사한 글을 과제 폼의</span> <span class="u">「점검표 숫자」 칸에 붙여 넣어요.</span></div>
+      <div class="note" id="ckMsg" aria-live="polite"><span class="u">점검표 숫자와</span> <span class="u">AI 에이전트 도구 목록이</span> <span class="u">함께 복사돼요.</span> <span class="u">과제 폼의 「점검표 숫자」 칸에</span> <span class="u">붙여 넣어요.</span></div>
       <button class="btn ghost" id="ckSubmit">결재 상신하기</button>
     </div>
   </div>
@@ -696,6 +698,12 @@ function dyShrink(file,cb){
 function dySet(file){if(!file||!/^image\//.test(file.type))return;dyShrink(file,function(u){if(!u){dyMsg('이미지를 읽지 못했어요.');return}dyPending=u;$('dyImg').src=u;$('dyPrev').classList.remove('hidden')})}
 $('dyFile').addEventListener('change',function(){dySet(this.files[0]);this.value=''});
 $('diary').addEventListener('paste',function(e){var it=(e.clipboardData||{}).items||[];for(var i=0;i<it.length;i++){if(it[i].type.indexOf('image')===0){e.preventDefault();dySet(it[i].getAsFile());break}}});
+$('dyCopy').onclick=function(){
+  var a=dyLoad().slice().reverse(),L=['[업무일지 · '+(me.name||'')+']'];
+  a.forEach(function(x){L.push('- '+x.d+' · '+(x.t||'(글 없음)')+(x.img?' (캡처 있음 — 내려받아 첨부)':''))});
+  var t=L.join('\n'),done=function(ok){$('dyCopyMsg').innerHTML=ok?'<span class="u">복사했어요.</span> <span class="u">제출메모의 「막힌 순간」에</span> <span class="u">고른 것만 붙여 넣어요.</span>':'<span class="u">자동 복사가 안 돼요.</span> <span class="u">아래 글을 길게 눌러 복사해 주세요.</span><textarea class="t" readonly rows="6" style="width:100%;height:auto;margin-top:8px;padding:10px;font-size:12px">'+esc(t)+'</textarea>'};
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(function(){done(true)},function(){done(false)})}else{done(false)}
+};
 $('dyDrop').onclick=function(){dyPending=null;$('dyPrev').classList.add('hidden')};
 $('dySave').onclick=function(){
   var t=$('diary').value.trim();if(!t&&!dyPending){dyMsg('글이나 캡처 중 하나는 있어야 해요.');return}
@@ -706,7 +714,8 @@ $('dySave').onclick=function(){
 };
 function dyDraw(){
   var a=dyLoad();
-  $('dyList').innerHTML=a.map(function(x,i){return '<li><div class="d"><span>'+esc(x.d)+'</span><button type="button" class="link" data-i="'+i+'">지우기</button></div>'+(x.t?'<div>'+esc(x.t)+'</div>':'')+(x.img?'<img src="'+x.img+'" alt="'+esc(x.d)+' 캡처">':'')+'</li>'}).join('');
+  $('dyList').innerHTML=a.map(function(x,i){return '<li><div class="d"><span>'+esc(x.d)+'</span><button type="button" class="link" data-i="'+i+'">지우기</button></div>'+(x.t?'<div>'+esc(x.t)+'</div>':'')+(x.img?'<img src="'+x.img+'" alt="'+esc(x.d)+' 캡처"><a class="link" style="display:inline-block;padding:4px 0;font-size:12px" download="업무일지_'+esc(x.d.replace(/[: ]/g,'-'))+'.jpg" href="'+x.img+'">캡처 내려받기</a>':'')+'</li>'}).join('');
+  $('dyCopy').classList.toggle('hidden',!a.length);$('dyCopyMsg').classList.toggle('hidden',!a.length);
   Array.prototype.forEach.call(document.querySelectorAll('#dyList button'),function(b){b.onclick=function(){var a=dyLoad();a.splice(+b.getAttribute('data-i'),1);dySaveAll(a);dyDraw()}});
   Array.prototype.forEach.call(document.querySelectorAll('#dyList img'),function(im){im.onclick=function(){var w=window.open();if(w){w.document.write('<img src="'+im.src+'" style="max-width:100%">')}}});
 }
@@ -797,6 +806,9 @@ function ckText(){
   L.push('3. 내기 전 묶음 확인');
   CK_PACK.forEach(function(c){L.push(c[1]+': '+v(c[0]))});
   L.push('4. 정답앵커와 다른 곳: '+((d.diff||'').trim()||'미기입'));
+  var td=tlData(),tl=[];TOOLS.forEach(function(w){(w.groups||[]).forEach(function(g){g.items.forEach(function(i){if(td[i.k])tl.push('- '+i.l+': '+td[i.k])})})});
+  L.push('5. AI 에이전트 도구 목록 ('+tl.length+' / '+tlAll().length+')');
+  if(tl.length){tl.forEach(function(x){L.push(x)})}else{L.push('- 등록 없음')}
   return L.join('\n');
 }
 $('ckCopy').onclick=function(){
