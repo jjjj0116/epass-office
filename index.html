@@ -36,7 +36,7 @@ button{font-family:inherit}
 .idcard small{font-size:11px;color:var(--sub)}
 .idcard strong{font-size:13px;white-space:nowrap}
 .stamps{display:flex;gap:4px}
-.stamp{width:30px;height:30px;border-radius:50%;border:1.5px dashed #8aa3c4;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--sub);white-space:nowrap;background:#fff;padding:0;cursor:pointer;font-family:inherit}
+.stamp{width:30px;height:30px;border-radius:50%;border:1.5px dashed #8aa3c4;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--sub);white-space:nowrap;background:#fff;padding:0;font-family:inherit}
 .stamp.s1{border:2px solid #c9824f;color:#8a4f25;font-weight:700;background:#fdf1e6}
 .stamp.s2{border:2px solid #1257c4;color:#1257c4;font-weight:700;background:#f3f7fd;font-size:8px}
 
@@ -351,7 +351,7 @@ body[data-season="겨울"] #me .scarf{display:block}
           <tr><td>내 자리</td><td><span class="u">주차별 업무 수행.</span> <span class="u">노션 따라 하기를 참고하여</span> <span class="u">Code 탭에서 실습함</span></td></tr>
           <tr><td>팀장 자리</td><td><span class="u">업무 중 막히는 사항은</span> <span class="u">「업무 확인 요청」(질문 폼)으로</span> <span class="u">수시 제출함</span></td></tr>
           <tr><td>AI 에이전트</td><td><span class="u">만든 프로그램과 기준표를</span> <span class="u">AI 에이전트의 도구로 등록함.</span> <span class="u">3주차에 모인 도구로</span> <span class="u">AI 에이전트가 다음 달 마감을 실행함</span></td></tr>
-          <tr><td>결재함</td><td><span class="u">주차 업무 완료 후</span> <span class="u">「금일 결재 전 점검표」 작성 →</span> <span class="u">「결재 상신」(과제 폼).</span> <span class="u">결재 의견은</span> <span class="u">승인 · 보완 요청 · 반려 중 하나로</span> <span class="u">금요일에 이메일로 회신됨.</span> <span class="u">승인되면 사원증 도장 칸을 눌러 찍음</span></td></tr>
+          <tr><td>결재함</td><td><span class="u">주차 업무 완료 후</span> <span class="u">「금일 결재 전 점검표」 작성 →</span> <span class="u">「결재 상신」(과제 폼).</span> <span class="u">결재 의견은</span> <span class="u">승인 · 보완 요청 · 반려 중 하나로</span> <span class="u">금요일에 이메일로 회신됨.</span> <span class="u">승인되면 팀장이</span> <span class="u">사원증에 도장을 찍어 줌</span></td></tr>
           <tr><td>탕비실</td><td><span class="u">4주차 주제를 정하기 전</span> <span class="u">팀장과 15분 커피챗 신청(선택).</span> <span class="u">12/12(토)·12/13(일) 오후,</span> <span class="u">온라인 채팅.</span> <span class="u">12/11(금) 18:00까지 신청받음</span></td></tr>
           <tr><td>대표실 · 회의실</td><td><span class="u">각각 3주차 · 4주차에 개방</span></td></tr>
           <tr><td>퇴근</td><td><span class="u">당일 막힌 사항을</span> <span class="u">업무일지에 1줄 기록함</span></td></tr>
@@ -548,7 +548,7 @@ body[data-season="겨울"] #me .scarf{display:block}
         <div class="note hidden" id="dyCopyMsg" aria-live="polite"></div>
         <small><span class="u">이 기기에만 저장돼요.</span> <span class="u">4주 뒤 포트폴리오 재료가 돼요.</span></small>
       </div>
-      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1119-0105</div></div>
+      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1119-0115</div></div>
     </aside>
   </div>
 </section>
@@ -751,6 +751,9 @@ var CONFIG = {
     submit: 'https://docs.google.com/forms/d/e/1FAIpQLSfMa9Pp7q-P6l136jZO3cEP6tHjIJ2cFKlAZpZC6EKUD1yYAg/viewform',     // 과제(결재 상신) — 4주 내내 같은 링크
     coffee: 'https://docs.google.com/forms/d/e/1FAIpQLSflo-wHJfQlNxSDmSAE80ZFjDIsx5meRlPCovatSwU78X0aNw/viewform'  // 커피챗 신청 폼 (3주차 동안 신청)
   },
+  stamps: {                  // 결재 도장 시트(「공개」 탭을 웹에 CSV로 게시한 주소). 비우면 도장이 비어 보임
+    url: ''
+  },
   attendance: {              // 출근부(입장 기록). 비우면 기록하지 않음
     url: 'https://docs.google.com/forms/d/e/1FAIpQLSc9PyMUYJFrDD3G-i9AzRsoXBcWsWj3bwk5DpY2qXnKPd52Mw/formResponse',
     name: 'entry.1260961072',
@@ -785,7 +788,7 @@ var ZONES = [
    lines:['내가 만든 프로그램과 기준표가|AI 에이전트의 도구로 모여요.','하나 만들 때마다|파일 이름을 적어 등록해요.','3주차에는 도구가 모여|AI 에이전트가|다음 달 마감을 돌려요.'],
    real:'파일은 지금처럼|04_산출물에 두고,|여기서는 목록만 모아 봐요.',act:'AI 에이전트 열기',tools:true},
   {id:'tray',x:818,y:424,w:100,h:64,cx:-4,cy:70,tx:780,ty:432,chip:'결재함 · 매주',title:'결재함',week:'매주',st:'열림',
-   lines:['한 주 업무를 마치면|「결재 상신」을 해요.','올리기 전에 점검표에|건수와 합계를 직접 적고|「점검표 복사하기」를 눌러요.','결재 의견은|승인 · 보완 요청 · 반려 중 하나로|금요일에 이메일로 와요.','승인을 받으면|사원증의 도장 칸을 눌러|직접 찍어요.','반려되면 사유를 보고|고쳐서 다시 올리면 돼요.'],
+   lines:['한 주 업무를 마치면|「결재 상신」을 해요.','올리기 전에 점검표에|건수와 합계를 직접 적고|「점검표 복사하기」를 눌러요.','결재 의견은|승인 · 보완 요청 · 반려 중 하나로|금요일에 이메일로 와요.','승인되면 팀장이|사원증에 도장을 찍어 줘요.','반려되면 사유를 보고|고쳐서 다시 올리면 돼요.'],
    real:'구글 계정으로 로그인해|과제 폼에서 주차를 고르고,|점검표를 붙여 넣고|압축 파일을 올려요.|마감 일시는|공지를 확인해 주세요.',check:true},
   {id:'sales',x:630,y:630,w:244,h:140,cx:12,cy:-26,tx:724,ty:756,chip:'영업팀 · 2주차',title:'영업팀',week:'2주차',st:'2주차에 찾아와요',
    lines:['영업팀 동료가|결의서 없는 카드 건을|들고 올 거예요.','금액은 카드에 나와 있어요.|모르는 게 무엇인지|생각해 봐요.'],real:'확인 요청 문장을|직접 써 봐요.'},
@@ -838,22 +841,35 @@ $('nm').addEventListener('input',check);
 $('nm').value=me.name||'';
 
 
-/* 사원증 결재 도장: 승인 이메일을 받으면 수강생이 직접 찍음 (이 기기에만 저장) */
+/* 사원증 결재 도장: 팀장이 도장 시트에 적으면 사무실에 들어올 때 읽어 와 찍힘.
+   시트에는 이름 대신 stampKey(이름) 코드만 있음 (도장_시트_만들기.gs의 같은 계산) */
 var ST=['','승인','재승인'];
+function stampKey(name){var h=2166136261,s=String(name)+'|epass-stamp-1기';for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0}
+  var A='ABCDEFGHJKMNPQRSTUVWXYZ23456789',o='';for(var j=0;j<8;j++){o+=A[h%31];h=(Math.floor(h/31)+Math.imul(h,7)+j)>>>0}return o}
 function drawStamps(){
+  if(me.stv!==2){me.stamps=[0,0,0,0];me.stv=2;save(me)}
   me.stamps=me.stamps||[0,0,0,0];
   $('stamps').innerHTML=me.stamps.map(function(v,i){
     var lb=(i+1)+'주';
-    return '<button type="button" class="stamp s'+v+'" data-i="'+i+'" aria-label="'+lb+' 결재 도장: '+(v?ST[v]:'비어 있음')+'. 누르면 바뀜">'+(v?ST[v]:lb)+'</button>';
+    return '<span class="stamp s'+v+'" role="img" aria-label="'+lb+' 결재 도장: '+(v?ST[v]:'아직 없음')+'">'+(v?ST[v]:lb)+'</span>';
   }).join('');
-  Array.prototype.forEach.call(document.querySelectorAll('#stamps .stamp'),function(b){b.onclick=function(){var i=+b.getAttribute('data-i');me.stamps[i]=(me.stamps[i]+1)%3;save(me);drawStamps()}});
+}
+function parseCsvLine(l){var o=[],c='',q=false;for(var i=0;i<l.length;i++){var ch=l[i];if(q){if(ch==='"'){if(l[i+1]==='"'){c+='"';i++}else q=false}else c+=ch}else if(ch==='"')q=true;else if(ch===','){o.push(c);c=''}else c+=ch}o.push(c);return o}
+function loadStamps(){
+  var U=CONFIG.stamps&&CONFIG.stamps.url;if(!U||!me.name)return;
+  var key=stampKey(me.name);
+  try{fetch(U+(U.indexOf('?')<0?'?':'&')+'t='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(t){
+    if(!t)return;var rows=t.split(/\r?\n/).map(parseCsvLine);
+    for(var k=0;k<rows.length;k++){if((rows[k][0]||'').trim()===key){
+      me.stamps=[1,2,3,4].map(function(c){var v=(rows[k][c]||'').trim();return v==='재승인'?2:(v==='승인'?1:0)});save(me);drawStamps();return}}
+  },function(){})}catch(e){}
 }
 function applyMe(){
   var c=CHARS.filter(function(x){return x.id===me.char})[0]||CHARS[0];
   $('idface').innerHTML=face(c);
   $('idname').textContent=(me.appointed?'정직원 ':'인턴 사원 ')+me.name;
   $('idcard').classList.remove('hidden');
-  drawStamps();
+  drawStamps();loadStamps();
   $('meHair').style.background=c.hair;$('meBody').style.background=c.body;
   $('meName').textContent=me.name;
   $('hello').textContent=me.name+' 님, 인턴 합격을 축하해요. 반가워요.';
@@ -1261,13 +1277,13 @@ function leaderMsg(){
   if(W.days&&W.days[i])return W.days[i];
   switch(i){
     case 0:return W.w===1?['오늘부터 첫 업무예요.','이번 주는|'+job+' 맡아요.','노션 1주차 따라 하기를|1단계부터 열어 보세요.']:['이번 주는|'+job+' 맡아요.','지난주 결재 상신이 남았다면|오늘 23:59까지 올릴 수 있어요.'];
-    case 1:return W.w===1?['어제 시작한 업무,|어디까지 했나요?','막힌 곳이 있으면|업무일지에 남겨 두세요.']:['지난주 결재 의견을|이메일로 보냈어요.','확인하고 사원증에|도장을 찍어 주세요.'];
+    case 1:return W.w===1?['어제 시작한 업무,|어디까지 했나요?','막힌 곳이 있으면|업무일지에 남겨 두세요.']:['지난주 결재 의견을|이메일로 보냈어요.','승인되었다면|사원증에 도장을 찍어 뒀어요.'];
     case 2:case 3:return ['주말이에요.','업무일지에서|막힌 순간 하나만|골라 두면 충분해요.'];
     case 4:return ['이번 주 '+W.job+',|어디까지 왔나요?','수요일 23:59가|결재 상신 마감이에요.'];
     case 5:return ['내일 23:59가|결재 상신 마감이에요.','결재함 점검표를|오늘 채워 두면|수요일이 편해요.'];
     case 6:return ['오늘 23:59가|결재 상신 마감이에요.','점검표를 복사해|과제 폼에 붙여 넣고|압축 파일을 올려요.'];
     case 7:return ['어제 못 냈어도|오늘 23:59까지는|올릴 수 있어요.','이미 올렸다면|금요일 결재 의견을|기다려 주세요.'];
-    case 8:return ['지난주 결재 의견을|이메일로 보냈어요.','확인하고 사원증에|도장을 찍어 주세요.'];
+    case 8:return ['지난주 결재 의견을|이메일로 보냈어요.','승인되었다면|사원증에 도장을 찍어 뒀어요.'];
   }
   return null;
 }
