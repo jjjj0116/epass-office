@@ -288,7 +288,7 @@ body[data-season="겨울"] #me .scarf{display:block}
           <tr><td>팀장 자리</td><td><span class="u">업무 중 막히는 사항은</span> <span class="u">「업무 확인 요청」(질문 폼)으로</span> <span class="u">수시 제출함</span></td></tr>
           <tr><td>AI 에이전트</td><td><span class="u">만든 프로그램과 기준표를</span> <span class="u">AI 에이전트의 도구로 등록함.</span> <span class="u">3주차에 모인 도구로</span> <span class="u">AI 에이전트가 다음 달 마감을 실행함</span></td></tr>
           <tr><td>결재함</td><td><span class="u">주차 업무 완료 후</span> <span class="u">「금일 결재 전 점검표」 작성 →</span> <span class="u">「결재 상신」(과제 폼).</span> <span class="u">결재 의견은</span> <span class="u">승인 · 보완 요청 · 반려 중</span> <span class="u">하나로 회신됨</span></td></tr>
-          <tr><td>탕비실</td><td><span class="u">4주차 주제를 정하기 전</span> <span class="u">팀장과 15분 커피챗 신청(선택).</span> <span class="u">줌 · 웨일온.</span> <span class="u">3주차 동안 신청받음</span></td></tr>
+          <tr><td>탕비실</td><td><span class="u">4주차 주제를 정하기 전</span> <span class="u">팀장과 15분 커피챗 신청(선택).</span> <span class="u">12/12(토)·12/13(일) 오후,</span> <span class="u">온라인 채팅.</span> <span class="u">12/11(금) 18:00까지 신청받음</span></td></tr>
           <tr><td>대표실 · 회의실</td><td><span class="u">각각 3주차 · 4주차에 개방</span></td></tr>
           <tr><td>퇴근</td><td><span class="u">당일 막힌 사항을</span> <span class="u">업무일지에 1줄 기록함</span></td></tr>
         </tbody>
@@ -483,7 +483,7 @@ body[data-season="겨울"] #me .scarf{display:block}
         <div class="note hidden" id="dyCopyMsg" aria-live="polite"><span class="u">주말에 고른 것을</span> <span class="u">제출메모의 「막힌 순간」에</span> <span class="u">옮겨 붙여요.</span></div>
         <small><span class="u">이 기기에만 저장돼요.</span> <span class="u">4주 뒤 포트폴리오 재료가 돼요.</span></small>
       </div>
-      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1118-2325</div></div>
+      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1118-2335</div></div>
     </aside>
   </div>
 </section>
@@ -558,7 +558,7 @@ body[data-season="겨울"] #me .scarf{display:block}
     <div id="tlDrawers"></div>
     <div class="card" style="display:flex;flex-direction:column;gap:10px">
       <button class="btn" id="tlCopy">도구 목록 복사하기</button>
-      <div class="note" id="tlMsg" aria-live="polite"><span class="u">복사한 목록은</span> <span class="u">4주차 포트폴리오의</span> <span class="u">「내가 만든 AI 에이전트」 칸이 돼요.</span></div>
+      <div class="note" id="tlMsg" aria-live="polite"><span class="u">따로 낼 필요는 없어요.</span> <span class="u">결재함에서 점검표를 복사하면</span> <span class="u">이 목록도 함께 들어가요.</span> <span class="u">이 버튼은 4주차 포트폴리오의</span> <span class="u">「내가 만든 AI 에이전트」 칸에</span> <span class="u">붙일 때 써요.</span></div>
     </div>
   </div>
 </section>
@@ -613,9 +613,9 @@ var ZONES = [
    real:'구글 계정으로 로그인해|과제 폼에서 주차를 고르고,|점검표를 붙여 넣고|압축 파일을 올려요.|마감 일시는|공지를 확인해 주세요.',act:'결재 상신하기',link:'submit',check:true},
   {id:'sales',x:630,y:630,w:244,h:140,cx:12,cy:-26,tx:724,ty:756,chip:'영업팀 · 2주차',title:'영업팀',week:'2주차',st:'2주차에 찾아와요',
    lines:['영업팀 동료가|결의서 없는 카드 건을|들고 올 거예요.','무엇을 확인해 달라고 할지|내가 정해요.'],real:'확인 요청 문장을|직접 써 봐요.'},
-  {id:'pantry',x:330,y:0,w:220,h:240,cx:12,cy:12,tx:372,ty:160,chip:'탕비실 · 커피챗',title:'탕비실 · 커피챗',week:'3주차 신청',st:'선택',
-   lines:['4주차 주제를 정하기 전에|팀장과 15분 커피챗을|할 수 있어요.','고를 업종이나 반복 업무가|고민되면 신청해요.','줌이나 웨일온으로 만나요.|신청은 3주차 동안 받아요.'],
-   real:'신청서에 만나는 방법과|가능한 시간을 적으면|일정과 접속 링크를|이메일로 보내 드려요.',act:'커피챗 신청하기',link:'coffee'},
+  {id:'pantry',x:330,y:0,w:220,h:240,cx:12,cy:12,tx:372,ty:160,chip:'탕비실 · 커피챗',title:'탕비실 · 커피챗',week:'12/11까지 신청',st:'선택',
+   lines:['4주차 주제를 정하기 전에|팀장과 15분 커피챗을|할 수 있어요.','고를 업종이나 반복 업무가|고민되면 신청해요.','12/12(토)·12/13(일) 오후에|온라인 채팅으로 만나요.','신청은 12/11(금) 18:00까지|받아요.'],
+   real:'신청서에서 가능한 시간을|모두 고르면 그중 하나를|배정해 접속 링크와 함께|이메일로 보내 드려요.',act:'커피챗 신청하기',link:'coffee'},
   {id:'ceo',x:696,y:0,w:320,h:240,cx:12,cy:12,tx:822,ty:250,lock:true,chip:'대표실 · 3주차',title:'대표실',week:'3주차',st:'잠김',
    lines:['11월 자료가 오면|10월에 만든 도구를|다시 돌려요.','혼자 다음 달 마감을 해내면|대표에게 월결산을 보고해요.','이 과정이|정직원 전환의 근거가 돼요.'],real:'3주차에 열려요.'},
   {id:'meeting',x:0,y:0,w:320,h:240,cx:12,cy:12,tx:146,ty:250,lock:true,chip:'회의실 · 4주차',title:'회의실',week:'4주차',st:'잠김',
