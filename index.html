@@ -220,7 +220,7 @@ body[data-season="겨울"] #me .scarf{display:block}
         <div class="chars" role="group" aria-labelledby="lb-char" id="chars"></div>
       </div>
       <button class="btn" id="goIn" disabled>출입증 찍고 입장하기</button>
-      <div class="note"><span class="u">이름은 이 기기에만 저장되고</span> <span class="u">어디에도 보내지 않아요.</span> <span class="u">별명을 써도 돼요.</span></div>
+      <div class="note"><span class="u">이름(별명 가능)과 출근 시각은</span> <span class="u">팀장의 출근부에 기록돼요.</span> <span class="u">업무일지와 점검표는</span> <span class="u">이 기기에만 저장돼요.</span></div>
     </div>
   </div>
 </section>
@@ -263,7 +263,7 @@ body[data-season="겨울"] #me .scarf{display:block}
       <table class="hv-t hv-use">
         <thead><tr><th scope="col">구역</th><th scope="col">이용 방법</th></tr></thead>
         <tbody>
-          <tr><td>출입구</td><td><span class="u">오픈채팅 공지의 링크로 출근함.</span> <span class="u">사원증은 사용 기기에 저장됨</span></td></tr>
+          <tr><td>출입구</td><td><span class="u">오픈채팅 공지의 링크로 출근함.</span> <span class="u">출근 시 이름과 시각이</span> <span class="u">출근부에 기록됨.</span> <span class="u">사원증은 사용 기기에 저장됨</span></td></tr>
           <tr><td>팀장 메신저</td><td><span class="u">출근 후</span> <span class="u">당일 업무를 먼저 확인함</span></td></tr>
           <tr><td>내 자리</td><td><span class="u">주차별 업무 수행.</span> <span class="u">노션 따라 하기를 참고하여</span> <span class="u">Code 탭에서 실습함</span></td></tr>
           <tr><td>팀장 자리</td><td><span class="u">업무 중 막히는 사항은</span> <span class="u">「업무 확인 요청」(질문 폼)으로</span> <span class="u">수시 제출함</span></td></tr>
@@ -522,8 +522,13 @@ var CONFIG = {
   links: {
     week1: '',               // 노션 1주차 따라 하기
     week2: '',               // 노션 2주차 따라 하기
-    question: '',            // 질문(업무 확인 요청) 구글폼 — 4주 내내 같은 링크
-    submit: ''               // 과제(결재 상신) 구글폼 — 4주 내내 같은 링크
+    question: 'https://docs.google.com/forms/d/e/1FAIpQLSem3CCEaJrt1jxoSuQWPL4-zoRsUwR4S1XxluZsoY7BXvsZ0A/viewform',  // 질문(업무 확인 요청) — 4주 내내 같은 링크
+    submit: 'https://docs.google.com/forms/d/e/1FAIpQLSfMa9Pp7q-P6l136jZO3cEP6tHjIJ2cFKlAZpZC6EKUD1yYAg/viewform'      // 과제(결재 상신) — 4주 내내 같은 링크
+  },
+  attendance: {              // 출근부(입장 기록). 비우면 기록하지 않음
+    url: 'https://docs.google.com/forms/d/e/1FAIpQLSc9PyMUYJFrDD3G-i9AzRsoXBcWsWj3bwk5DpY2qXnKPd52Mw/formResponse',
+    name: 'entry.1260961072',
+    char: 'entry.1433960706'
   }
 };
 /* ========================================== */
@@ -560,7 +565,7 @@ var ZONES = [
   {id:'meeting',x:0,y:0,w:320,h:240,cx:12,cy:12,tx:146,ty:250,lock:true,chip:'회의실 · 4주차',title:'회의실',week:'4주차',st:'잠김',
    lines:['업종 하나를 골라|반복 업무 하나를|직접 설계해요.','4주 동안의 기록을 모아|나만의 업무 포트폴리오를|만들어요.','포트폴리오를 마치면|정직원 임명장을 받아요.'],real:'4주차에 열려요.'},
   {id:'door',x:30,y:740,w:140,h:64,cx:18,cy:-26,tx:86,ty:744,chip:'출입구 · 매일',title:'출입구',week:'매일',st:'열림',
-   lines:['출입증을 찍고 출근해요.','퇴근할 때|오늘 막힌 순간을|업무일지에 한 줄 남겨요.'],real:'업무일지는 4주 뒤|포트폴리오 재료가 돼요.'}
+   lines:['출입증을 찍고 출근해요.|출근부에 이름과 시각이|기록돼요.','퇴근할 때|오늘 막힌 순간을|업무일지에 한 줄 남겨요.'],real:'업무일지는 4주 뒤|포트폴리오 재료가 돼요.'}
 ];
 
 /* 저장(이 기기 안에서만) */
@@ -610,7 +615,16 @@ function applyMe(){
   $('hvTo').textContent='경영지원팀 인턴 사원 '+me.name;
   dyDraw();
 }
-$('goIn').onclick=function(){me.name=$('nm').value.trim().slice(0,12);me.char=pick;save(me);applyMe();show('scrBrief')};
+
+/* 출근부: 하루 한 번 이름·캐릭터를 팀장 출근부로 보냄 */
+function today(){var d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()}
+function punch(){
+  var A=CONFIG.attendance;if(!A||!A.url||!me.name||me.punched===today())return;
+  var c=CHARS.filter(function(x){return x.id===me.char})[0];
+  var body=new URLSearchParams();body.append(A.name,me.name);body.append(A.char,c?c.label:'');
+  try{fetch(A.url,{method:'POST',mode:'no-cors',body:body}).then(function(){me.punched=today();save(me)},function(){})}catch(e){}
+}
+$('goIn').onclick=function(){me.name=$('nm').value.trim().slice(0,12);me.char=pick;me.punched='';save(me);applyMe();punch();show('scrBrief')};
 $('goOffice').onclick=function(){show('scrHand')};
 $('goOffice2').onclick=function(){me.briefed=true;save(me);show('scrOffice')};
 $('openHand').onclick=function(){show('scrHand')};
@@ -748,7 +762,7 @@ window.addEventListener('resize',fit);
 
 /* 시작 */
 drawChars();check();drawZones();
-if(me.name&&me.char){applyMe();show(me.briefed?'scrOffice':'scrBrief')}else{show('scrEnter')}
+if(me.name&&me.char){applyMe();punch();show(me.briefed?'scrOffice':'scrBrief')}else{show('scrEnter')}
 </script>
 </body>
 </html>
