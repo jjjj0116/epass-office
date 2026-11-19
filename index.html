@@ -548,7 +548,7 @@ body[data-season="겨울"] #me .scarf{display:block}
         <div class="note hidden" id="dyCopyMsg" aria-live="polite"></div>
         <small><span class="u">이 기기에만 저장돼요.</span> <span class="u">4주 뒤 포트폴리오 재료가 돼요.</span></small>
       </div>
-      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1119-0120</div></div>
+      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1119-1530</div></div>
     </aside>
   </div>
 </section>
@@ -1263,7 +1263,7 @@ var WEEKS=[
 ];
 function pD(s){var p=String(s).split('-');return new Date(+p[0],p[1]-1,+p[2])}
 function dDiff(a,b){var x=new Date(a.getFullYear(),a.getMonth(),a.getDate()),y=new Date(b.getFullYear(),b.getMonth(),b.getDate());return Math.round((x-y)/864e5)}
-function ckCount(){var c=me.ck1||{},n=0;for(var k in c){if(k!=='diff'&&String(c[k]).trim())n++}return n}
+function ckFilled(){var c=me.ck1||{},n=0;for(var k in c){if(k!=='diff'&&String(c[k]).trim())n++}return n}
 var visitGap=(function(){var g=me.lastSeen?dDiff(new Date(),pD(me.lastSeen)):0;if(!me.firstDay)me.firstDay=today();me.lastSeen=today();save(me);return g})();
 function leaderMsg(){
   var now=new Date(),nm=me.name?me.name+' 님, ':'';
@@ -1273,7 +1273,7 @@ function leaderMsg(){
   for(var k=0;k<WEEKS.length;k++){var d=dDiff(now,pD(WEEKS[k].start));if(d>=0){W=WEEKS[k];i=d}}
   if(!W){var f=pD(WEEKS[0].start);return [(f.getMonth()+1)+'/'+f.getDate()+'(목)부터|첫 업무가 시작돼요.','그 전에 인수인계서와|사무실을 둘러봐 두세요.']}
   var job=W.job+W.jo;
-  if(W.w===1&&(i===5||i===6)&&ckCount()===0)return ['결재함 점검표가|아직 비어 있어요.',(i===5?'내일':'오늘')+' 23:59가|결재 상신 마감이에요.','숫자 칸부터|하나씩 채워 보세요.'];
+  if(W.w===1&&(i===5||i===6)&&ckFilled()===0)return ['결재함 점검표가|아직 비어 있어요.',(i===5?'내일':'오늘')+' 23:59가|결재 상신 마감이에요.','숫자 칸부터|하나씩 채워 보세요.'];
   if(W.days&&W.days[i])return W.days[i];
   switch(i){
     case 0:return W.w===1?['오늘부터 첫 업무예요.','이번 주는|'+job+' 맡아요.','노션 1주차 따라 하기를|1단계부터 열어 보세요.']:['이번 주는|'+job+' 맡아요.','지난주 결재 상신이 남았다면|오늘 23:59까지 올릴 수 있어요.'];
