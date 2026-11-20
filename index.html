@@ -198,17 +198,24 @@ body[data-season="겨울"] #me .scarf{display:block}
 .tl-dh{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
 .tl-dh h2{margin:0;font-size:16px;color:var(--navy)}
 .pp-wk{font-size:12px;font-weight:700;color:var(--sub);margin:10px 0 6px}
-.pp{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px}
-.pp-n{flex:0 1 auto;min-width:112px;max-width:180px;border:1.5px solid #c9d7ea;border-radius:10px;padding:8px 10px;background:#fff;display:flex;flex-direction:column;gap:3px}
-.pp-n b{font-size:12px;color:var(--navy);white-space:nowrap}
+.pp{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;counter-reset:pp}
+.pp-n{position:relative;border:1.5px solid #c9d7ea;border-radius:10px;padding:8px 10px 8px 34px;background:#fff;display:flex;flex-direction:column;gap:3px;min-height:64px;counter-increment:pp}
+.pp-n::before{content:counter(pp);position:absolute;left:8px;top:8px;width:20px;height:20px;border-radius:50%;background:#eef3fa;color:var(--navy);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.pp-n.hum::before{background:#fbe9d8;color:#8a4f25}.pp-n.ai::before{background:#dfeafa;color:#1257c4}
+.pp-io{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--sub);margin:6px 0}
+.pp-io b{display:inline-block;border:1.5px dashed #b9c6d8;border-radius:999px;padding:3px 10px;background:#f6f8fb;color:var(--navy);font-size:12px}
+.pp-io.end{justify-content:flex-end}
+.pp-n b{font-size:12px;color:var(--navy);word-break:keep-all;line-height:1.4}
 .pp-n i{font-style:normal;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;color:var(--ink);word-break:break-all;line-height:1.45}
-.pp-n i.miss{color:#8a94a6;font-family:inherit}
+.pp-n i.miss{color:#8a94a6;font-family:inherit;word-break:keep-all}
 .pp-n.on{border-color:#e3bf9d;background:#fdf6f0}
 .pp-n.hum{border-color:#c9824f;background:#fff7ef}
 .pp-n.hum b{color:#8a4f25}
 .pp-n.ai{border-color:#9fc0ea;background:#f3f7fd}
 .pp-n.ai b{color:#1257c4}
 .pp-n.io{background:#f3f5f8;border-style:dashed}
+.pp-wk.neo{color:#6b3f17;border-top:1.5px dashed #e3bf9d;padding-top:10px;margin-top:14px}
+.pp.neo .pp-n{border-style:dashed}
 .pp-a{align-self:center;color:#8aa3c4;font-size:14px}
 .tl-dh span{font-size:12px;color:#6b3f17;background:#f6e3cf;border-radius:999px;padding:2px 10px;white-space:nowrap}
 .tl-grp{font-size:12px;font-weight:700;color:var(--sub);margin:12px 0 6px}
@@ -245,6 +252,7 @@ body[data-season="겨울"] #me .scarf{display:block}
 .steps>li{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start}
 .steps .no{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--blue);color:var(--blue);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;background:#fff}
 .steps .no.done{background:var(--blue);color:#fff}
+.steps>li>div{min-width:0}
 .steps h3{margin:3px 0 2px;font-size:15px;color:var(--navy)}
 .steps p{margin:0;font-size:13px;line-height:1.7;color:var(--ink)}
 .agree{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:4px 0 12px}
@@ -294,6 +302,21 @@ body[data-season="겨울"] #me .scarf{display:block}
 .q3 p{margin:0 0 4px;font-size:14px;font-weight:700;color:var(--navy);line-height:1.6}
 .rec{background:#fffbe0;border:1.5px solid #f0dc7a;border-radius:8px;padding:8px 12px;font-size:14px;margin:8px 0}
 .ds-add{width:100%;min-height:44px;border:1.5px dashed #9fb6d6;border-radius:10px;background:#fff;color:var(--blue);font:inherit;font-size:14px;cursor:pointer;margin-bottom:12px}
+
+/* 전체 검토(1120) */
+textarea{font-family:inherit;letter-spacing:0}
+textarea.t{border:1.5px solid var(--cardBd);border-radius:10px;font-size:15px;color:var(--ink);background:#fff;line-height:1.6}
+textarea.t:focus{outline:2px solid var(--blue);border-color:var(--blue)}
+.diary small{margin-top:10px}
+@media (max-width:640px){
+  .center{align-items:flex-start;padding-top:28px}
+  .ck-t{min-width:0}
+  .ck-t thead{display:none}
+  .ck-t tr{display:grid;grid-template-columns:1fr 1fr;gap:8px 10px;padding:12px 0;border-bottom:1px solid var(--cardBd)}
+  .ck-t td{border:0;padding:0}
+  .ck-t td:first-child{grid-column:1/-1;font-size:14px}
+  .ck-t td[data-l]::before{content:attr(data-l);display:block;font-size:12px;color:var(--sub);margin-bottom:3px}
+}
 </style>
 </head>
 <body data-season="겨울">
@@ -563,14 +586,14 @@ body[data-season="겨울"] #me .scarf{display:block}
           <button class="btn" type="button" id="dySave">업무일지에 남기기</button>
         </div>
         <div id="dyPrev" class="dy-prev hidden"><img id="dyImg" alt="붙인 캡처 미리 보기"><button type="button" class="link" id="dyDrop">캡처 빼기</button></div>
-        <div class="note" id="dyMsg" aria-live="polite"><span class="u">PC에서는 캡처 후</span> <span class="u">이 칸에 붙여 넣어도 돼요(Ctrl+V).</span> <span class="u">PC 사용자 이름이나</span> <span class="u">실제 자료가 보이면 가려 주세요.</span></div>
+        <div class="note" id="dyMsg" aria-live="polite" style="margin-top:10px"><span class="u">PC에서는 캡처 후</span> <span class="u">이 칸에 붙여 넣어도 돼요(Ctrl+V).</span> <span class="u">PC 사용자 이름이나</span> <span class="u">실제 자료가 보이면 가려 주세요.</span></div>
         <ul class="dy-list" id="dyList"></ul>
         <div id="dyDest" class="hidden"><div class="dest"><span><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.3-6-11a6 6 0 0 1 12 0c0 5.7-6 11-6 11z"/><circle cx="12" cy="10" r="2.2"/></svg><b>붙일 곳</b> <span class="u">마감_2026-10/제출메모.md →</span> <span class="u">「막힌 순간」</span></span><span><b>언제</b> <span class="u">주말, 결재 상신 전</span></span></div></div>
         <button class="btn ghost hidden" type="button" id="dyCopy" style="margin-top:10px;min-height:44px;font-size:14px">업무일지 복사하기</button>
         <div class="note hidden" id="dyCopyMsg" aria-live="polite"></div>
         <small><span class="u">이 기기에만 저장돼요.</span> <span class="u">4주 뒤 포트폴리오 재료가 돼요.</span></small>
       </div>
-      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1120-1630</div></div>
+      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1120-1700</div></div>
     </aside>
   </div>
 </section>
@@ -714,7 +737,7 @@ body[data-season="겨울"] #me .scarf{display:block}
 
     <div class="card">
       <ol class="steps">
-        <li><span class="no">1</span><div><h3>포트폴리오 작성</h3><p><span class="u">AI 에이전트 캐비닛에서</span> <span class="u">「포트폴리오용 파이프라인 복사하기」를 눌러</span> <span class="u">노션 포트폴리오의</span> <span class="u">「내가 만든 AI 에이전트」 칸에</span> <span class="u">붙여 넣어요.</span></p><button class="btn ghost" type="button" id="meetTools" style="margin-top:8px">AI 에이전트 열기</button></div></li>
+        <li><span class="no">1</span><div><h3>포트폴리오 작성</h3><p><span class="u">아래 「내 업무 설계표」를 채워 복사하고,</span> <span class="u">AI 에이전트 캐비닛의</span> <span class="u">「포트폴리오용 파이프라인</span> <span class="u">복사하기」도 눌러</span> <span class="u">노션 포트폴리오에</span> <span class="u">붙여 넣어요.</span></p><button class="btn ghost" type="button" id="meetTools" style="margin-top:8px">AI 에이전트 열기</button></div></li>
         <li><span class="no">2</span><div><h3>포트폴리오 제출</h3><p><span class="u">노션 포트폴리오의</span> <span class="u">공유 링크를 복사해</span> <span class="u">4주차 결재 상신 때</span> <span class="u">과제 폼에 함께 내요.</span></p></div></li>
         <li><span class="no">3</span><div><h3>전환 소감</h3><p><span class="u">아래에 적고 복사해서</span> <span class="u">포트폴리오 링크와 함께</span> <span class="u">과제 폼에 내요.</span></p></div></li>
         <li><span class="no">4</span><div><h3>정규직 전환 평가서</h3><p><span class="u">12/24(목) 결재 의견 이메일에</span> <span class="u">평가서와 임명 코드가</span> <span class="u">함께 와요.</span></p></div></li>
@@ -731,6 +754,7 @@ body[data-season="겨울"] #me .scarf{display:block}
         <li><span class="u">돈이 실제로 움직이는 단계는</span> <span class="u">자동화하지 않아요(금지).</span></li>
         <li><span class="u">답이 하나로 정해지는</span> <span class="u">변환·계산·대조는</span> <span class="u">AI와 프로그램에 맡기기 좋아요.</span></li>
         <li><span class="u">원본 확인이나 판단이 필요한 곳은</span> <span class="u">사람이 봐요.</span></li>
+        <li><span class="u">분석은 숫자를 프로그램이 계산하고,</span> <span class="u">AI는 해석 한 줄 초안만 써요.</span></li>
       </ul></div>
       <details class="ck-real" style="margin-bottom:12px"><summary><b>참고</b><span><span class="u">1~3주차 파이프라인과</span> <span class="u">내 업무일지 보기</span></span></summary><ul id="dsRef"></ul></details>
       <div id="dsRows"></div>
@@ -746,6 +770,10 @@ body[data-season="겨울"] #me .scarf{display:block}
       <div id="dsQ"></div>
       <div class="seg c2" id="dsLv" role="group" aria-label="자동화 수준 고르기"></div>
       <div id="dsLvWhy" style="margin-bottom:12px"></div>
+
+      <h3 class="ck-h" style="font-size:15px;margin-top:10px">새로 할 수 있게 된 업무 하나</h3>
+      <div class="note" style="margin-bottom:8px"><span class="u">내 업종에서</span> <span class="u">전에는 시간이 없어 못 했지만</span> <span class="u">이제 할 수 있는 분석을</span> <span class="u">하나 골라요.</span></div>
+      <div id="dsNeo" style="margin-bottom:12px"></div>
 
       <div class="dest"><span><b>붙일 곳</b> <span class="u">노션 포트폴리오 →</span> <span class="u">「내 업무 설계」</span></span><span><b>언제</b> <span class="u">4주차 결재 상신 전</span></span></div>
       <button class="btn ghost" type="button" id="dsCopy">업무 설계표 복사하기</button>
@@ -1035,7 +1063,7 @@ function numInput(key,label){
 }
 function drawCheck(){
   $('ckFiles').querySelector('tbody').innerHTML=CK_FILES.map(function(f){
-    return '<tr><td>'+f+'</td>'+CK_COLS.map(function(c){return '<td>'+numInput(f+'_'+c[0],f+' '+c[1])+'</td>'}).join('')+'</tr>';
+    return '<tr><td>'+f+'</td>'+CK_COLS.map(function(c){return '<td data-l="'+esc(c[1])+'">'+numInput(f+'_'+c[0],f+' '+c[1])+'</td>'}).join('')+'</tr>';
   }).join('');
   $('ckTotal').innerHTML=CK_TOTAL.map(function(c){return '<label>'+esc(c[1])+numInput(c[0],c[1])+'</label>'}).join('');
   $('ckPack').innerHTML=CK_PACK.map(function(c){return '<label>'+esc(c[1])+numInput(c[0],c[1])+'</label>'}).join('');
@@ -1182,34 +1210,49 @@ var PIPE=[
  {wk:'3주차 · 다음 달 월마감',start:'11월 거래',end:'',nodes:[
   {biz:'월마감 실행',who:'AI 에이전트',txt:'1·2주차 도구가 끊김 없이 이어져 한 번에 돌아감 (3주차에 묶음)'},
   {biz:'결산 확정',hum:1,txt:'검산·대사 판정과 확정'}
+ ]},
+ {wk:'새로 생긴 업무 · 3주차',neo:1,start:'9월·10월 결과',end:'대표 보고 1장',note:'전에는 시간이 없어 못 하던 분석이에요. AI와 프로그램이 생겨서 새로 할 수 있게 됐어요.',nodes:[
+  {biz:'거래처별 전월 대비 증감 계산',step:'3주차',who:'프로그램',txt:'검산: 거래처별 합 = 총 증감'},
+  {biz:'특이점 해석 한 줄',step:'3주차',who:'AI 초안',ai:1,txt:'왜 늘고 줄었는지 한 줄'},
+  {biz:'특이점 확인·판정',step:'3주차',who:'사람',hum:1,txt:'원인 확인, 필요하면 담당자에게'}
  ]}
 ];
 function ppNames(n){var d=tlData();return (n.keys||[]).map(function(k){return d[k]}).filter(Boolean)}
 function mark(n){return n.hum?'👤':n.ai?'🤖':''}
 function drawPipe(){
   $('tlPipe').innerHTML=PIPE.map(function(w){
-    var cells=['<div class="pp-n io"><b>'+esc(w.start)+'</b></div>'].concat(w.nodes.map(function(n){
+    var cells=w.nodes.map(function(n){
       var names=ppNames(n),body='';
       if(n.step||n.who)body+='<i class="miss">'+esc([n.step,n.who].filter(Boolean).join(' · '))+'</i>';
       if(n.keys)body+=names.length?names.map(function(x){return '<i>'+esc(x)+'</i>'}).join(''):'<i class="miss">파일 등록 전</i>';
       else if(n.txt)body+='<i class="miss" style="color:inherit">'+esc(n.txt)+'</i>';
       var cls='pp-n'+(n.hum?' hum':'')+(n.ai?' ai':'')+(n.keys&&names.length?' on':'');
       return '<div class="'+cls+'"><b>'+esc(n.biz)+'</b>'+body+'</div>';
-    }));
-    if(w.end)cells.push('<div class="pp-n io"><b>'+esc(w.end)+'</b></div>');
-    return '<div class="pp-wk">'+esc(w.wk)+'</div>'+(w.note?'<div class="note" style="margin:-2px 0 6px">'+esc(w.note)+'</div>':'')+'<div class="pp">'+cells.join('<span class="pp-a" aria-hidden="true">→</span>')+'</div>';
+    });
+    return '<div class="pp-wk'+(w.neo?' neo':'')+'">'+esc(w.wk)+'</div>'+(w.note?'<div class="note" style="margin:-2px 0 6px">'+esc(w.note)+'</div>':'')
+      +'<div class="pp-io"><span>출발</span><b>'+esc(w.start)+'</b></div>'
+      +'<div class="pp'+(w.neo?' neo':'')+'">'+cells.join('')+'</div>'
+      +(w.end?'<div class="pp-io end"><span>결과</span><b>'+esc(w.end)+'</b></div>':'');
   }).join('');
 }
 function pipeText(){
   var d=tlData(),L=['### 내가 만든 AI 에이전트 — 10월 월마감 파이프라인','','**한눈에 보는 업무 흐름**',''];
+  L.push('**자동화한 업무**');L.push('');
   PIPE.forEach(function(w){
+    if(w.neo)return;
     var f=[w.start].concat(w.nodes.map(function(n){return mark(n)+n.biz}));if(w.end)f.push('**'+w.end+'**');
     L.push('**'+w.wk+'**');L.push(f.join(' → '));L.push('');
+  });
+  L.push('**새로 시작한 업무** — 전에는 시간이 없어 못 하던 분석');L.push('');
+  PIPE.forEach(function(w){
+    if(!w.neo)return;
+    var f=[w.start].concat(w.nodes.map(function(n){return mark(n)+n.biz}));if(w.end)f.push('**'+w.end+'**');
+    L.push(f.join(' → '));L.push('');
   });
   L.push('(👤 사람이 확인·확정 · 🤖 AI가 직접 한 일 · 표시 없음 = 내가 만든 프로그램)');L.push('');
   PIPE.forEach(function(w){
     var rows=w.nodes.filter(function(n){return n.step});if(!rows.length)return;
-    L.push('**업무별로 누가 무엇을 했나 ('+w.wk.split(' · ')[0]+')**');L.push('');
+    L.push('**업무별로 누가 무엇을 했나 ('+(w.neo?'새로 시작한 업무':w.wk.split(' · ')[0])+')**');L.push('');
     L.push('| 실무 업무 | 따라 하기 단계 | 누가 | 내가 만든 파일 |');L.push('|---|---|---|---|');
     rows.forEach(function(n){var nm=ppNames(n);L.push('| '+n.biz+' | '+n.step+' | '+n.who+' | '+(n.keys?(nm.length?nm.map(function(x){return '`'+x+'`'}).join(', '):'(미등록)'):(n.ai&&n.txt?'(결과) '+n.txt:'—'))+' |')});
     L.push('');
@@ -1282,6 +1325,10 @@ var LV=['안 함','채팅','정해 둔 순서대로 자동 실행','에이전트
 var WHY={'AI':['답이 하나로 정해지는 변환·계산이라서','같은 기준으로 대조·분류하는 일이라서','매달 같은 순서로 반복해서','AI가 초안을 만들고 사람이 검토하면 돼서'],
  '사람':['금액이나 계정을 최종 확정하는 단계라서','원본 서류를 직접 봐야 해서','기준에 없는 판단이 필요해서','거래처나 담당자에게 확인해야 해서'],
  '금지':['돈이 실제로 움직이는 단계라서','승인·결재 권한이 필요한 단계라서','원자료나 개인정보를 AI가 보면 안 돼서']};
+var NEO=[
+ {k:'task',lb:'어떤 분석인가요?',op:['거래처별 전월 대비 특이점','계정과목별 증감 분석','고정비 점검(빠지거나 늘어난 항목)','한도 진도 점검','다음 달 세금 예측']},
+ {k:'chk',lb:'숫자는 어떻게 검산하나요?',op:['나눈 금액의 합이 전체 금액과 같은지','장부·원본 합계와 같은지','전월과 같은 기준으로 셌는지']},
+ {k:'lim',lb:'보고할 때 함께 적을 한계는?',op:['해석과 예측은 확정이 아니라는 것','원인은 담당자 확인이 필요하다는 것','비교할 기간이 짧다는 것']}];
 var LVWHY={'안 함':['돈이 움직이거나 최종 확정하는 업무라서','자동화할 만큼 자주 하지 않아서'],
  '채팅':['매번 상황이 달라 그때그때 물어봐야 해서','한 번만 하는 업무라서'],
  '정해 둔 순서대로 자동 실행':['매달 반복하고 순서가 정해져 있어서','같은 기준으로 다시 돌려도 결과가 같아서'],
@@ -1307,6 +1354,9 @@ function drawDs(){
   Array.prototype.forEach.call(document.querySelectorAll('#dsLv button'),function(b){b.onclick=function(){if(d.lv!==b.getAttribute('data-l')){d.lv=b.getAttribute('data-l');d.why=''}save(me);drawDs()}});
   $('dsLvWhy').innerHTML=d.lv?'<div class="seg-lb">이유 고르기</div><div class="seg c1" role="group" aria-label="자동화 수준 이유">'+LVWHY[d.lv].map(function(y){return '<button type="button" data-r="'+y+'" aria-pressed="'+(d.why===y)+'">'+y+'</button>'}).join('')+'</div>':'';
   Array.prototype.forEach.call(document.querySelectorAll('#dsLvWhy button'),function(b){b.onclick=function(){d.why=b.getAttribute('data-r');save(me);drawDs()}});
+  d.neo=d.neo||{};
+  $('dsNeo').innerHTML=NEO.map(function(q){return '<div class="seg-lb">'+q.lb+'</div><div class="seg c1" role="group" aria-label="'+q.lb+'">'+q.op.map(function(o){return '<button type="button" data-nk="'+q.k+'" data-nv="'+o+'" aria-pressed="'+(d.neo[q.k]===o)+'">'+o+'</button>'}).join('')+'</div>'}).join('');
+  Array.prototype.forEach.call(document.querySelectorAll('#dsNeo button'),function(b){b.onclick=function(){d.neo[b.getAttribute('data-nk')]=b.getAttribute('data-nv');save(me);drawDs()}});
   var dy=dyLoad().slice().reverse();
   $('dsRef').innerHTML='<li>1주차 거래 기록: 변환·대조는 AI와 프로그램, 거래처 목록 확인·정답앵커 대사 판정은 사람</li><li>2주차 증빙: 증빙 대조·공제 판정은 프로그램, 원본 확인·영세율 근거 확인은 사람</li>'+(dy.length?dy.slice(0,8).map(function(x){return '<li>업무일지 '+esc(x.d)+' · '+esc(x.t||'(캡처만 있음)')+'</li>'}).join(''):'<li>아직 남긴 업무일지가 없어요.</li>');
 }
@@ -1315,6 +1365,7 @@ $('dsCopy').onclick=function(){
   var d=ds(),L=['## 내 업무 설계','업무: '+((d.name||'').trim()||'(아직 안 적음)'),'','| 단계 | 하는 일 | 누가 | 이유 |','|---|---|---|---|'];
   d.rows.forEach(function(r,i){if((r.st||'').trim()||r.who)L.push('| '+(i+1)+' | '+((r.st||'').trim()||'-')+' | '+(r.who||'-')+' | '+((r.why||'').trim()||'-')+' |')});
   L.push('','자동화 수준: '+(d.lv||'(아직 안 고름)')+' — '+((d.why||'').trim()||'(이유 안 적음)'));
+  var nz=d.neo||{};L.push('','**새로 할 수 있게 된 업무**: '+(nz.task||'(아직 안 고름)'),'- 검산: '+(nz.chk||'-'),'- 한계: '+(nz.lim||'-'));
   copyFlow(L.join('\n'),$('dsMsg'),['노션 포트폴리오 페이지 열기','「내 업무 설계」 아래에 '+PASTE,'표로 바뀌었는지 확인']);
 };
 /* 수습 평가 · 전환 소감 (이 기기에 저장) */
