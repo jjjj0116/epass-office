@@ -607,7 +607,7 @@ textarea.t:focus{outline:2px solid var(--blue);border-color:var(--blue)}
         <div class="note hidden" id="dyCopyMsg" aria-live="polite"></div>
         <small><span class="u">이 기기에만 저장돼요.</span> <span class="u">4주 뒤 포트폴리오 재료가 돼요.</span></small>
       </div>
-      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1120-1710</div></div>
+      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1120-1720</div></div>
     </aside>
   </div>
 </section>
@@ -752,8 +752,8 @@ textarea.t:focus{outline:2px solid var(--blue);border-color:var(--blue)}
     <div class="card">
       <ol class="steps">
         <li><span class="no">1</span><div><h3>포트폴리오 작성</h3><p><span class="u">아래 「내 업무 설계표」를 채워 복사하고,</span> <span class="u">AI 에이전트 캐비닛의</span> <span class="u">「포트폴리오용 파이프라인</span> <span class="u">복사하기」도 눌러</span> <span class="u">노션 포트폴리오에</span> <span class="u">붙여 넣어요.</span></p><button class="btn ghost" type="button" id="meetTools" style="margin-top:8px">AI 에이전트 열기</button></div></li>
-        <li><span class="no">2</span><div><h3>포트폴리오 제출</h3><p><span class="u">노션 포트폴리오의</span> <span class="u">공유 링크를 복사해</span> <span class="u">4주차 결재 상신 때</span> <span class="u">과제 폼에 함께 내요.</span></p></div></li>
-        <li><span class="no">3</span><div><h3>전환 소감</h3><p><span class="u">아래에 적고 복사해서</span> <span class="u">포트폴리오 링크와 함께</span> <span class="u">과제 폼에 내요.</span></p></div></li>
+        <li><span class="no">2</span><div><h3>포트폴리오 제출</h3><p><span class="u">1~3주차와 같은 과제 폼으로 내요.</span> <span class="u">결과물 형식은 자유예요.</span> <span class="u">노션 링크는 긴 글 칸에 붙이고,</span> <span class="u">파일은 압축해 올려요.</span></p></div></li>
+        <li><span class="no">3</span><div><h3>전환 소감</h3><p><span class="u">아래에 적고 복사해서,</span> <span class="u">같은 긴 글 칸에</span> <span class="u">포트폴리오 링크 아래로 붙여요.</span></p></div></li>
         <li><span class="no">4</span><div><h3>정규직 전환 평가서</h3><p><span class="u">12/24(목) 결재 의견 이메일에</span> <span class="u">평가서와 임명 코드가</span> <span class="u">함께 와요.</span></p></div></li>
         <li><span class="no" id="stepCert">5</span><div><h3>임명장</h3><p><span class="u">임명 코드를 넣으면</span> <span class="u">임명장이 열리고</span> <span class="u">사원증이 정직원으로 바뀌어요.</span></p></div></li>
       </ol>
@@ -804,10 +804,8 @@ textarea.t:focus{outline:2px solid var(--blue);border-color:var(--blue)}
       </ul></div>
       <details class="ck-real rv-diary" id="rvDiaryBox"><summary><b>떠올리기</b><span><span class="u">내 업무일지 다시 보기</span></span></summary><ul id="rvDiary"></ul></details>
       <div id="rvQs"></div>
-      <div class="qa" style="margin-bottom:0"><label>소감을 과정 소개에 실어도 될까요?</label></div>
-      <div class="agree" role="radiogroup" aria-label="게재 동의"><label><input type="radio" name="rvOk" value="동의">동의</label><label><input type="radio" name="rvOk" value="비동의">비동의</label></div>
-      <div class="note" style="margin:-4px 0 10px"><span class="u">동의하면</span> <span class="u">과정 소개에 실릴 수 있어요.</span> <span class="u">비동의면</span> <span class="u">소감은 팀장만 봐요.</span></div>
-      <div class="dest"><span><b>붙일 곳</b> <span class="u">과제 폼 →</span> <span class="u">「4주차」를 고르면 나오는</span> <span class="u">「전환 소감」 칸</span></span><span><b>언제</b> <span class="u">4주차 결재 상신 때</span></span></div>
+      <div class="note" style="margin:0 0 10px"><span class="u">소감은 이름 없이</span> <span class="u">과정 소개에 실릴 수 있어요.</span></div>
+      <div class="dest"><span><b>붙일 곳</b> <span class="u">과제 폼 → 주차 「4주차」 →</span> <span class="u">「점검표 숫자」 칸</span> <span class="u">(포트폴리오 링크 아래)</span></span><span><b>언제</b> <span class="u">4주차 결재 상신 때</span></span></div>
       <button class="btn ghost" type="button" id="rvCopy">전환 소감 복사하기</button>
       <div class="note" id="rvMsg" aria-live="polite" style="margin-top:6px"></div>
     </div>
@@ -1386,7 +1384,6 @@ $('dsCopy').onclick=function(){
 function bindTa(ids,key){me[key]=me[key]||{};ids.forEach(function(id){var t=$(id);t.value=me[key][id]||'';t.oninput=function(){me[key][id]=t.value;save(me)}})}
 function openCeo(){bindTa(['ev1','ev2','ev3'],'ev');show('scrCeo')}
 function openMeet(){drawDs();drawRv();
-  Array.prototype.forEach.call(document.querySelectorAll('input[name=rvOk]'),function(r){r.checked=(me.rvOk===r.value);r.onchange=function(){me.rvOk=r.value;save(me)}});
   if(me.appointed)showCert();show('scrMeet')}
 $('ceoBack').onclick=$('meetBack').onclick=function(){show('scrOffice')};
 $('ceoToCheck').onclick=openCheck;$('meetTools').onclick=openTools;
@@ -1399,8 +1396,7 @@ $('evCopy').onclick=function(){
 $('rvCopy').onclick=function(){
   var L=['[전환 소감] '+(me.name||'')];
   RVQ.forEach(function(x){L.push(x.q.replace(/^[①-⑥] /,'- ')+': '+(((me.rv||{})[x.id]||'').trim()||'(아직 안 적음)'))});
-  L.push('- 게재: '+(me.rvOk||'(아직 안 고름)'));
-  copyFlow(L.join('\n'),$('rvMsg'),['<button class="link" type="button" data-open="submit">과제 폼 열기</button>','「주차」에서 4주차 고르기','「전환 소감」 칸에 '+PASTE,'포트폴리오 링크·점검표·압축 파일과 함께 제출']);
+  copyFlow(L.join('\n'),$('rvMsg'),['<button class="link" type="button" data-open="submit">과제 폼 열기</button>','「주차」에서 4주차 고르기','「점검표 숫자」 칸에 포트폴리오 링크 아래로 붙여 넣기','결과물 압축 파일을 올리고 제출']);
 };
 /* 임명 코드: 이름으로 계산(연출용, 보안 장치 아님). 강사용 코드표도 같은 계산 */
 function apCode(name){var h=2166136261;var s=name+'|epass-office-1기';for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0}
