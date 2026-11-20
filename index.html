@@ -272,6 +272,28 @@ body[data-season="겨울"] #me .scarf{display:block}
 .qa .hint{font-size:12.5px;color:var(--sub);line-height:1.6}
 .qa .cnt{font-size:12px;color:var(--sub);text-align:right}
 .qa .cnt.ok{color:#2e7d4f}
+
+/* 4주차 업무 설계표 */
+.ds-crit{background:#f3f7fd;border:1.5px solid #c9d7ea;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:13px;line-height:1.7}
+.ds-crit b{color:var(--navy)}
+.ds-crit ul{margin:4px 0 0;padding-left:18px}
+.ds-row{border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:10px;background:#fff}
+.ds-row .no{font-size:12px;font-weight:700;color:var(--sub);margin-bottom:4px}
+.ds-row input.t,.ds-in{width:100%;min-height:44px;border:1.5px solid #c9d7ea;border-radius:8px;padding:0 12px;font:inherit;font-size:14px;background:#fff}
+.seg{display:grid;gap:6px;margin:8px 0}
+.seg.c3{grid-template-columns:repeat(3,1fr)}.seg.c1{grid-template-columns:1fr}.seg.c1 button{text-align:left;padding:8px 12px;font-size:13px}.seg-lb{font-size:12px;color:var(--sub);margin-top:2px}.seg.c2{grid-template-columns:repeat(2,1fr)}
+.seg button{min-height:42px;border:1.5px solid #c9d7ea;border-radius:8px;background:#fff;font:inherit;font-size:13.5px;color:var(--ink);cursor:pointer;line-height:1.3;padding:4px}
+.seg button[aria-pressed=true]{border-color:var(--blue);background:#f3f7fd;color:var(--navy);font-weight:700}
+.seg button.who-ai[aria-pressed=true]{border-color:#1668dc;color:#1257c4}
+.seg button.who-hu[aria-pressed=true]{border-color:#c9824f;background:#fdf1e6;color:#8a4f25}
+.seg button.who-no[aria-pressed=true]{border-color:#6b6b6b;background:#f1f1f1;color:#333}
+.lv-tb{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:12px}
+.lv-tb th,.lv-tb td{border:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top;line-height:1.55}
+.lv-tb th{background:#faf5ee;color:var(--navy);white-space:nowrap}
+.q3{border-left:3px solid var(--blue);padding:4px 0 4px 12px;margin:10px 0}
+.q3 p{margin:0 0 4px;font-size:14px;font-weight:700;color:var(--navy);line-height:1.6}
+.rec{background:#fffbe0;border:1.5px solid #f0dc7a;border-radius:8px;padding:8px 12px;font-size:14px;margin:8px 0}
+.ds-add{width:100%;min-height:44px;border:1.5px dashed #9fb6d6;border-radius:10px;background:#fff;color:var(--blue);font:inherit;font-size:14px;cursor:pointer;margin-bottom:12px}
 </style>
 </head>
 <body data-season="겨울">
@@ -548,7 +570,7 @@ body[data-season="겨울"] #me .scarf{display:block}
         <div class="note hidden" id="dyCopyMsg" aria-live="polite"></div>
         <small><span class="u">이 기기에만 저장돼요.</span> <span class="u">4주 뒤 포트폴리오 재료가 돼요.</span></small>
       </div>
-      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1119-1530</div></div>
+      <div class="foot"><button class="btn ghost" id="openHand" style="margin-bottom:8px">업무 인수인계서 다시 보기</button><button class="link" id="reset">사원증 다시 만들기</button><div class="note" style="margin-top:6px">화면 버전 1120-1630</div></div>
     </aside>
   </div>
 </section>
@@ -698,6 +720,36 @@ body[data-season="겨울"] #me .scarf{display:block}
         <li><span class="no">4</span><div><h3>정규직 전환 평가서</h3><p><span class="u">12/24(목) 결재 의견 이메일에</span> <span class="u">평가서와 임명 코드가</span> <span class="u">함께 와요.</span></p></div></li>
         <li><span class="no" id="stepCert">5</span><div><h3>임명장</h3><p><span class="u">임명 코드를 넣으면</span> <span class="u">임명장이 열리고</span> <span class="u">사원증이 정직원으로 바뀌어요.</span></p></div></li>
       </ol>
+    </div>
+
+    <div class="card" id="dsCard">
+      <h2 class="ck-h">1. 내 업무 설계표</h2>
+      <div class="note" style="margin-bottom:10px"><span class="u">포트폴리오에 넣을</span> <span class="u">반복 업무 하나를</span> <span class="u">단계로 나누고,</span> <span class="u">단계마다 누가 할지와</span> <span class="u">그 이유를 골라요.</span> <span class="u">맞고 틀림은 화면이 알려 주지 않고,</span> <span class="u">결재 의견에서 함께 봐요.</span></div>
+      <div class="qa"><label for="dsName">업무 이름</label><input class="ds-in" id="dsName" maxlength="60" placeholder="예: 매달 카드 사용 내역 정리"></div>
+      <div class="ds-crit"><b>판정 기준</b><ul>
+        <li><span class="u">금액이나 계정을</span> <span class="u">최종 확정하는 단계는</span> <span class="u">사람이 해요.</span></li>
+        <li><span class="u">돈이 실제로 움직이는 단계는</span> <span class="u">자동화하지 않아요(금지).</span></li>
+        <li><span class="u">답이 하나로 정해지는</span> <span class="u">변환·계산·대조는</span> <span class="u">AI와 프로그램에 맡기기 좋아요.</span></li>
+        <li><span class="u">원본 확인이나 판단이 필요한 곳은</span> <span class="u">사람이 봐요.</span></li>
+      </ul></div>
+      <details class="ck-real" style="margin-bottom:12px"><summary><b>참고</b><span><span class="u">1~3주차 파이프라인과</span> <span class="u">내 업무일지 보기</span></span></summary><ul id="dsRef"></ul></details>
+      <div id="dsRows"></div>
+      <button type="button" class="ds-add" id="dsAdd">＋ 단계 추가</button>
+
+      <h3 class="ck-h" style="font-size:15px;margin-top:6px">자동화 수준 <small>(업무 전체에 한 번)</small></h3>
+      <table class="lv-tb"><thead><tr><th>수준</th><th>쉬운 말</th><th>1~3주차에서는</th></tr></thead><tbody>
+        <tr><th>안 함</th><td>사람이 그대로 해요</td><td>정답앵커 대사 판정, 결재</td></tr>
+        <tr><th>채팅</th><td>그때그때 AI에게 물어보고 시켜요</td><td>1주차 도우미에게 문장 받기</td></tr>
+        <tr><th>정해 둔 순서대로<br>자동 실행</th><td>한 번 만든 프로그램·스킬을 매달 다시 돌려요</td><td><code>.py</code> 프로그램, 3주차 스킬</td></tr>
+        <tr><th>에이전트</th><td>AI가 상황을 보고 다음 할 일을 정하고, 정해 둔 지점에서 멈춰 사람에게 물어요</td><td>3주차 11월 마감 다시 돌리기(멈추는 장치 CLAUDE.md)</td></tr>
+      </tbody></table>
+      <div id="dsQ"></div>
+      <div class="seg c2" id="dsLv" role="group" aria-label="자동화 수준 고르기"></div>
+      <div id="dsLvWhy" style="margin-bottom:12px"></div>
+
+      <div class="dest"><span><b>붙일 곳</b> <span class="u">노션 포트폴리오 →</span> <span class="u">「내 업무 설계」</span></span><span><b>언제</b> <span class="u">4주차 결재 상신 전</span></span></div>
+      <button class="btn ghost" type="button" id="dsCopy">업무 설계표 복사하기</button>
+      <div class="note" id="dsMsg" aria-live="polite" style="margin-top:6px"></div>
     </div>
 
     <div class="card">
@@ -1223,10 +1275,52 @@ function drawRv(){
   var d=dyLoad().slice().reverse();
   $('rvDiary').innerHTML=d.length?d.map(function(x){return '<li>'+esc(x.d)+' · '+esc(x.t||'(캡처만 있음)')+'</li>'}).join(''):'<li>아직 남긴 업무일지가 없어요.</li>';
 }
+
+/* 4주차 내 업무 설계표 (이 기기에 저장) */
+var WHO=[['AI','who-ai'],['사람','who-hu'],['금지','who-no']];
+var LV=['안 함','채팅','정해 둔 순서대로 자동 실행','에이전트'];
+var WHY={'AI':['답이 하나로 정해지는 변환·계산이라서','같은 기준으로 대조·분류하는 일이라서','매달 같은 순서로 반복해서','AI가 초안을 만들고 사람이 검토하면 돼서'],
+ '사람':['금액이나 계정을 최종 확정하는 단계라서','원본 서류를 직접 봐야 해서','기준에 없는 판단이 필요해서','거래처나 담당자에게 확인해야 해서'],
+ '금지':['돈이 실제로 움직이는 단계라서','승인·결재 권한이 필요한 단계라서','원자료나 개인정보를 AI가 보면 안 돼서']};
+var LVWHY={'안 함':['돈이 움직이거나 최종 확정하는 업무라서','자동화할 만큼 자주 하지 않아서'],
+ '채팅':['매번 상황이 달라 그때그때 물어봐야 해서','한 번만 하는 업무라서'],
+ '정해 둔 순서대로 자동 실행':['매달 반복하고 순서가 정해져 있어서','같은 기준으로 다시 돌려도 결과가 같아서'],
+ '에이전트':['상황에 따라 다음 할 일이 달라져서','자료를 훑고 확인이 필요한 건만 골라야 해서']};
+var DSQ=[{q:'돈이 실제로 움직이거나 최종 확정을 하는 업무인가요?',y:'rec:안 함',n:1},{q:'다음 달에도 같은 방식으로 다시 하는 업무인가요?',y:2,n:'rec:채팅'},{q:'할 일의 순서를 미리 다 정해 둘 수 있나요?',y:'rec:정해 둔 순서대로 자동 실행',n:'rec:에이전트'}];
+function ds(){me.ds=me.ds||{name:'',rows:[{},{},{},{}],lv:'',why:'',qa:[]};return me.ds}
+function drawDs(){
+  var d=ds();$('dsName').value=d.name||'';$('dsName').oninput=function(){d.name=this.value;save(me)};
+  $('dsRows').innerHTML=d.rows.map(function(r,i){return '<div class="ds-row"><div class="no">'+(i+1)+'단계</div><input class="t" data-k="st" data-i="'+i+'" maxlength="60" placeholder="단계 이름 (예: 카드 내역을 표로 바꾸기)" aria-label="'+(i+1)+'단계 이름"><div class="seg c3" role="group" aria-label="'+(i+1)+'단계 누가">'+WHO.map(function(w){return '<button type="button" class="'+w[1]+'" data-i="'+i+'" data-w="'+w[0]+'" aria-pressed="'+(r.who===w[0])+'">'+w[0]+'</button>'}).join('')+'</div>'+(r.who?'<div class="seg-lb">이유 고르기</div><div class="seg c1" role="group" aria-label="'+(i+1)+'단계 이유">'+WHY[r.who].map(function(y){return '<button type="button" data-i="'+i+'" data-r="'+y+'" aria-pressed="'+(r.why===y)+'">'+y+'</button>'}).join('')+'</div>':'')+'</div>'}).join('');
+  Array.prototype.forEach.call(document.querySelectorAll('#dsRows input'),function(t){var r=d.rows[+t.getAttribute('data-i')];t.value=r[t.getAttribute('data-k')]||'';t.oninput=function(){r[t.getAttribute('data-k')]=t.value;save(me)}});
+  Array.prototype.forEach.call(document.querySelectorAll('#dsRows .seg button[data-w]'),function(b){b.onclick=function(){var r=d.rows[+b.getAttribute('data-i')];if(r.who!==b.getAttribute('data-w')){r.who=b.getAttribute('data-w');r.why=''}save(me);drawDs()}});
+  Array.prototype.forEach.call(document.querySelectorAll('#dsRows .seg button[data-r]'),function(b){b.onclick=function(){d.rows[+b.getAttribute('data-i')].why=b.getAttribute('data-r');save(me);drawDs()}});
+  $('dsAdd').style.display=d.rows.length>=8?'none':'';
+  /* 질문 세 개 */
+  var h='',k=0,rec='';
+  for(var n=0;n<3;n++){var q=DSQ[k],a=d.qa[k];
+    h+='<div class="q3"><p>'+(n+1)+'. '+esc(q.q)+'</p><div class="seg c2"><button type="button" data-q="'+k+'" data-a="y" aria-pressed="'+(a==='y')+'">예</button><button type="button" data-q="'+k+'" data-a="n" aria-pressed="'+(a==='n')+'">아니요</button></div></div>';
+    if(!a)break;var nx=a==='y'?q.y:q.n;if(typeof nx==='string'){rec=nx.slice(4);break}k=nx;}
+  if(rec)h+='<div class="rec">추천: <b>'+esc(rec)+'</b> <span class="u">아래에서 최종으로 골라요.</span> <span class="u">추천과 달라도 돼요.</span></div>';
+  $('dsQ').innerHTML=h;
+  Array.prototype.forEach.call(document.querySelectorAll('#dsQ button'),function(b){b.onclick=function(){var qi=+b.getAttribute('data-q');d.qa=d.qa.slice(0,qi);d.qa[qi]=b.getAttribute('data-a');save(me);drawDs()}});
+  $('dsLv').innerHTML=LV.map(function(l){return '<button type="button" data-l="'+l+'" aria-pressed="'+(d.lv===l)+'">'+l+'</button>'}).join('');
+  Array.prototype.forEach.call(document.querySelectorAll('#dsLv button'),function(b){b.onclick=function(){if(d.lv!==b.getAttribute('data-l')){d.lv=b.getAttribute('data-l');d.why=''}save(me);drawDs()}});
+  $('dsLvWhy').innerHTML=d.lv?'<div class="seg-lb">이유 고르기</div><div class="seg c1" role="group" aria-label="자동화 수준 이유">'+LVWHY[d.lv].map(function(y){return '<button type="button" data-r="'+y+'" aria-pressed="'+(d.why===y)+'">'+y+'</button>'}).join('')+'</div>':'';
+  Array.prototype.forEach.call(document.querySelectorAll('#dsLvWhy button'),function(b){b.onclick=function(){d.why=b.getAttribute('data-r');save(me);drawDs()}});
+  var dy=dyLoad().slice().reverse();
+  $('dsRef').innerHTML='<li>1주차 거래 기록: 변환·대조는 AI와 프로그램, 거래처 목록 확인·정답앵커 대사 판정은 사람</li><li>2주차 증빙: 증빙 대조·공제 판정은 프로그램, 원본 확인·영세율 근거 확인은 사람</li>'+(dy.length?dy.slice(0,8).map(function(x){return '<li>업무일지 '+esc(x.d)+' · '+esc(x.t||'(캡처만 있음)')+'</li>'}).join(''):'<li>아직 남긴 업무일지가 없어요.</li>');
+}
+$('dsAdd').onclick=function(){var d=ds();if(d.rows.length<8){d.rows.push({});save(me);drawDs()}};
+$('dsCopy').onclick=function(){
+  var d=ds(),L=['## 내 업무 설계','업무: '+((d.name||'').trim()||'(아직 안 적음)'),'','| 단계 | 하는 일 | 누가 | 이유 |','|---|---|---|---|'];
+  d.rows.forEach(function(r,i){if((r.st||'').trim()||r.who)L.push('| '+(i+1)+' | '+((r.st||'').trim()||'-')+' | '+(r.who||'-')+' | '+((r.why||'').trim()||'-')+' |')});
+  L.push('','자동화 수준: '+(d.lv||'(아직 안 고름)')+' — '+((d.why||'').trim()||'(이유 안 적음)'));
+  copyFlow(L.join('\n'),$('dsMsg'),['노션 포트폴리오 페이지 열기','「내 업무 설계」 아래에 '+PASTE,'표로 바뀌었는지 확인']);
+};
 /* 수습 평가 · 전환 소감 (이 기기에 저장) */
 function bindTa(ids,key){me[key]=me[key]||{};ids.forEach(function(id){var t=$(id);t.value=me[key][id]||'';t.oninput=function(){me[key][id]=t.value;save(me)}})}
 function openCeo(){bindTa(['ev1','ev2','ev3'],'ev');show('scrCeo')}
-function openMeet(){drawRv();
+function openMeet(){drawDs();drawRv();
   Array.prototype.forEach.call(document.querySelectorAll('input[name=rvOk]'),function(r){r.checked=(me.rvOk===r.value);r.onchange=function(){me.rvOk=r.value;save(me)}});
   if(me.appointed)showCert();show('scrMeet')}
 $('ceoBack').onclick=$('meetBack').onclick=function(){show('scrOffice')};
